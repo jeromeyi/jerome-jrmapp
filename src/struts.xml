@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="false"></constant>
+	<constant name="struts.action.extension" value="do" />
+<constant name="struts.convention.result.path" value="/" />
+	<constant name="struts.convention.package.locators" value="action" />  
+	<constant name="struts.convention.action.name.separator" value="-" />  
+	<constant name="struts.velocity.toolboxlocation" value="WEB-INF/toolbox.xml" />
+	 <constant name="struts.velocity.configfile" value="WEB-INF/velocity.properties" /> 
+	
+		
+
+	<!-- http://javeye.javaeye.com/blog/358744 -->
+	<!-- 在包中导入Struts自带的配置文件struts-default.xml 
+	<package name="default" extends="struts-default" namespace="/">
+	
+
+	
+	<action name="index" class="com.jrmapp.action.AaaAction">
+		<result name="success" type="velocity">aaa.html</result>
+	</action>
+	<action name="bbb" class="com.jrmapp.action.BbbAction">
+		<result name="success" type="velocity">bbb.html</result>
+				<interceptor-ref name="token"/>
+<interceptor-ref name="defaultStack" />
+<result name="invalid.token" type="velocity">/Admin/invalidToken.vm</result>
+	</action>
+
+</package>
+-->
+		<!-- 
+			配置自定义的拦截器 
+			<interceptors>
+			<interceptor name="greeting"
+			class="action.GreetingInterceptor">
+			</interceptor>
+			</interceptors>
+			
+			配置系统自带的拦截器栈
+			<default-interceptor-ref name="completeStack"></default-interceptor-ref>
+			
+			配置自定义的Action
+			<action name="hello" class="action.HelloWorld">
+			工具不同的返回字符串类型，跳转到不同的页面
+			<result>hello.jsp</result>
+			<result name="input">name.jsp</result>
+			</action>
+			
+			显示使用自定义的拦截器 
+			<action name="greeting" class="action.GreetingAction">
+			<result name="success" type="velocity">result.vm</result>
+			<interceptor-ref name="greeting"></interceptor-ref>
+			</action> 
+			</package>
+		-->
+<package name="default" extends="struts-default" namespace="/">
+	
+
+	
+
+	<action name="bbbhello" class="com.jrmapp.action.BbbAction" method="hello">
+		<result name="success">bbb-hello.html</result>
+		<result name="hello">bbb-hello.html</result>
+		<!--  
+				<interceptor-ref name="token"/>
+<interceptor-ref name="defaultStack" />
+<result name="invalid.token" >/common/tokeninterceptor.html</result>
+ -->
+	</action>
+
+</package>
+
+
+	
+</struts>

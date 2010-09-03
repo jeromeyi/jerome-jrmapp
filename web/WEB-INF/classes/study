@@ -1,0 +1,768 @@
+
+使用hibernate SQLQuery实现动态表
+http://callan.javaeye.com/blog/156123
+文章分类:Java编程 关键字: hibernate, sqlquery, addscalar
+我在实际的项目应用中，有时会设计出这样的一种数据表，每个时间段产生一个新表，例如是按年或月或日。相同类型的表中，所有的字段结构都是一样的。而 hibernate 提供的类与表的映射，是只能映射到一个具体表的，在程序的运行过程中，很难去动态修改一个 hbm 对应的表名。我在网上也有看到一实现，但是很复杂，并且不符合我的要求。
+因此我就想到直接用 jdbc 去操作数据库，这样的做法是绕过 hibernate 了。方法是从 hibernate 的 session 中，直接取得数据库 connection ，然后就直接 jdbc 了。
+后来在升级了 proxool 到 9.0RC3 后，发现居然出现了数据库连接无法释放的问题。为了解决这个问题，我查阅了 hibernate doc。我发现原来用 SQLQuery 可以更好的解决，并且可以重新用于 hibernate hbm 机制。以下举例说明。
+例如我有一个 pojo 是 ReadInfo，用来记录阅读信息的。由于数据量宠大，所以我的思路是按月划分，每个月一张表。所以只是表名不同，而字段是完全相同的。
+ReadInfo.java 是这样的，其中 userId, year, month, day 是联合主键：
+    private Integer userId;
+    private Integer year;
+    private Integer month;
+    private Integer day;
+    private Integer point;
+那么相应的 ReadInfo.hbm.xml 的片段是
+    <class name="ReadInfo" table="tblReadInfo" mutable="false">
+        <composite-id>
+            <key-property name="userId" column="userId" type="integer"/>
+            <key-property name="year" column="year" type="integer"/>
+            <key-property name="month" column="month" type="integer"/>
+            <key-property name="day" column="day" type="integer"/>
+        </composite-id>
+        <property name="point" column="point" type="integer"/>
+    </class>
+上面的xml，注意 2 个细节
+1. pojo 所映射的 table tblReadInfo 实际上是不存在的。实际的表是 tblRead200710 之类的；
+2. mutable 要设置为 false，即是说，关闭 hibernate 对这个 pojo 的任何持久化操作，以避免 hibernate 把数据写到 tblReadInfo 中（这个表是不存在的嘛）。因此，所有的持久化操作，都是需要自己通过 SQLQuery 来处理。
+现在可以看一下 ado 中的操作了，先看一个 select 操作
+public ReadInfo selectReadInfo(Integer userId, Integer year,
+            Integer month, Integer day) throws HibernateException
+    {
+        ReadInfo readInfo = null;
+
+        Session session = getSession();
+        Transaction tx = session.beginTransaction();
+
+        try
+        {
+            String sql = "select * from tblRead"
+                + Misc.formatMoon(year, month)
+                + " where userId=? and day=?";
+
+            SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(ReadInfo.class);
+
+            query.setLong(0, userId);
+            query.setInteger(1, day);
+
+            readInfo = (ReadInfo) query.uniqueResult();
+
+            tx.commit();
+        }
+        catch (HibernateException e)
+        {
+            log.error("catch exception:", e);
+
+            if (tx != null)
+            {
+                tx.rollback();
+            }
+
+            throw e;
+        }
+        return readInfo;
+    }
+上面的代码，关键是以下几点：
+1. 通过函数参数的 year, month 来确定要操作的表名，我自己写了一个 Misc.formatMoon(year, month) 来生成 "yyyyMM" 格式的字串；
+2. 使用了 SQLQuery ，再通过 query.addEntity(ReadInfo.class); 建立与 ReadInfo 的映射关系；
+3. query.setXxx() 与 PreparedStatement 的类似，不过索引是从 0 开始；
+4. 其它的就跟一般的 Query 操作类似的了。
+再看一个 insert 操作
+    public void insertReadInfo(ReadInfo readInfo) throws HibernateException
+    {
+        Session session = getSession();
+        Transaction tx = session.beginTransaction();
+
+        try
+        {
+            String sql = "insert into tblRead"
+                + Misc.formatMoon(readInfo.getYear(), readInfo.getMonth())
+                + " (userId, year, month, day, point) values (?, ?, ?, ?, ?)";
+
+            SQLQuery query = session.createSQLQuery(sql);
+
+            query.setLong(0, readInfo.getUserId());
+            query.setInteger(1, readInfo.getYear());
+            query.setInteger(2, readInfo.getMonth());
+            query.setInteger(3, readInfo.getDay());
+            query.setInteger(4, readInfo.getPoint());
+
+            query.executeUpdate();
+
+            tx.commit();
+        }
+        catch (HibernateException e)
+        {
+            log.error("catch exception:", e);
+
+            if (tx != null)
+            {
+                tx.rollback();
+            }
+
+            throw e;
+        }
+    }
+同理，update, delete 等操作也是这样实现的。
+hmm.. 这种处理方式的麻烦的地方是需要手工写 sql ，因此要尽量写通用的标准 sql，不然在数据库兼容方面会有问题。当然，有时是会出现无法兼容的情况，那么可以考虑把 sql 写到配置文件中，根据不同的数据库，装载相应的配置文件咯。
+
+
+
+hibernate annotation 主键映射
+http://hi.baidu.com/magicdetective/blog/item/9ece2434c8810f3c5ab5f562.html
+1.自然主键
+xml
+<class name="User" table="USERS">
+    <id name="username" column="USERNAME" length="16">
+<generator class="assigned"/>
+    </id>
+    ...
+</class>
+
+annotation
+@Id
+private String username;
+2.组合自然主键
+xml
+<class name="User" table="USRES">
+    <composite-id>
+       <key-property name="username" column="USERNAME"/>
+       <key-property name="departmentNr" column="DEPARTMENT_NR"/>
+     </composite-id>
+     ...
+</class>
+或定义一个主键类UserId实现Serializable.property:username,departmentNr,equals,hashCode
+<class name="User" table="USERS">
+     <composite-id name="userId" class="UserId">
+         <key-property name="username" column="USERNAME"/>
+<key-property name="departmentNr" column="DEPARTMENT_NR"/>
+     </composite-id>
+     ...
+</class>
+UserId id = new UserId("davide",22);
+User user = new User();
+user.setUserId(id);
+user.setFirstName="magic";
+user.setLastName="detective";
+session.saveOrUpdate(user);
+session.flush();
+
+3.组合主键来源于外键
+<class name="User" table="TABLE">
+     <composite-id name="userId" class="UserId">
+         <key-property name="username" column="USERNAME"/>
+<key-property name="departmentNr" column="DEPARTMENT_NR"/>
+     </composite-id>
+     <many-to-one name="department" class="Department" column="DEPARTMENT_ID" insert="false" update="false"/>
+     ...
+</class>
+hibernate忽略User中department属性的增加与修改.
+UserId id = new UserId("davide",department.getId());
+User user = new User();
+user.setUserId(id);
+user.setFirstName("magic");
+user.setLastName("detective");
+user.setDepartment(department);
+session.saveOrUpdate(user);
+
+<class name="User" table="USER">
+    <composite-id name="userId" class="UserId">
+       <key-property name="username" column="USERNAME"/>
+       <key-many-to-one name="department" class="Department" column="DEPARTMENT_ID"/>
+    </composite-id>
+    ...
+</class>
+4.外键来来组合主键
+因业USERS表是组合主键,因引此用入外键也是组合的.
+Item
+<many-to-one name="seller" class="User">
+     <column name="USERNAME"/>
+     <column name="DEPARTMENT_ID"/>
+</many-to-one>
+
+User
+<set name="itemsForAuction" inverse="true">
+     <key>
+         <column name="USERNAME"/>
+<column name="DEPARTMENT_ID"/> 
+     </key>
+     <one-to-many class="Item"/>
+   </set>
+   其中列表中的顺序必须与User 主键<composite-id>中的元素一致
+   4.用annotation配置组合主键
+   (1).封装一些属性用一个独立的类和@Embeddable,在实体类中包括这个类,通过@Id映射
+   (2).封装一些属性用一个不带任何annotation独立的类,在实体类中包括这些属性,用@EmbeddedId映射
+   (3).封装一些属性用一个独立的类,你在这个类的中属性也会在实体类中重复出现,然后实体中使用@IdClass和名称在你的独
+       立类中
+    第一种
+    @Embeddedable
+    public class UserId implements Serializable{
+private String username;
+private String departmentNr;
+...
+    }
+
+    @Id
+    @AtrributeOverrides({
+@AttributeOverride(name="username" column=@Column(name="USERNAME")),
+@AttributeOverride(name="departmentNr",column=@Column(name="DEP_NR"))
+    })
+    private UserId userId;
+
+    第二种
+    @EmbeddedId
+    @AttributeOverrides({
+@AttributeOverride(name="username" column=@Column(name="USERNAME")),
+@AttributeOverride(name="departmentNr" column@Column(name="DEP_NR"))
+    })
+    private UserId userId;
+
+    xml
+    <embeddable class="auction.model.UserId" access="PROPERTY">
+       <attributes>
+           <basic name="username">
+        <column name="USERNAME"/>
+    </basic>
+    <basic name="departmentNr">
+        <column name="DEPARTMENT_NR"/>
+    </basic>
+</attributes>
+    </embeddable>
+
+    <entity class="auction.model.User" access="FIELD">
+       <attributes>
+           <embedded-id name="userId">
+      <attribute-override name="username">
+         <column name="USERNAME"/>
+      </attribute-override>
+      <attribute-override name="departmentNr">
+         <column name="DEP_NR"/>
+      </attribute-override>
+    </embedded-id>
+    ...
+</attributes>
+     </entity>
+    5.外键引用非主键列(唯一约束)
+<class name="User" table="USERS">
+    <id name="id" column="USER_ID">...</id>
+    <property name="customerNr" column="CUSTOMER_NR" not-null="true" unique="true"/>
+</class>
+
+@Column(name="CUSTOMER_NR",nullable=false,unqiue=true)
+private int customerNr;
+
+在ITEM表中有一外键SELLER_NR,引用唯一键USERS表中的CUSTOMER_NR
+<class name="item" table="ITEM">
+    <id name="id" column="ITEM_ID">...</id>
+    <many-to-one name="seller" column="SELLER_NR" property-ref="customerNr"/>
+</class>
+
+@ManyToOne
+@JoinColumn(name="SELLER_NR",referencedColumnName="CUSTOMER_NR")
+private User seller;
+
+6.组合外键引用非主键列
+假设USERS表有一个自然组合键,包括FIRSTNAME,LASTNAME,BIRTHDAY.一个外键可能关联这个自然键
+这时你不能用property-ref,而是用<properties>
+ITEM                                USERS
+ITEM_ID <PK>    USER_ID <PK>
+SELLER_FIRSTNAME <FK>   ->      FIRSTNAME <UNQ>
+SELLER_LASTNAME <FK> -> LASTNAME   <UNQ>
+SELLER_BIRTHDAY <FK> -> BIRTHDAY   <UNQ>
+INITIAL_PRICE    USERNAME
+RESERVE_PRICE    PASSWORD
+START_DATE    EMAL
+...     ..
+<class name="User" table="USERS">
+   <id nam="id" column="USER_ID">...</id>
+   <properties name="nameAndBirthday" nuique="true" update="false">
+      <property name="firstname" column="FIRSTNAME"/>
+      <property name="lastname" column="LASTNAME"/>
+      <property name="birthday" column="BIRTHDAY" type="date"/>
+    </properties>
+    <set name="itemsForAuction" inverse="true">
+       <key property-ref="nameAndBirthday">
+          <column name="SELLER_FIRSTNAME"/>
+   <column name="SELLER_LASTNAME"/>
+   <column name="SELLER_BIRTHDAY"/>
+</key>
+<one-to-many class="Item"/>
+     </set>
+</class>
+
+<class name="Item" table="ITEM">
+     <id name="id" column="ITEM_ID>">..</id>
+       <many-to-one name="seller" property-ref="nameAndBirthday">
+          <column name="SELLER_FIRSTNAME"/>
+   <column name="SELLER_LASTNAME"/>
+   <column name="SELLER_BIRTHDAY"/>
+</many-to-one>
+   </class>
+   
+   
+   
+   
+   Annotation对Hibernate中联合主键定义
+   http://njcgf.blog.163.com/blog/static/95482020102311184648/
+   public class User {
+
+private int id;
+
+private String name;
+
+private String address;
+
+public int getId() {
+
+return id;
+
+}
+
+public String getName() {
+
+return name;
+
+}
+
+public String getAddress() {
+
+return address;
+
+}
+
+public void setId(int id) {
+
+this.id = id;
+
+}
+
+public void setName(String name) {
+
+this.name = name;
+
+}
+
+public void setAddress(String address) {
+
+this.address = address;
+
+}
+
+}
+
+在如上类中假设需要定义一个联合主键 id,name，在hibernate中利用注解映射方法有如下三种：
+
+1、将组件类注解为@Embeddable，并将实体类中组件的注解为@Id
+
+      首先需要抽象出一个组件类，并将其注解为可嵌入式的Embeddedable在User中进行引用
+
+@Embeddable
+
+public class UserPk implements Serializable {
+
+private static final long serialVersionUID = 1L;
+
+private int id;
+
+private String name;
+
+public int getId() {
+
+return id;
+
+}
+
+public String getName() {
+
+return name;
+
+}
+
+public void setId(int id) {
+
+this.id = id;
+
+}
+
+public void setName(String name) {
+
+this.name = name;
+
+}
+
+}
+
+其次要在实体类中将组件属性注解为@ID
+
+@Entity
+
+public class User {
+
+private UserPk userPk;
+
+private String address;
+
+@Id
+
+public UserPk getUserPk() {
+
+return userPk;
+
+}
+
+public String getAddress() {
+
+return address;
+
+}
+
+public void setUserPk(UserPk userPk) {
+
+this.userPk = userPk;
+
+}
+
+public void setAddress(String address) {
+
+this.address = address;
+
+}
+
+}
+
+2、将组件的属性注解为@EmbeddedId
+
+首先需要抽象出一个组件类，在User中进行引用
+
+public class UserPk implements Serializable {
+
+private static final long serialVersionUID = 1L;
+
+private int id;
+
+private String name;
+
+public int getId() {
+
+return id;
+
+}
+
+public String getName() {
+
+return name;
+
+}
+
+public void setId(int id) {
+
+this.id = id;
+
+}
+
+public void setName(String name) {
+
+this.name = name;
+
+}
+
+}
+
+其次需要在实体类中对组件属性注解为嵌入式的ID，即：@EmbeddedId
+
+@Entity
+
+public class User {
+
+private UserPk userPk;
+
+private String address;
+
+@EmbeddedId
+
+public UserPk getUserPk() {
+
+return userPk;
+
+}
+
+public String getAddress() {
+
+return address;
+
+}
+
+public void setUserPk(UserPk userPk) {
+
+this.userPk = userPk;
+
+}
+
+public void setAddress(String address) {
+
+this.address = address;
+
+}
+
+}
+
+3、将类注解为@IdClass,并将该实体中所有属于主键属性都注解为@Id
+
+抽象出组件类
+
+public class UserPk implements Serializable {
+
+private static final long serialVersionUID = 1L;
+
+private int id;
+
+private String name;
+
+public int getId() {
+
+return id;
+
+}
+
+public String getName() {
+
+return name;
+
+}
+
+public void setId(int id) {
+
+this.id = id;
+
+}
+
+public void setName(String name) {
+
+this.name = name;
+
+}
+
+}
+
+实体类
+
+@Entity
+
+@IdClass(value = UserPk.class)
+
+public class User {
+
+private int id;
+
+private String name;
+
+private String address;
+
+@Id
+
+public int getId() {
+
+return id;
+
+}
+
+@Id
+
+public String getName() {
+
+return name;
+
+}
+
+public String getAddress() {
+
+return address;
+
+}
+
+public void setId(int id) {
+
+this.id = id;
+
+}
+
+public void setName(String name) {
+
+this.name = name;
+
+}
+
+public void setAddress(String address) {
+
+this.address = address;
+
+}
+
+}
+
+
+
+http://www.javaeye.com/problems/16152
+单击ajaxtest.jsp中的提交按钮，没有反应？ 
+以下为主要文件： 
+ajaxtest.jsp: 
+Java代码 
+<%@ page language="java" contentType="text/html; charset=GBK"%>    
+<html>    
+<head>    
+<title>使用JSON插件</title>   
+<script src="js/jquery.js" type="text/javascript">    
+</script>    
+<script language="JavaScript">   
+$(document).ready(function(){   
+   $("#button").click(function(){     
+       //将form1表单域的值转换为请求参数  
+        var params = Form.serialize('form1');    
+       $.ajax({  
+          
+          type:"post",  
+          url: 'JSONExample.action',     
+          async:true,  
+          data:params,  
+          success:function(json){  
+             var da=eval(('+json+'));  
+             $("#show").innerHTML=da;    
+          }  
+        });  
+     });   
+ });        
+</script>     
+</head>    
+<body>    
+<form id="form1" name="form1" method="post">    
+<INPUT TYPE="text" name="field1" id="field1"/><br>    
+<INPUT TYPE="text" name="field2" id="field2"/><br>    
+<INPUT TYPE="text" name="field3" id="field3"/><br>    
+<INPUT TYPE="button" value="提交" id="button"/>    
+</form>    
+<div id="show">    
+</div>    
+</body>    
+</html>    
+
+
+
+web.xml: 
+Java代码 
+<?xml version="1.0" encoding="UTF-8"?>  
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   
+    http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">  
+    <filter>  
+        <filter-name>struts2</filter-name>  
+        <filter-class>  
+            org.apache.struts2.dispatcher.FilterDispatcher  
+        </filter-class>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>struts2</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>  
+    <welcome-file-list>  
+        <welcome-file>index.jsp</welcome-file>  
+    </welcome-file-list>  
+</web-app>  
+
+
+
+struts.xml 
+Java代码 
+<?xml version="1.0" encoding="GBK"?>    
+<!DOCTYPE struts PUBLIC     
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"     
+    "http://struts.apache.org/dtds/struts-2.0.dtd">    
+<struts>    
+    <constant name="struts.i18n.encoding" value="UTF-8"/>    
+    <package name="example"  extends="json-default">    
+        <action name="JSONExample" class="org.jee.JSONExample">    
+            <result type="json">   
+                 <param name="excludeProperties">field2</param>   
+            </result>  
+        </action>    
+    </package>    
+    
+</struts>   
+
+
+JSonExample.java: 
+Java代码 
+  package org.jee;     
+    
+import java.util.HashMap;     
+import java.util.Map;     
+    
+import com.opensymphony.xwork2.Action;     
+import com.googlecode.jsonplugin.annotations.JSON;     
+    
+public class JSONExample     
+{     
+    private int[] ints = {10, 20};     
+    private Map map = new HashMap();     
+    private String customName = "custom";     
+      
+    private String field1;     
+    //'transient'不会被序列化    
+     
+    private transient String field2;     
+    //没有setter和getter方法的字段不会被序列化     
+    private String field3;     
+    
+    public String execute()     
+    {     
+        map.put("name", "yeeku");     
+        return Action.SUCCESS;     
+    }     
+    @JSON(deserialize=false,serialize=false)  
+    public String getField1() {     
+        return field1;     
+    }     
+    
+    public void setField1(String field1) {     
+        this.field1 = field1;     
+    }     
+    public String getField2() {     
+        return field2;     
+    }     
+    
+    public void setField2(String field2) {     
+        this.field2 = field2;     
+    }     
+    
+    public String getField3() {     
+        return field3;     
+    }     
+    
+    public void setField3(String field3) {     
+        this.field3 = field3;     
+    }     
+    
+    public int[] getInts() {     
+        return ints;     
+    }     
+    
+    public void setInts(int[] ints) {     
+        this.ints = ints;     
+    }     
+    
+    public Map getMap() {     
+        return map;     
+    }     
+    
+    public void setMap(Map map) {     
+        this.map = map;     
+    }     
+    
+    @JSON(name="newName")     
+    public String getCustomName()      
+    {     
+        return this.customName;     
+    }     
+}    
+该问题已经关闭: 已解决！是由于jsonplugin的问题。换为jsonplugin-0.32.jar就可以了

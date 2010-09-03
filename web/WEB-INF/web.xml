@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	
+		<!-- 在Tomcat中对项目的描述部分 -->
+	<display-name>jrmApp</display-name>
+<listener> 
+<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> 
+</listener> 
+<context-param> 
+<param-name>contextConfigLocation</param-name> 
+<param-value>classpath:applicationContext.xml</param-value> 
+</context-param> 
+
+     
+    <!-- Spring 刷新Introspector防止内存泄露 -->  
+    <listener> 
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class> 
+    </listener> 
+      <!-- session超时定义,单位为分钟 -->
+
+    <session-config>
+
+        <session-timeout>60</session-timeout>
+
+    </session-config>
+	<!-- 在部署之前，先清除环境 -->
+	<filter>
+		<filter-name>struts-cleanup</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ActionContextCleanUp
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts-cleanup</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+    <!-- 后台过滤器设置 主要是利用sso对screen与action进行过滤-->
+  <filter>
+		<filter-name>URLFilter</filter-name>
+		<filter-class>com.jrmapp.common.filter.URLLimitFilter</filter-class>
+		<init-param>
+			<param-name>LOGIN.URL</param-name>
+			<param-value>login.do</param-value>
+		</init-param>
+		<init-param>
+			<param-name>url-pattern-protected</param-name>
+			<param-value>html</param-value>
+		</init-param>
+		<init-param>
+			<param-name>url-pattern-protected-action</param-name>
+			<param-value>
+				.do
+			</param-value>
+		</init-param>
+	</filter>
+	<!-- 
+	<filter-mapping>
+		<filter-name>URLFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	 -->
+		<filter>
+        <filter-name>Set Character Encoding</filter-name>
+        <filter-class>com.jrmapp.common.filter.SetCharacterEncodingFilter</filter-class>
+    </filter>
+<!--  
+    <filter-mapping>
+        <filter-name>Set Character Encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    -->
+	<!-- 
+	注意ActionContextCleanUp过滤器必须在FilterDispatcher之前配置，
+	ActionContextCleanUp的主要功能是通知FilterDispatcher执行完毕不要清除
+	ActionContext，以便sitemesh装饰器可以访问Struts值堆栈。 
+	-->
+	
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>org.apache.struts2.sitemesh.VelocityPageFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern><!-- 如果将'/*'改成.do表示只修饰该后缀名的文件 -->
+	</filter-mapping>
+
+	<!-- 部署filter的名称以及对应的类 -->
+	<filter>
+		<filter-name>Struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.FilterDispatcher
+		</filter-class>
+	</filter>
+	<!-- 配置filter对呀的url模式 -->
+	<filter-mapping>
+		<filter-name>Struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	 <servlet>  
+        <servlet-name>sitemesh-velocity</servlet-name>  
+        <!--  
+        <servlet-class>org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>  
+        -->
+         <servlet-class>
+            com.opensymphony.module.sitemesh.velocity.VelocityDecoratorServlet
+        </servlet-class>
+         <init-param> 
+                        <param-name>org.apache.velocity.toolbox</param-name> 
+                        <param-value>/WEB-INF/toolbox.xml</param-value> 
+                </init-param> 
+        <load-on-startup>10</load-on-startup>
+        
+    </servlet>  
+  
+  
+    <!-- Map *.vm files to Velocity -->  
+    <servlet-mapping>  
+        <servlet-name>sitemesh-velocity</servlet-name>  
+        <url-pattern>*.html</url-pattern>  
+    </servlet-mapping>  
+	
+	
+	<!-- 图片验证 -->
+	<servlet>
+  <servlet-name>Captcha</servlet-name>
+  <servlet-class>nl.captcha.servlet.CaptchaServlet</servlet-class>
+  <!--边框显示参数-->
+  <init-param>
+   <param-name>cap.border</param-name>
+   <param-value>yes</param-value>
+  </init-param>
+
+  <!-- 设置图片边框色 -->
+  <init-param>
+   <param-name>cap.border.c</param-name>
+   <param-value>green</param-value>
+  </init-param>
+
+  <!-- 边框粗细-->
+  <init-param>
+   <param-name>cap.border.th</param-name>
+   <param-value>1</param-value>
+  </init-param>
+
+  <!-- the image producer. Currently only one-->
+  <init-param>
+   <param-name>cap.cap.producer</param-name>
+   <param-value>
+    nl.captcha.obscurity.imp.DefaultCaptchaIml
+   </param-value>
+  </init-param>
+
+  <!-- 设置验证码的内容 -->
+  <init-param>
+   <param-name>cap.text.producer</param-name>
+  <param-value>Default</param-value>
+   <!-- 此处是我自定义的一个显示中文的类
+   <param-value>org.ChineseTextProducer</param-value> -->
+  </init-param>
+
+  <!-- 此处可不定义，可在自定义类中定义所有的要显示的内容　-->
+  <init-param>
+   <param-name>cap.char.arr</param-name>
+   <param-value>
+    1,2,3,4,5,6,7,8,9
+  <!--   2,3,4,6,7,8,9,a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,x,y,z -->
+   </param-value>
+  </init-param>
+
+
+
+  <init-param>
+   <param-name>cap.font.arr</param-name>
+   <!-- 如果使用中文时设置成中文的字体 -->
+   <param-value>
+    Arial,Helvetica,Courier,TimesRoman,宋体,黑体
+   </param-value>
+  </init-param>
+
+  <!-- 设置字体大小 -->
+  <init-param>
+   <param-name>cap.font.size</param-name>
+   <param-value>40</param-value>
+  </init-param>
+
+  <!-- 设置图片字体色 -->
+  <init-param>
+   <param-name>cap.font.color</param-name>
+   <param-value>white</param-value>
+  </init-param>
+  
+  <!-- 扭曲; 曲解; 变形 begin -->
+  <!-- 图片效果1
+  <init-param>
+   <param-name>cap.obscurificator</param-name>
+   以下任选一
+   <param-value>nl.captcha.obscurity.imp.ShadowGimpyImp</param-value>
+   <param-value>nl.captcha.obscurity.imp.WaterRiple</param-value>
+   <param-value>nl.captcha.sandbox.TestGimpyImp</param-value>
+  </init-param>
+  -->
+  <!-- 
+  <init-param>
+   <param-name>cap.obscurificator</param-name>
+   <param-value>org.FishEyeGimpyImp</param-value>
+  </init-param>
+ -->
+  <!-- 设置图片显示内容长度 -->
+
+  <init-param>
+   <param-name>cap.char.arr.l</param-name>
+   <param-value>4</param-value>
+  </init-param>
+  <!--
+  <init-param>
+   <param-name>cap.background.c.to</param-name>
+   <param-value>white</param-value>
+  </init-param>
+  
+  <init-param>
+   <param-name>cap.background.c.from</param-name>
+   <param-value>white</param-value>
+  </init-param>
+  -->
+  <!--扭曲; 曲解; 变形 end 不想要这种效果可注释以上代码
+
+
+  <init-param>
+   <param-name>cap.distortionImp</param-name>
+   <param-value />
+  </init-param>
+
+  <init-param>
+   <param-name>cap.backgroundImp</param-name>
+   <param-value />
+  </init-param>
+  
+  -->
+
+  <!-- 此处色为渐变的色 -->
+  <init-param>
+   <param-name>cap.background.c.to</param-name>
+   <param-value>white</param-value>
+  </init-param>
+
+  <!-- 图片左边色 -->
+  <init-param>
+   <param-name>cap.background.c.from</param-name>
+   <param-value>black</param-value>
+  </init-param>
+
+  <!--干扰线实现类
+  <init-param>
+   <param-name>cap.noiseImp</param-name>
+   <param-value>nl.captcha.obscurity.imp.DefaultNoiseImp</param-value>
+  </init-param>
+-->
+
+  <!-- 干扰线色
+  <init-param>
+   <param-name>cap.noise.c</param-name>
+   <param-value>255,245,219</param-value>
+  </init-param>
+   -->
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>Captcha</servlet-name>
+  <url-pattern>/Captcha.jpg</url-pattern>
+ </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+  </welcome-file-list>
+  
+  <error-page>
+    <error-code>404</error-code>
+    <location>/index-right.html</location>
+</error-page>
+
+<error-page>
+    <error-code>500</error-code>
+   <location>/error.jsp</location>
+</error-page>
+
+<resource-ref>  
+    <description>DB Connection</description>  
+    <res-ref-name>jrmAppDB</res-ref-name>  
+    <res-type>javax.sql.DataSource</res-type>  
+    <res-auth>Container</res-auth>  
+</resource-ref>  
+
+
+</web-app>

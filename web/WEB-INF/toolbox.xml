@@ -1,0 +1,48 @@
+<toolbox> 
+<tool>
+<key>TokenHelper</key>
+<scope>request</scope>
+<class>org.apache.struts2.util.TokenHelper</class>
+</tool>
+
+        <tool> 
+                <key>alternator</key> 
+                <class>org.apache.velocity.tools.generic.AlternatorTool</class> 
+                <scope>application</scope> 
+        </tool> 
+        <tool> 
+                <key>list</key> 
+                <class>org.apache.velocity.tools.generic.ListTool</class> 
+                <scope>application</scope> 
+        </tool> 
+        <tool> 
+                <key>dateTool</key> 
+                <class>org.apache.velocity.tools.generic.DateTool</class> 
+                <scope>application</scope> 
+        </tool> 
+        <tool> 
+                <key>mathTool</key> 
+                <class>org.apache.velocity.tools.generic.MathTool</class> 
+                <scope>application</scope> 
+        </tool> 
+        <tool> 
+                <key>numberTool</key> 
+                <class>org.apache.velocity.tools.generic.NumberTool</class> 
+                <scope>application</scope> 
+        </tool> 
+        <tool> 
+                <key>escTool</key> 
+                <class>org.apache.velocity.tools.generic.EscapeTool</class> 
+                <scope>application</scope> 
+        </tool> 
+         <tool> 
+                <key>renderTool</key> 
+                <class>org.apache.velocity.tools.generic.RenderTool</class> 
+                <scope>application</scope> 
+        </tool> 
+         <tool> 
+                <key>sortTool</key> 
+                <class>org.apache.velocity.tools.generic.SortTool</class> 
+                <scope>application</scope> 
+        </tool> 
+        </toolbox>
