@@ -1,0 +1,19 @@
+#Thu Sep 02 20:08:40 CST 2010
+eclipse.preferences.version=1
+encoding//src/c3p0=UTF-8
+encoding//src/com/jrmapp/dao/base/BaseDao.java=GBK
+encoding//src/com/jrmapp/pojo/HouseType.java=UTF-8
+encoding//src/struts.properties=UTF-8
+encoding//web/WEB-INF/velocity.properties=UTF-8
+encoding//web/aaa.html=UTF-8
+encoding//web/bbb-hello.html=UTF-8
+encoding//web/bbb.html=UTF-8
+encoding//web/common/tokeninterceptor.html=UTF-8
+encoding//web/decorators/footer.html=UTF-8
+encoding//web/decorators/header.html=UTF-8
+encoding//web/xloadtree/json2.js=UTF-8
+encoding//web/xloadtree/json_parse.js=UTF-8
+encoding//web/xloadtree/xloadtree.js=UTF-8
+encoding//web/xloadtree/xmlextras.js=UTF-8
+encoding//web/xloadtree/xtree.js=UTF-8
+encoding/<project>=UTF-8

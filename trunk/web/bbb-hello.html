@@ -1,0 +1,28 @@
+
+<title>hello</title>
+
+	
+  <body>
+  <div align="center">
+     $dateTool.format('yyyy年MM月dd日',$date)
+    <br/>$numberTool.format('.000','34343.8945454')
+    <br/>$numberTool.integer('34343.8945454')
+       <br/>$numberTool.percent('0.22222')
+        
+         #set($a1=2)
+         #set($b=3)
+         #set($c=4)
+   <br/> $mathTool.idiv($c,$a1)
+   <br/> $mathTool.getRandom()
+   <br/> $mathTool.random("100000","999999")
+    
+<h1>测试-- a=$a</h1>
+<h1>测试-- testa=${test.testa}</h1>
+<h1>测试-- testb=${test.testb}</h1>
+#testMacro('谢毅')
+<!-- ${testPage.getResult()}
+ -->
+#foreach($obj in $testPage.getResult())
+$velocityCount :${obj.getHousetypename()}===${obj.getInitarea()}<br/>
+#end
+</div>
