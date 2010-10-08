@@ -66,11 +66,11 @@
 	<action name="bbbhello" class="com.jrmapp.action.BbbAction" method="hello">
 		<result name="success">bbb-hello.html</result>
 		<result name="hello">bbb-hello.html</result>
-		<!--  
+		 
 				<interceptor-ref name="token"/>
 <interceptor-ref name="defaultStack" />
 <result name="invalid.token" >/common/tokeninterceptor.html</result>
- -->
+ 
 	</action>
 
 </package>
