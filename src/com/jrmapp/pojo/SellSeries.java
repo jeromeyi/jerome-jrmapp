@@ -15,7 +15,7 @@ import org.hibernate.annotations.Parameter;
 
 
 @Entity
-@Table(schema="boloni",name="sell_series")
+@Table(schema="javaee",name="sell_series")
 public class SellSeries implements  Serializable{
 	@Id
 	

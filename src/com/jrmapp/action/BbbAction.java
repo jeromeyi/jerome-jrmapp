@@ -88,9 +88,9 @@ public class BbbAction extends ActionSupport {
 		 houseTypeDao= (IBaseDao)ctx.getBean("houseTypeDao");  
 		 sellSeriesDao= (IBaseDao)ctx.getBean("sellSeriesDao");  */
 		    System.out.println("ht----------------");
-			HouseType ht1=houseTypeDao.get(2923);
+			HouseType ht1=houseTypeDao.get(1);
 			System.out.println("ss----------------");
-			SellSeries ss=sellSeriesDao.get(3062);
+			SellSeries ss=sellSeriesDao.get(1);
 			HouseType ht=new HouseType();
 			ht.setHousetypename("测试");
 			ht.setHousecatid(23668);

@@ -22,7 +22,7 @@ import org.hibernate.validator.Min;
 
 
 @Entity
-@Table(schema="boloni",name="house_type")
+@Table(schema="javaee",name="house_type")
 @SuppressWarnings("serial") 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)  //,region="ehcache.xml"
 @Proxy(lazy = false)
@@ -30,13 +30,16 @@ public class HouseType implements  Serializable {
 	 private final static String table="户型";
 		@Id
 		
-		 @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seqid")
+/*		 @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seqid")
 		 @GenericGenerator(
 				 name="seqid",strategy="seqhilo",
 				 parameters={
 						 @Parameter(name="sequence", value="seqid")
 						 }
-				 )
+				 )*/
+		@GeneratedValue(generator = "houseTypeGenerator")   
+		@GenericGenerator(name = "houseTypeGenerator", strategy = "sequence",    
+		         parameters = { @Parameter(name = "sequence", value = "seq_housetype") }) 
 
 	    @Column(nullable=false, updatable=false, length=10)
 		private int housetypeid   ;//number(10)                     户型id      

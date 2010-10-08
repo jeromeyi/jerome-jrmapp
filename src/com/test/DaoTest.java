@@ -36,8 +36,8 @@ public class DaoTest {
 		Vector v=new Vector();
 		Collections.synchronizedList(v);
          
-			HouseType ht1=houseTypeDao.get(2923);
-			SellSeries ss=sellSeriesDao.get(3062);
+			//HouseType ht1=houseTypeDao.get(2923);
+			//SellSeries ss=sellSeriesDao.get(3062);
 			HouseType ht=new HouseType();
 			ht.setHousetypename("测试");
 			ht.setHousecatid(23668);
@@ -49,7 +49,7 @@ public class DaoTest {
 		    ClassValidator<HouseType> classValidator = new ClassValidator<HouseType> (HouseType.class);
 		    InvalidValue[] validMessages = classValidator.getInvalidValues(ht);
 		    for (InvalidValue value : validMessages) {
-		     /** 
+		     
 		    System.out.println("InvalidValue 的长度是:" + validMessages.length
 		        +" . 验证消息是: " + value.getMessage() 
 		        +" . PropertyPath 是:" + value.getPropertyPath()
@@ -58,15 +58,16 @@ public class DaoTest {
 		        +" Bean 是: "+ value.getBean()
 		        +" \n\t BeanClass 是:" + value.getBeanClass());
 		    }
-		    **/
+		    
 		    	
 			    //System.out.println("验证消息是: " + value.getMessage() );
-			}
+			//}
 		    
 		    Assert.assertTrue(validMessages.length>0);
 		    
-			//houseTypeDao.save(ht);
-		//System.out.println("ht1====="+ht1.getHousetypename());
+			houseTypeDao.save(ht);
+			
+		/*//System.out.println("ht1====="+ht1.getHousetypename());
 		//System.out.println("ss====="+ss.getSeriesname());
 		List<HouseType> htList=houseTypeDao.getAll();
 		for(HouseType obj:htList){
@@ -90,6 +91,6 @@ public class DaoTest {
 		List<HouseType> htList2=(List)page.getResult();
 		for(HouseType obj:htList2){
 			System.out.println(obj.getHousetypename()+"==="+obj.getInitarea());
-		}
+		}*/
 	}
 }
