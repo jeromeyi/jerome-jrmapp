@@ -10,7 +10,7 @@ xmlns:context="http://www.springframework.org/schema/context"
 	 
 	  <context:component-scan base-package="com.jrmapp.action" />  
 	<!-- 使用外部文件配置数据源的属性 -->
-	<!-- 
+	<!--   换成<context:property-placeholder location="classpath:database_conn.properties"/> 这样的方式载入
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -21,14 +21,14 @@ xmlns:context="http://www.springframework.org/schema/context"
 		<property name="fileEncoding" value="utf-8" />
 	</bean>
 	 -->
-	<context:property-placeholder location="classpath:database_conn.properties"/> 
+   <context:property-placeholder location="classpath:database_conn.properties"/> 
+
 	<!-- 配置数据源 
 	   <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 	<property name="jndiName" value="java:comp/env/jrmAppDB"/>
    </bean>
    -->
    <!-- 从spring2.0开始提供jee命名空间，可以简化配置如下： -->
-
 <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jrmAppDB"/> 
 
 	
