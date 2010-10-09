@@ -5,7 +5,7 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<constant name="struts.devMode" value="false"></constant>
+	<constant name="struts.devMode" value="true"></constant>
 	<constant name="struts.action.extension" value="do" />
 <constant name="struts.convention.result.path" value="/" />
 	<constant name="struts.convention.package.locators" value="action" />  
@@ -61,7 +61,19 @@
 <package name="default" extends="struts-default" namespace="/">
 	
 
-	
+	 <global-results>
+
+                   <result name="sql">/exception.jsp</result>
+
+                   <result name="root">/exception.jsp</result>
+
+     </global-results>
+     <global-exception-mappings>
+
+                   <exception-mapping exception="java.sql.SQLException" result="sql"/>
+
+                   <exception-mapping exception="java.lang.Exception" result="root"/>
+     </global-exception-mappings>
 
 	<action name="bbbhello" class="com.jrmapp.action.BbbAction" method="hello">
 		<result name="success">bbb-hello.html</result>

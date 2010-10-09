@@ -32,7 +32,7 @@ public class DaoTest {
 	private IBaseDao<SellSeries,Integer> sellSeriesDao;
 	
 	@Test
-	public void test(){
+	public void test() throws Exception{
 		Vector v=new Vector();
 		Collections.synchronizedList(v);
          

@@ -28,35 +28,35 @@ public interface IBaseDao<T,PK extends Serializable> {
      *  
      * @see HibernateGenericDao#getAll(Class) 
      */ 
-    public List<T> getAll(); 
+    public List<T> getAll() throws Exception; 
      
     /** 
      * 获取全部对象,带排序参数. 
      */ 
-    public List<T> getAll(String orderBy, boolean isAsc); 
+    public List<T> getAll(String orderBy, boolean isAsc) throws Exception; 
      
     /** 
      * 根据ID移除对象. 
      */ 
-    public void removeById(PK id); 
+    public void removeById(PK id) throws Exception; 
      
     /** 
      * 取得Entity的Criteria. 
      */ 
-    public Criteria createCriteria(Criterion... criterions); 
+    public Criteria createCriteria(Criterion... criterions) throws Exception; 
      
     /** 
      * 取得Entity的Criteria,带排序参数. 
      */ 
     public Criteria createCriteria(String orderBy, boolean isAsc, 
-            Criterion... criterions); 
+            Criterion... criterions) throws Exception; 
      
     /** 
      * 根据属性名和属性值查询对象. 
      *  
      * @return 符合条件的对象列表 
      */ 
-    public List<T> findBy(String propertyName, Object value); 
+    public List<T> findBy(String propertyName, Object value) throws Exception; 
      
     /** 
      * 根据属性名和属性值查询对象,带排序参数. 
@@ -64,14 +64,14 @@ public interface IBaseDao<T,PK extends Serializable> {
      * @return 符合条件的对象列表 
      */ 
     public List<T> findBy(String propertyName, Object value, String orderBy, 
-            boolean isAsc); 
+            boolean isAsc) throws Exception; 
      
     /** 
      * 根据属性名和属性值查询单个对象. 
      *  
      * @return 符合条件的唯一对象 or null 
      */ 
-    public T findUniqueBy(String propertyName, Object value); 
+    public T findUniqueBy(String propertyName, Object value) throws Exception; 
      
     /** 
      * 判断对象某些属性的值在数据库中唯一. 
@@ -80,33 +80,33 @@ public interface IBaseDao<T,PK extends Serializable> {
      *            在POJO里不能重复的属性列表,以逗号分割 如"name,loginid,password" 
      * @see HibernateGenericDao#isUnique(Class,Object,String) 
      */ 
-    public boolean isUnique(T entity, String uniquePropertyNames); 
+    public boolean isUnique(T entity, String uniquePropertyNames) throws Exception; 
      
     /** 
      * 消除与 Hibernate Session 的关联 
      *  
      */ 
-    public void evit(T entity); 
+    public void evit(T entity) throws Exception; 
      
      
     /** 
      * 根据ID获取对象. 实际调用Hibernate的session.load()方法返回实体或其proxy对象. 如果对象不存在，抛出异常. 
      */ 
-    public T get(PK id); 
+    public T get(PK id) throws Exception; 
      
     /** 
      * 保存对象. 
      */ 
-    public void save(T o); 
+    public void save(T o) throws Exception; 
      
     /** 
      * 删除对象. 
      */ 
-    public void remove(T o); 
+    public void remove(T o) throws Exception; 
      
-    public void flush(); 
+    public void flush() throws Exception; 
      
-    public void clear(); 
+    public void clear() throws Exception; 
      
     /** 
      * 创建Query对象. 对于需要first,max,fetchsize,cache,cacheRegion等诸多设置的函数,可以在返回Query后自行设置. 
@@ -124,16 +124,16 @@ public interface IBaseDao<T,PK extends Serializable> {
      * 
      * @param values 可变参数. 
      */ 
-    public Query createQuery(String hql, Object... values); 
+    public Query createQuery(String hql, Object... values) throws Exception; 
      
-    public List createQueryToList(String hql, Object... values);  
-    public Iterator createQueryToIterator(String hql, Object... values);  
+    public List createQueryToList(String hql, Object... values) throws Exception;  
+    public Iterator createQueryToIterator(String hql, Object... values) throws Exception;  
     
     /** 
      * 根据hql查询,直接使用HibernateTemplate的find函数. 
      */ 
     @SuppressWarnings("unchecked") 
-    public List find(String hql, Object... values); 
+    public List find(String hql, Object... values) throws Exception; 
      
 
     /** 
@@ -141,7 +141,7 @@ public interface IBaseDao<T,PK extends Serializable> {
      * 
      * @param pageNo 页号,从1开始. 
      */ 
-    public Page pagedQuery(String hql, int pageNo, int pageSize, Object... values); 
+    public Page pagedQuery(String hql, int pageNo, int pageSize, Object... values) throws Exception; 
      
     /** 
      * @param hql 查询sql 
@@ -150,7 +150,7 @@ public interface IBaseDao<T,PK extends Serializable> {
      * @param values 查询条件 
      * @return page对象 
      */ 
-    public Page dataQuery(String hql, int start, int pageSize, Object... values); 
+    public Page dataQuery(String hql, int start, int pageSize, Object... values) throws Exception; 
      
     /** 
      * 分页查询函数，使用已设好查询条件与排序的<code>Criteria</code>. 
@@ -158,7 +158,7 @@ public interface IBaseDao<T,PK extends Serializable> {
      * @param pageNo 页号,从1开始. 
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
-    public Page pagedQuery(Criteria criteria, int pageNo, int pageSize); 
+    public Page pagedQuery(Criteria criteria, int pageNo, int pageSize) throws Exception; 
      
     /** 
      * 分页查询函数，根据entityClass和查询条件参数创建默认的<code>Criteria</code>. 
@@ -166,7 +166,7 @@ public interface IBaseDao<T,PK extends Serializable> {
      * @param pageNo 页号,从1开始. 
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
-    public Page pagedQuery(int pageNo, int pageSize, Criterion... criterions); 
+    public Page pagedQuery(int pageNo, int pageSize, Criterion... criterions) throws Exception; 
      
     /** 
      * 分页查询函数，根据entityClass和查询条件参数,排序参数创建默认的<code>Criteria</code>. 
@@ -175,17 +175,17 @@ public interface IBaseDao<T,PK extends Serializable> {
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
     public Page pagedQuery(int pageNo, int pageSize, String orderBy, boolean isAsc, 
-               Criterion... criterions); 
+               Criterion... criterions) throws Exception; 
      
 
     @SuppressWarnings("unchecked") 
-    public List executeNativeSql(String sql); 
+    public List executeNativeSql(String sql) throws Exception; 
      
-    public HibernateTemplate getHibernateTemplate(); 
+    public HibernateTemplate getHibernateTemplate() throws Exception; 
      
     /** 
      * 在不同的session中关联修改过的托管对象 
      */ 
-    public void update(T entity); 
+    public void update(T entity) throws Exception; 
 }
 

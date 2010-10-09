@@ -28,9 +28,24 @@ xmlns:context="http://www.springframework.org/schema/context"
 	<property name="jndiName" value="java:comp/env/jrmAppDB"/>
    </bean>
    -->
-   <!-- 从spring2.0开始提供jee命名空间，可以简化配置如下： -->
+   <!-- 从spring2.0开始提供jee命名空间，可以简化配置如下： 
 <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jrmAppDB"/> 
+-->
 
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName">
+      <value>oracle.jdbc.driver.OracleDriver</value>
+    </property>
+    <property name="url">
+      <value>jdbc:oracle:thin:@localhost:1521:javaee</value>
+    </property>
+    <property name="username">
+      <value>javaee</value>
+    </property>
+    <property name="password">
+      <value>javaee</value>
+    </property>
+  </bean>
 	
 	<!-- hibernate3 sessionfactory配置 
 		使用AnnotationSessionFactoryBean创建基于JPA注解的SessionFactory-->

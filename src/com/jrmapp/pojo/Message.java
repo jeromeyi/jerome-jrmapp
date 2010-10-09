@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity  
 @Table(name="MESSAGE")  
@@ -17,9 +18,12 @@ public class Message {
       
     @Id  
     @Column(name="ID")  
-    @GeneratedValue(generator="system-uuid")  
-    @GenericGenerator(name="system-uuid", strategy="uuid")  
-    private String id = null;  
+   /* @GeneratedValue(generator="system-uuid")  
+    @GenericGenerator(name="system-uuid", strategy="uuid")  */
+        	@GeneratedValue(generator = "messageGenerator")   
+@GenericGenerator(name = "messageGenerator", strategy = "sequence",    
+        parameters = { @Parameter(name = "sequence", value = "seq_message") })
+    private long id;  
       
     @Column(name="CONTENT")  
     private String content = null;  
@@ -29,13 +33,13 @@ public class Message {
     /** 
      * @return the id 
      */  
-    public String getId() {  
+    public long getId() {  
         return id;  
     }  
     /** 
      * @param id the id to set 
      */  
-    public void setId(String id) {  
+    public void setId(long id) {  
         this.id = id;  
     }  
     /** 

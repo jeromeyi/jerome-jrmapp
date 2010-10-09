@@ -21,7 +21,7 @@ public class UserIdCard {
     @Column(name="USERIDCARDID")  
     @GeneratedValue(generator="foreign")  
     @GenericGenerator(name="foreign", strategy="foreign", parameters={@Parameter(name="property",value="user")})  
-    private String id = null;  
+    private long id;  
       
     @Column(name="SEQNUMBER")  
     private String seqNumber = null;  
@@ -47,13 +47,13 @@ public class UserIdCard {
     /** 
      * @return the id 
      */  
-    public String getId() {  
+    public long getId() {  
         return id;  
     }  
     /** 
      * @param id the id to set 
      */  
-    public void setId(String id) {  
+    public void setId(long id) {  
         this.id = id;  
     }  
     /** 
