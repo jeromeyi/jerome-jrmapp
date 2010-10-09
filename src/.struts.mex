@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="default" location="10,10" size="225,119">
+    <action name="bbbhello" location="65,47" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="bbb-hello.html" />
+      </result>
+      <result name="hello">
+        <resourceEdge source="hello" routing="0" target="bbb-hello.html" />
+      </result>
+    </action>
+  </package>
+  <webResource name="bbb-hello.html" path="bbb-hello.html" location="340,30" size="150,55" />
+</Struts2Diagram>
+
