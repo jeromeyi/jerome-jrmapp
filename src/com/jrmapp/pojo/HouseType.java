@@ -44,7 +44,7 @@ public class HouseType implements  Serializable {
 	    @Column(nullable=false, updatable=false, length=10)
 		private int housetypeid   ;//number(10)                     户型id      
 		
-		@Column(nullable=false, length=100)
+		@Column(nullable=false, length=100,unique=true)
 		@Basic(fetch = FetchType.EAGER)
 		//@OneToOne(fetch = FetchType.LAZY)
 		private String  housetypename ;//varchar2(100)                  户型名称                      
