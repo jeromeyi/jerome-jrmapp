@@ -19,14 +19,17 @@ import org.hibernate.annotations.Parameter;
 public class SellSeries implements  Serializable{
 	@Id
 	
-	 @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seqid")
+/*	 @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seqid")
 	 @GenericGenerator(
 			 name="seqid",strategy="seqhilo",
 			 parameters={
 					 @Parameter(name="sequence", value="seqid")
 					 }
 			 )
-
+*/
+	@GeneratedValue(generator = "sellSeriesGenerator")   
+@GenericGenerator(name = "sellSeriesGenerator", strategy = "sequence",    
+        parameters = { @Parameter(name = "sequence", value = "seq_sellseries") }) 
    @Column(nullable=false, updatable=false, length=10)
 	private int seriesid   ;//number(10)       
 	@Column(nullable=false, length=100)
