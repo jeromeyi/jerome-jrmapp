@@ -8,5 +8,6 @@
 	<import resource="applicationContext-tx.xml" />
 	<!-- 导入spring dao配置文件 -->
 	<import resource="applicationContext-dao.xml" />
-	
+	<!-- 导入spring service配置文件 -->
+	<import resource="applicationContext-service.xml" />
 </beans>

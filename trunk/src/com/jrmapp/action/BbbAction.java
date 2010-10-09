@@ -19,9 +19,14 @@ import org.springframework.stereotype.Controller;
 
 import com.jrmapp.dao.base.IBaseDao;
 import com.jrmapp.dao.support.Page;
+import com.jrmapp.pojo.Address;
 import com.jrmapp.pojo.HouseType;
+import com.jrmapp.pojo.Message;
 import com.jrmapp.pojo.SellSeries;
+import com.jrmapp.pojo.User;
+import com.jrmapp.pojo.UserIdCard;
 import com.jrmapp.pojo.test;
+import com.jrmapp.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
@@ -33,12 +38,24 @@ public class BbbAction extends ActionSupport {
 	private IBaseDao<HouseType,Integer> houseTypeDao;
 	@Resource(name="sellSeriesDao")
 	private IBaseDao<SellSeries,Integer> sellSeriesDao;
+	@Resource(name="userDao")
+	private IBaseDao<User,Long> userDao;
+	@Resource(name="userIdCardDao")
+	private IBaseDao<UserIdCard,Long> userIdCardDao;
+	@Resource(name="messageDao")
+	private IBaseDao<Message,Long> messageDao;
+	@Resource(name="addressDao")
+	private IBaseDao<Address,Long> addressDao;
+	@Resource(name="userService")
+	private UserService userService;
 	
 	private Page testPage;
 	
 	private String a;
     private test test;
     private Date date;
+    private long userID;  
+    private long addressID;  
 	public Date getDate() {
 		return date;
 	}
@@ -81,7 +98,17 @@ public class BbbAction extends ActionSupport {
 		return "hello";
 	}
 
-	public Page test(){
+	public Page test() throws Exception{
+		
+		User user = new User(); 
+	    if (true)
+		   throw new Exception("测试");
+        user.setName("test1"); 
+		userService.save(user);
+		User user1=userService.get(6);
+    	System.out.println("userService===="+user1.getName());
+		Address  address = (Address) addressDao.get(5l);  
+        System.out.println(address.getAddress());  
 		Vector v=new Vector();
 		Collections.synchronizedList(v);
 /*		 ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");  

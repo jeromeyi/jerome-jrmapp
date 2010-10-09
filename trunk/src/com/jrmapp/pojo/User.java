@@ -16,16 +16,22 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Proxy;
 
 @Entity  
-@Table(name="USERINFO")  
+@Table(name="USERINFO") 
+//@Proxy (lazy = false )
 public class User {  
       
     @Id  
     @Column(name="ID")  
-    @GeneratedValue(generator="system-uuid")  
-    @GenericGenerator(name="system-uuid", strategy="uuid")  
-    private String id = null;  
+   /* @GeneratedValue(generator="system-uuid")  
+    @GenericGenerator(name="system-uuid", strategy="uuid")  */
+        	@GeneratedValue(generator = "userinfoGenerator")   
+@GenericGenerator(name = "userinfoGenerator", strategy = "sequence",    
+        parameters = { @Parameter(name = "sequence", value = "seq_userinfo") })
+    private long id ;  
       
     @Column(name="NAME")  
     private String name = null;  
@@ -44,7 +50,7 @@ public class User {
   /*  @OneToOne(fetch=FetchType.LAZY, optional = false)  
     @PrimaryKeyJoinColumn  */
   //@OneToOne(mappedBy="userIdCard", fetch=FetchType.LAZY) 
-    @OneToOne(mappedBy="user",optional=false)   
+    @OneToOne(mappedBy="user",fetch=FetchType.LAZY)   
     private UserIdCard userIdCard = null;//One to one  
      
     /** 
@@ -62,13 +68,13 @@ public class User {
     /** 
      * @return the id 
      */  
-    public String getId() {  
+    public long getId() {  
         return id;  
     }  
     /** 
      * @param id the id to set 
      */  
-    public void setId(String id) {  
+    public void setId(long id) {  
         this.id = id;  
     }  
     /** 

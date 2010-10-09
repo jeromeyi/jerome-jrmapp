@@ -9,22 +9,22 @@ import java.util.List;
  */ 
 public interface IEntityDao<T,PK extends Serializable> { 
 
-    T get(PK id); 
+    T get(PK id) throws Exception; 
 
-    List<T> getAll(); 
+    List<T> getAll() throws Exception; 
 
-    void save(T entity); 
+    void save(T entity) throws Exception; 
 
-    void remove(T entity); 
+    void remove(T entity) throws Exception; 
 
-    void removeById(PK id); 
+    void removeById(PK id) throws Exception; 
      
-    void update(T entity); 
+    void update(T entity) throws Exception; 
 
     /** 
      * 获取Entity对象的主键名. 
      */ 
-    String getIdName(Class<T> clazz); 
+    String getIdName(Class<T> clazz) throws Exception; 
 } 
 
 

@@ -60,17 +60,17 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * @param id 
      */ 
     @SuppressWarnings("unchecked") 
-    public T get(PK id) { 
+    public T get(PK id) throws Exception{ 
          
         return (T) getHibernateTemplate().load(getEntityClass(), id); 
-    	// return (T) getHibernateTemplate().get(getEntityClass(), id); 
+    	 //return (T) getHibernateTemplate().get(getEntityClass(), id); 
     } 
      
     /** 
      * 获取实体类型的全部对象 
      */ 
     @SuppressWarnings("unchecked") 
-    public List<T> getAll() { 
+    public List<T> getAll() throws Exception{ 
     	getHibernateTemplate().setCacheQueries(true);  
         return (List<T>)(getHibernateTemplate().loadAll(getEntityClass())); 
     } 
@@ -79,7 +79,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * 获取全部对象,带排序字段与升降序参数. 
      */ 
     @SuppressWarnings("unchecked") 
-    public  List<T> getAll(String orderBy, boolean isAsc) { 
+    public  List<T> getAll(String orderBy, boolean isAsc) throws Exception{ 
         Assert.hasText(orderBy); 
         if (isAsc) 
             return getHibernateTemplate().findByCriteria( 
@@ -92,7 +92,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
     /** 
      * 删除对象. 
      */ 
-    public void remove(T entity) { 
+    public void remove(T entity) throws Exception{ 
 
         getHibernateTemplate().delete(entity); 
     } 
@@ -100,7 +100,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
     /** 
      * 根据ID删除对象. 
      */ 
-    public void removeById(PK id) { 
+    public void removeById(PK id) throws Exception{ 
          
         remove(get(id)); 
     } 
@@ -114,7 +114,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * 如果是附带版本信息的(<version>或<timestamp>)且版本属性表明为新的实例化对象就save()。<br> 
      * 否则调用update()重新关联托管对象 
      */ 
-    public void save(T entity) { 
+    public void save(T entity) throws Exception{ 
 
        getHibernateTemplate().saveOrUpdate(entity); 
     } 
@@ -122,7 +122,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
     /** 
      * 在不同的session中关联修改过的托管对象 
      */ 
-    public void update(T entity) { 
+    public void update(T entity) throws Exception{ 
 
        getHibernateTemplate().update(entity); 
     } 
@@ -131,7 +131,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * 消除与 Hibernate Session 的关联 
      * @param entity 
      */ 
-    public void evict(T entity) { 
+    public void evict(T entity) throws Exception{ 
         getHibernateTemplate().evict(entity); 
     } 
      
@@ -139,7 +139,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * 创建Criteria对象. 
      * @param criterions 可变的Restrictions条件列表 
      */ 
-    public  Criteria createCriteria(Criterion... criterions) { 
+    public  Criteria createCriteria(Criterion... criterions) throws Exception{ 
         Criteria criteria = getSession().createCriteria(getEntityClass()); 
         for (Criterion c : criterions) { 
             criteria.add(c); 
@@ -149,7 +149,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
     /** 
      * 创建Criteria对象，带排序字段与升降序字段. 
      */ 
-    public  Criteria createCriteria(String orderBy, boolean isAsc, Criterion... criterions) { 
+    public  Criteria createCriteria(String orderBy, boolean isAsc, Criterion... criterions) throws Exception{ 
         Assert.hasText(orderBy); 
 
         Criteria criteria = createCriteria(criterions); 
@@ -167,7 +167,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * @return 符合条件的对象列表 
      */ 
     @SuppressWarnings("unchecked") 
-    public  List<T> findBy(String propertyName, Object value) { 
+    public  List<T> findBy(String propertyName, Object value)throws Exception { 
         Assert.hasText(propertyName); 
         return createCriteria(Restrictions.eq(propertyName, value)).list(); 
     } 
@@ -176,7 +176,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * 根据属性名和属性值查询对象,带排序参数. 
      */ 
     @SuppressWarnings("unchecked") 
-    public  List<T> findBy(String propertyName, Object value, String orderBy, boolean isAsc) { 
+    public  List<T> findBy(String propertyName, Object value, String orderBy, boolean isAsc)throws Exception { 
         Assert.hasText(propertyName); 
         Assert.hasText(orderBy); 
         return createCriteria(orderBy, isAsc, Restrictions.eq(propertyName, value)).list(); 
@@ -187,7 +187,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * @return 符合条件的唯一对象 or null if not found. 
      */ 
     @SuppressWarnings("unchecked") 
-    public  T findUniqueBy(String propertyName, Object value) { 
+    public  T findUniqueBy(String propertyName, Object value) throws Exception{ 
         Assert.hasText(propertyName); 
         return (T) createCriteria(Restrictions.eq(propertyName, value)).uniqueResult(); 
     } 
@@ -199,7 +199,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
     @SuppressWarnings("unchecked") 
-    public Page pagedQuery(Criteria criteria, int pageNo, int pageSize) { 
+    public Page pagedQuery(Criteria criteria, int pageNo, int pageSize) throws Exception{ 
     	getHibernateTemplate().setCacheQueries(true);  
         Assert.notNull(criteria); 
         Assert.isTrue(pageNo >= 1, "pageNo should start from 1"); 
@@ -245,7 +245,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * @param pageNo 页号,从1开始. 
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
-    public Page pagedQuery(int pageNo, int pageSize, Criterion... criterions) { 
+    public Page pagedQuery(int pageNo, int pageSize, Criterion... criterions)throws Exception { 
        
     	Criteria criteria = createCriteria(criterions); 
         return pagedQuery(criteria, pageNo, pageSize); 
@@ -258,7 +258,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
     public Page pagedQuery(int pageNo, int pageSize, String orderBy, boolean isAsc, 
-                           Criterion... criterions) { 
+                           Criterion... criterions) throws Exception{ 
         Criteria criteria = createCriteria(orderBy, isAsc, criterions); 
         return pagedQuery(criteria, pageNo, pageSize); 
     } 
@@ -268,7 +268,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      * 
      * @param uniquePropertyNames 在POJO里不能重复的属性列表,以逗号分割 如"name,loginid,password" 
      */ 
-    public boolean isUnique(T entity, String uniquePropertyNames) { 
+    public boolean isUnique(T entity, String uniquePropertyNames)throws Exception { 
         Assert.hasText(uniquePropertyNames); 
         Criteria criteria = createCriteria().setProjection(Projections.rowCount()); 
         String[] nameList = uniquePropertyNames.split(","); 
@@ -299,7 +299,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      */ 
     @SuppressWarnings("unchecked") 
     public  PK getId(Class<T> entityClass, T entity) throws NoSuchMethodException, IllegalAccessException, 
-            InvocationTargetException { 
+            InvocationTargetException,Exception { 
         Assert.notNull(entity); 
         Assert.notNull(entityClass); 
         return (PK) PropertyUtils.getProperty(entity, getIdName(entityClass)); 
@@ -308,7 +308,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
     /** 
      * 取得对象的主键名,辅助函数. 
      */ 
-    public String getIdName(Class<T> clazz) { 
+    public String getIdName(Class<T> clazz) throws Exception{ 
         Assert.notNull(clazz); 
         ClassMetadata meta = getSessionFactory().getClassMetadata(clazz); 
         Assert.notNull(meta, "Class " + clazz + " not define in hibernate session factory."); 

@@ -65,6 +65,27 @@
             <value>com.jrmapp.pojo.SellSeries</value> 
         </constructor-arg> 
     </bean> 
+    
+     <bean id="userDao" parent="baseDao" > 
+        <constructor-arg> 
+            <value>com.jrmapp.pojo.User</value> 
+        </constructor-arg> 
+    </bean> 
+     <bean id="userIdCardDao" parent="baseDao" > 
+        <constructor-arg> 
+            <value>com.jrmapp.pojo.UserIdCard</value> 
+        </constructor-arg> 
+    </bean> 
+     <bean id="messageDao" parent="baseDao" > 
+        <constructor-arg> 
+            <value>com.jrmapp.pojo.Message</value> 
+        </constructor-arg> 
+    </bean> 
+     <bean id="addressDao" parent="baseDao" > 
+        <constructor-arg> 
+            <value>com.jrmapp.pojo.Address</value> 
+        </constructor-arg> 
+    </bean> 
 
 
     

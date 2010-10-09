@@ -766,3 +766,5 @@ public class JSONExample
     }     
 }    
 该问题已经关闭: 已解决！是由于jsonplugin的问题。换为jsonplugin-0.32.jar就可以了
+
+http://hi.baidu.com/fytcm/blog/item/b4a8ff18cf3b83bf4aedbc9b.html

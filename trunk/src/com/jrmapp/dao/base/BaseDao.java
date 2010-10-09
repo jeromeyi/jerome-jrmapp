@@ -45,7 +45,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
     /** 
      * 清除所有对象缓存 
      */ 
-    public void clear() { 
+    public void clear() throws Exception{ 
          
         hgdao.clear(); 
     } 
@@ -54,7 +54,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 创建Criteria对象. 
      * @param criterions 可变的Restrictions条件列表 
      */ 
-    public Criteria createCriteria(Criterion... criterions) { 
+    public Criteria createCriteria(Criterion... criterions) throws Exception{ 
          
         return hedao.createCriteria(criterions); 
     } 
@@ -63,7 +63,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 创建Criteria对象，带排序字段与升降序字段. 
      */ 
     public Criteria createCriteria(String orderBy, boolean isAsc, 
-            Criterion... criterions) { 
+            Criterion... criterions)throws Exception { 
          
         return hedao.createCriteria(orderBy, isAsc, criterions); 
     } 
@@ -84,14 +84,14 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 
      * @param values 可变参数. 
      */ 
-    public Query createQuery(String hql, Object... values) { 
+    public Query createQuery(String hql, Object... values) throws Exception{ 
          
         return hgdao.createQuery(hql, values); 
     } 
-    public List createQueryToList(String hql, Object... values){
+    public List createQueryToList(String hql, Object... values)throws Exception{
     	return hgdao.createQueryToList(hql, values); 
     } 
-    public Iterator createQueryToIterator(String hql, Object... values){
+    public Iterator createQueryToIterator(String hql, Object... values)throws Exception{
     	return hgdao.createQueryToIterator(hql, values); 
     }
     
@@ -102,7 +102,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * @param values 查询条件 
      * @return page对象 
      */ 
-    public Page dataQuery(String hql, int start, int pageSize, Object... values) { 
+    public Page dataQuery(String hql, int start, int pageSize, Object... values) throws Exception{ 
          
         return hgdao.dataQuery(hql, start, pageSize, values); 
     } 
@@ -111,7 +111,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 消除与 Hibernate Session 的关联 
      * @param entity 
      */ 
-    public void evit(T entity) { 
+    public void evit(T entity) throws Exception{ 
          
         hedao.evict(entity); 
     } 
@@ -120,7 +120,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 执行本地sql语句获得标量数值列表 
      */ 
     @SuppressWarnings("unchecked") 
-    public List executeNativeSql(String sql) { 
+    public List executeNativeSql(String sql) throws Exception{ 
          
         return hgdao.executeNativeSql(sql); 
     } 
@@ -130,7 +130,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * @param values 可变参数 
      */ 
     @SuppressWarnings("unchecked") 
-    public List find(String hql, Object... values) { 
+    public List find(String hql, Object... values) throws Exception{ 
          
         return hgdao.find(hql, values); 
     } 
@@ -139,7 +139,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 根据属性名和属性值查询对象. 
      * @return 符合条件的对象列表 
      */ 
-    public List<T> findBy(String propertyName, Object value) { 
+    public List<T> findBy(String propertyName, Object value)throws Exception { 
          
         return hedao.findBy(propertyName, value); 
     } 
@@ -148,7 +148,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 根据属性名和属性值查询对象,带排序参数. 
      */ 
     public List<T> findBy(String propertyName, Object value, String orderBy, 
-            boolean isAsc) { 
+            boolean isAsc) throws Exception{ 
          
         return hedao.findBy(propertyName, value, orderBy, isAsc); 
     } 
@@ -157,7 +157,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 根据属性名和属性值查询唯一对象. 
      * @return 符合条件的唯一对象 or null if not found. 
      */ 
-    public T findUniqueBy(String propertyName, Object value) { 
+    public T findUniqueBy(String propertyName, Object value)throws Exception { 
          
         return hedao.findUniqueBy(propertyName, value); 
     } 
@@ -165,7 +165,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
     /** 
      * 执行一些必须的sql语句把内存中的对象同步到jdbc的链接中 
      */ 
-    public void flush() { 
+    public void flush()throws Exception { 
          
         hgdao.flush(); 
     } 
@@ -176,7 +176,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 实际调用Hibernate的session.load()方法返回实体或其proxy对象. 如果对象不存在，抛出异常. 
      * @param id 
      */ 
-    public T get(PK id) { 
+    public T get(PK id)throws Exception { 
          
         return hedao.get(id); 
     } 
@@ -184,7 +184,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
     /** 
      * 获取实体类型的全部对象 
      */ 
-    public List<T> getAll() { 
+    public List<T> getAll()throws Exception { 
          
         return hedao.getAll(); 
     } 
@@ -192,7 +192,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
     /** 
      * 获取全部对象,带排序字段与升降序参数. 
      */ 
-    public List<T> getAll(String orderBy, boolean isAsc) { 
+    public List<T> getAll(String orderBy, boolean isAsc)throws Exception { 
          
         return hedao.getAll(orderBy, isAsc); 
     } 
@@ -200,7 +200,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
     /** 
      * 直接使用spring提供的HibernateTemplate 
      */ 
-    public HibernateTemplate getHibernateTemplate() { 
+    public HibernateTemplate getHibernateTemplate()throws Exception { 
          
         return hgdao.getHibernateTemplate(); 
     } 
@@ -210,7 +210,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 
      * @param uniquePropertyNames 在POJO里不能重复的属性列表,以逗号分割 如"name,loginid,password" 
      */ 
-    public boolean isUnique(T entity, String uniquePropertyNames) { 
+    public boolean isUnique(T entity, String uniquePropertyNames) throws Exception{ 
          
         return hedao.isUnique(entity, uniquePropertyNames); 
     } 
@@ -221,7 +221,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * @param pageNo 页号,从1开始. 
      */ 
     public Page pagedQuery(String hql, int pageNo, int pageSize, 
-            Object... values) { 
+            Object... values) throws Exception{ 
          
         return hgdao.pagedQuery(hql, pageNo, pageSize, values); 
     } 
@@ -232,7 +232,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * @param pageNo 页号,从1开始. 
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
-    public Page pagedQuery(Criteria criteria, int pageNo, int pageSize) { 
+    public Page pagedQuery(Criteria criteria, int pageNo, int pageSize)throws Exception { 
          
         return hedao.pagedQuery(criteria, pageNo, pageSize); 
     } 
@@ -243,7 +243,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * @param pageNo 页号,从1开始. 
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
-    public Page pagedQuery(int pageNo, int pageSize, Criterion... criterions) { 
+    public Page pagedQuery(int pageNo, int pageSize, Criterion... criterions)throws Exception { 
          
         return hedao.pagedQuery(pageNo, pageSize, criterions); 
     } 
@@ -255,7 +255,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * @return 含总记录数和当前页数据的Page对象. 
      */ 
     public Page pagedQuery(int pageNo, int pageSize, String orderBy, 
-            boolean isAsc, Criterion... criterions) { 
+            boolean isAsc, Criterion... criterions) throws Exception{ 
          
         return hedao.pagedQuery(pageNo, pageSize, orderBy, isAsc, criterions); 
     } 
@@ -263,7 +263,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
     /** 
      * 删除对象. 
      */ 
-    public void remove(T entity) { 
+    public void remove(T entity) throws Exception{ 
          
        hedao.remove(entity); 
     } 
@@ -271,7 +271,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
     /** 
      * 根据ID删除对象. 
      */ 
-    public void removeById(PK id) { 
+    public void removeById(PK id) throws Exception{ 
          
         hedao.removeById(id); 
     } 
@@ -285,7 +285,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
      * 如果是附带版本信息的(<version>或<timestamp>)且版本属性表明为新的实例化对象就save()。<br> 
      * 否则调用update()重新关联托管对象 
      */ 
-    public void save(T entity) { 
+    public void save(T entity) throws Exception{ 
 
         hedao.save(entity); 
     } 
@@ -293,7 +293,7 @@ public class BaseDao<T,PK extends Serializable> implements IBaseDao<T,PK> {
     /** 
      * 在不同的session中关联修改过的托管对象 
      */ 
-    public void update(T entity){ 
+    public void update(T entity) throws Exception{ 
          
         hedao.update(entity); 
     } 

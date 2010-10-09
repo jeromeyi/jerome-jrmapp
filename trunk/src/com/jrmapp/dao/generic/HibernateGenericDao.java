@@ -27,7 +27,7 @@ public class HibernateGenericDao extends HibernateDaoSupport {
      * @param pageNo 页号,从1开始. 
      */ 
     @SuppressWarnings("unchecked") 
-    public Page pagedQuery(String hql, int pageNo, int pageSize, Object... values) { 
+    public Page pagedQuery(String hql, int pageNo, int pageSize, Object... values)throws Exception { 
         Assert.hasText(hql); 
         Assert.isTrue(pageNo >= 1, "pageNo should start from 1"); 
         // Count查询 
@@ -53,7 +53,7 @@ public class HibernateGenericDao extends HibernateDaoSupport {
      * @return page对象 
      */ 
     @SuppressWarnings("unchecked") 
-    public Page dataQuery(String hql, int start, int pageSize, Object... values){ 
+    public Page dataQuery(String hql, int start, int pageSize, Object... values)throws Exception{ 
         Assert.hasText(hql); 
         // Count查询 
         String countQueryString = " select count (*) " + removeSelect(removeOrders(hql)); 
@@ -87,13 +87,13 @@ public class HibernateGenericDao extends HibernateDaoSupport {
      * 
      * @param values 可变参数. 
      */ 
-    public Query createQuery(String hql, Object... values) { 
+    public Query createQuery(String hql, Object... values)throws Exception { 
         Assert.hasText(hql); 
     	Session session=super.getSession();
       
         return createQuery(session,hql,values); 
     } 
-    private Query createQuery(Session session ,String hql, Object... values) { 
+    private Query createQuery(Session session ,String hql, Object... values) throws Exception{ 
         Assert.hasText(hql); 
         Query query = session.createQuery(hql); 
         for (int i = 0; i < values.length; i++) { 
@@ -102,7 +102,7 @@ public class HibernateGenericDao extends HibernateDaoSupport {
         query.setCacheable(true);
         return query; 
     } 
-    public List createQueryToList(String hql, Object... values){
+    public List createQueryToList(String hql, Object... values)throws Exception{
 /*    	Session session=super.getSession();
     	Query query=createQuery(session,hql,values);
     	super.releaseSession(session);
@@ -116,7 +116,7 @@ public class HibernateGenericDao extends HibernateDaoSupport {
     	super.releaseSession(session);
     	return list;
     }
-    public Iterator createQueryToIterator(String hql, Object... values){
+    public Iterator createQueryToIterator(String hql, Object... values)throws Exception{
     	Session session=super.getSession();
     	Iterator iterator=createQuery(session,hql,values).iterate();
     	super.releaseSession(session);
@@ -128,7 +128,7 @@ public class HibernateGenericDao extends HibernateDaoSupport {
      * @param values 可变参数 
      */ 
     @SuppressWarnings("unchecked") 
-    public List find(String hql, Object... values) { 
+    public List find(String hql, Object... values) throws Exception{ 
         Assert.hasText(hql); 
         return getHibernateTemplate().find(hql, values); 
     } 
@@ -137,14 +137,14 @@ public class HibernateGenericDao extends HibernateDaoSupport {
     /** 
      * 执行一些必须的sql语句把内存中的对象同步到jdbc的链接中 
      */ 
-    public void flush() { 
+    public void flush() throws Exception{ 
         getHibernateTemplate().flush(); 
     } 
      
     /** 
      * 清除所有对象缓存 
      */ 
-    public void clear() { 
+    public void clear()throws Exception { 
         getHibernateTemplate().clear(); 
     } 
      
@@ -152,7 +152,7 @@ public class HibernateGenericDao extends HibernateDaoSupport {
      * 执行本地sql语句获得标量数值列表 
      */ 
     @SuppressWarnings("unchecked") 
-    public List executeNativeSql(String sql){ 
+    public List executeNativeSql(String sql)throws Exception{ 
     	Session session=super.getSession();
     	List list=session.createSQLQuery(sql).list(); 
     	super.releaseSession(session);
@@ -162,7 +162,7 @@ public class HibernateGenericDao extends HibernateDaoSupport {
     /** 
      * 去除hql的select 子句，未考虑union的情况,用于pagedQuery. 
      */ 
-    private static String removeSelect(String hql) { 
+    private static String removeSelect(String hql) throws Exception{ 
         Assert.hasText(hql); 
         int beginPos = hql.toLowerCase().indexOf("from"); 
         Assert.isTrue(beginPos != -1, " hql : " + hql + " must has a keyword 'from'"); 
@@ -172,7 +172,7 @@ public class HibernateGenericDao extends HibernateDaoSupport {
     /** 
      * 去除hql的orderby 子句，用于pagedQuery. 
      */ 
-    private static String removeOrders(String hql) { 
+    private static String removeOrders(String hql)throws Exception { 
         Assert.hasText(hql); 
         Pattern p = Pattern.compile("order\\s*by[\\w|\\W|\\s|\\S]*", Pattern.CASE_INSENSITIVE); 
         Matcher m = p.matcher(hql); 
