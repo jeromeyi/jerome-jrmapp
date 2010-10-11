@@ -16,5 +16,10 @@
 </span>
 </div>
 </s:if>
+<s:property value="exception"/>:输出异常信息本身 
+
+<s:property value="exceptionStack"/>:输出异常堆栈信息 
+
+<s:property value="exception.message"/> 
 </body>
 </html>
