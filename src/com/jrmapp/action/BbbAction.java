@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.annotation.Resource;
@@ -101,13 +102,19 @@ public class BbbAction extends ActionSupport {
 	public Page test() throws Exception{
 		
 		User user = new User(); 
-	    if (true)
-		   throw new Exception("测试");
+	    //if (true)
+		   //throw new Exception("测试");
         user.setName("test1"); 
-		userService.save(user);
-		User user1=userService.get(6);
+		//userService.save(user);
+		User user1=userService.get(1);
     	System.out.println("userService===="+user1.getName());
-		Address  address = (Address) addressDao.get(5l);  
+    	Set addSet=user1.getAddresses();
+    	Iterator iterator=addSet.iterator();
+    	while(iterator.hasNext()){
+    		Address address=(Address)iterator.next();
+    		System.out.println("address===="+address.getAddress());
+    	}
+		Address  address = (Address) addressDao.get(1L);  
         System.out.println(address.getAddress());  
 		Vector v=new Vector();
 		Collections.synchronizedList(v);

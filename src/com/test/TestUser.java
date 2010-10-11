@@ -36,7 +36,7 @@ public class TestUser extends JavenTestCase{
 	
 	 private long userID;  
 	    private long addressID;  
-	    
+	   
 	 public void testAdd() throws Exception {  
 	        //Save user  
 	        User user = new User();  
@@ -101,7 +101,7 @@ public class TestUser extends JavenTestCase{
 	    	System.out.println(user.getName());
 			
 	    }  
-	    @Test 
+	    @Test  
 	    public void testAdd1() throws Exception {
 	    	User user = new User();  
 	        user.setName("test1");  
