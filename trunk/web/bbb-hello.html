@@ -15,10 +15,14 @@
    <br/> $mathTool.idiv($c,$a1)
    <br/> $mathTool.getRandom()
    <br/> $mathTool.random("100000","999999")
-    
+    #set($a=$user.name)
 <h1>测试-- a=$a</h1>
 <h1>测试-- testa=${test.testa}</h1>
 <h1>测试-- testb=${test.testb}</h1>
+<h1>测试user-- user.name=${user.name}</h1>
+#foreach($address in $user.addresses)
+$velocityCount :${address.id}===${address.address}<br/>
+#end
 #testMacro('谢毅')
 <!-- ${testPage.getResult()}
  -->

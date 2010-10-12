@@ -12,26 +12,31 @@
 	<constant name="struts.convention.action.name.separator" value="-" />  
 	<constant name="struts.velocity.toolboxlocation" value="WEB-INF/toolbox.xml" />
 	<constant name="struts.velocity.configfile" value="WEB-INF/velocity.properties" /> 
-    <package name="myPackage" extends="json-default">  
-        <global-results>  
-            <result name="exception">/error.jsp</result>  
-            <result name="error">/error.jsp</result>  
-            <result name="none">/error.jsp</result>  
-            <result name="login">/login.jsp</result>  
-        </global-results>  
-        <global-exception-mappings>  
-            <exception-mapping result="exception" exception="java.lang.Exception">  
-            </exception-mapping>  
-        </global-exception-mappings>  
-    </package>  
-
+	<constant name="struts.configuration.xml.reload" value="true" />
+ 
 	<package name="default" extends="struts-default" namespace="/">
+	<!-- 配置单个的默认拦截器，只能有一个默认的，要配置多个需要用到拦截器堆栈 
+	<default-interceptor-ref name="token"/>
+	-->
+	<!-- 下面用到拦截器堆栈 -->
+	<interceptors>  
+	<interceptor-stack name="tokenStack">
+	   <interceptor-ref name="token"/>
+	</interceptor-stack>
+	</interceptors>  
+	<default-interceptor-ref name="tokenStack"/>
+	
+	 <global-results>  
+            <result name="invalid.token">/common/tokeninterceptor.html</result>  
+     </global-results>
 		<action name="bbbhello" class="com.jrmapp.action.BbbAction" method="hello">
 			<result name="success">bbb-hello.html</result>
 			<result name="hello">bbb-hello.html</result>
+		<!-- 
 			<interceptor-ref name="token"/>
 			<interceptor-ref name="defaultStack" />
 			<result name="invalid.token" >/common/tokeninterceptor.html</result>
+			-->
 		</action>
 	</package>
 
