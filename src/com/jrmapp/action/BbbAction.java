@@ -56,7 +56,8 @@ public class BbbAction extends ActionSupport {
     private test test;
     private Date date;
     private long userID;  
-    private long addressID;  
+    private long addressID;
+    private User user;
 	public Date getDate() {
 		return date;
 	}
@@ -101,20 +102,20 @@ public class BbbAction extends ActionSupport {
 
 	public Page test() throws Exception{
 		
-		User user = new User(); 
+		User user1 = new User(); 
 	    //if (true)
 		   //throw new Exception("测试");
-        user.setName("test1"); 
-		//userService.save(user);
-		User user1=userService.get(1);
-    	System.out.println("userService===="+user1.getName());
-    	Set addSet=user1.getAddresses();
+        user1.setName("test1"); 
+		//userService.save(user1);
+		user=userService.get(6);
+    	System.out.println("userService===="+user.getName());
+    	Set addSet=user.getAddresses();
     	Iterator iterator=addSet.iterator();
     	while(iterator.hasNext()){
     		Address address=(Address)iterator.next();
     		System.out.println("address===="+address.getAddress());
     	}
-		Address  address = (Address) addressDao.get(1L);  
+		Address  address = (Address) addressDao.get(6L);  
         System.out.println(address.getAddress());  
 		Vector v=new Vector();
 		Collections.synchronizedList(v);
@@ -201,6 +202,14 @@ public class BbbAction extends ActionSupport {
 
 	public void setA(String a) {
 		this.a = a;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

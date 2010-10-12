@@ -136,7 +136,18 @@
 </package>
 
  
-
+ <package name="myPackage" extends="json-default">  
+        <global-results>  
+            <result name="exception">/error.jsp</result>  
+            <result name="error">/error.jsp</result>  
+            <result name="none">/error.jsp</result>  
+            <result name="login">/login.html</result>  
+        </global-results>  
+        <global-exception-mappings>  
+            <exception-mapping result="exception" exception="java.lang.Exception">  
+            </exception-mapping>  
+        </global-exception-mappings>  
+    </package>  
 
 	
 </struts>
