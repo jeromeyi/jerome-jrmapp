@@ -43,4 +43,5 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 		 userDao.save(user);
 		 throw new Exception("抛出异常");
 	 }
+
 }
