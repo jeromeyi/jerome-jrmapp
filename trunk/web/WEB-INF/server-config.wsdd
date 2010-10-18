@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" 
+xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+<!-- handler -->
+    <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+    
+    <handler name="userServiceRpcHandler"
+    type="java:com.jrmapp.jws.handler.JaxRpcUserServiceHandler">
+    <paramter name="status" value="success"/>
+    </handler>
+    
+    <!-- 权限 --> 
+<handler name="Authenticate"
+   type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" />   
+    
+<!-- service -->    
+    <service name="HelloWorld" provider="java:RPC">
+      <parameter name="className" 
+            value="com.jrmapp.jws.JaxRpcHelloWorld"/>
+      <parameter name="allowedMethods" value="*"/>
+    </service>
+    
+   
+     <service name="userServiceRpc" provider="java:RPC">
+     <!--  
+     <requestFlow>
+     <handler type="userServiceRpcHandler"/>
+     </requestFlow>
+     -->
+    <requestFlow>
+       <handler type="userServiceRpcHandler"/>
+       <handler type="Authenticate" />
+    </requestFlow>
+    <!-- 权限 --> 
+     <parameter name="allowedRoles" value="user1"/>
+     
+     <parameter name="className" 
+            value="com.jrmapp.jws.JaxRpcUserService"/>
+     <parameter name="allowedMethods" value="*"/>
+
+     
+      <parameter name="scope" value="request"/>
+ 
+      <responseFlow>
+       <handler type="userServiceRpcHandler"/>
+      </responseFlow>
+    </service>
+    
+    <transport name="http">
+      <requestFlow>
+          <handler type="URLMapper"/>
+           <!-- 权限 --> 
+   <handler
+     type="java:org.apache.axis.handlers.http.HTTPAuthHandler" />
+      </requestFlow>
+    </transport>
+</deployment>
