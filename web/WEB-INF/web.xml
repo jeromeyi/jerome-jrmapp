@@ -213,6 +213,16 @@
         <url-pattern>*.html</url-pattern>  
     </servlet-mapping>  
 	
+		<servlet>
+		<servlet-name>SearchController</servlet-name>
+		<servlet-class>com.jrmapp.lucene.servlet.SearchController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SearchController</servlet-name>
+		<url-pattern>/SearchController</url-pattern>
+	</servlet-mapping>
+	
 	
 	<!-- 图片验证 -->
 	<servlet>
