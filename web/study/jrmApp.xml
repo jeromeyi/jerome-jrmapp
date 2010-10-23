@@ -1,0 +1,39 @@
+<Context path="/jrmApp" reloadable="true" docBase="F:\workspace\jrmApp\web" 
+workDir="F:\workspace\jrmApp\work">
+<!-- jndi+tomcat
+ <Resource name="jrmAppDB"
+		type="javax.sql.DataSource"
+		username="javaee"
+		password="javaee"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		maxIdle="30"
+		maxWait="50"
+		url="jdbc:oracle:thin:@localhost:1521:javaee"
+		maxActive="300"/>
+-->  
+
+    <!-- jndi+c3p0  
+    <Resource name="jrmAppDB"   
+            type="com.mchange.v2.c3p0.ComboPooledDataSource"  initialPoolSize="10"
+            maxPoolSize="200" minPoolSize="20" acquireIncrement="20"  
+            maxIdleTime="60" idleConnectionTestPeriod="60" acquireRetryAttempts="30"
+            factory="org.apache.naming.factory.BeanFactory"  
+            user="kebao" password="kebao"  
+            driverClass="oracle.jdbc.driver.OracleDriver"  
+            jdbcUrl="jdbc:oracle:thin:@192.168.8.123:1521:kebao"  
+            />  
+     -->
+     <Resource name="jrmAppDB" auth="Container"    
+    type="com.jolbox.bonecp.BoneCPDataSource"    
+    factory="org.apache.naming.factory.BeanFactory"  
+    driverClass="oracle.jdbc.driver.OracleDriver"    
+    username="javaee"  password="javaee"    
+    jdbcUrl="jdbc:oracle:thin:@localhost:1521:javaee"  
+    idleConnectionTestPeriod="0"    
+    idleMaxAge="10"   
+    partitionCount="1"  
+    minConnectionsPerPartition="1"   
+    maxConnectionsPerPartition="20"   
+/>  
+           
+</Context>
