@@ -7,19 +7,45 @@
 <struts>
 	<constant name="struts.devMode" value="false"></constant>
 	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.convention.default.parent.package" 
+value="crud-default" /> 
     <constant name="struts.convention.result.path" value="/" />
 	<constant name="struts.convention.package.locators" value="action" />  
 	<constant name="struts.convention.action.name.separator" value="-" />  
 	<constant name="struts.velocity.toolboxlocation" value="WEB-INF/toolbox.xml" />
 	<constant name="struts.velocity.configfile" value="WEB-INF/velocity.properties" /> 
 	<constant name="struts.configuration.xml.reload" value="true" />
+	
+	<!-- 用于CRUD Action的parent package --> 
+<package name="crud-default" extends="convention-default,json-default"> 
+<!-- 
+基于paramsPrepareParamsStack, 增加store 
+interceptor保证actionMessage在redirect后不会丢失 
+--> 
+<interceptors> 
+<interceptor name="checkLogin" class="com.jrmapp.interceptor.CheckLoginInterceptor"/> 
+<interceptor-stack name="crudStack"> 
+<interceptor-ref name="checkLogin"/>
+<interceptor-ref name="store"> 
+<param name="operationMode">AUTOMATIC</param> 
+</interceptor-ref> 
+<interceptor-ref name="defaultStack" /> 
+</interceptor-stack> 
+</interceptors> 
+
+<default-interceptor-ref name="crudStack" /> 
+<global-results> 
+<result name="executeResult" type="freemarker">/commons/execute_result.ftl</result> 
+<result name="exception" type="freemarker">/commons/exception.ftl</result> 
+ <result name="invalid.token">/common/tokeninterceptor.html</result>  
+</global-results> 
+</package> 
  
- <!-- 有要阻止重复提交的通过这里配置 -->
+ <!-- 有要阻止重复提交的通过这里配置
 	<package name="default" extends="struts-default" namespace="/">
-	<!-- 配置单个的默认拦截器，只能有一个默认的，要配置多个需要用到拦截器堆栈 
+	 配置单个的默认拦截器，只能有一个默认的，要配置多个需要用到拦截器堆栈 
 	<default-interceptor-ref name="token"/>
-	-->
-	<!-- 下面用到拦截器堆栈 -->
+   下面用到拦截器堆栈 
 	<interceptors>  
 	<interceptor-stack name="tokenStack">
 	   <interceptor-ref name="token"/>
@@ -34,14 +60,14 @@
 		<action name="bbbhello" class="com.jrmapp.action.BbbAction" method="hello">
 			<result name="success">bbb-hello.html</result>
 			<result name="hello">bbb-hello.html</result>
-		<!-- 
+	
 			<interceptor-ref name="token"/>
 			<interceptor-ref name="defaultStack" />
 			<result name="invalid.token" >/common/tokeninterceptor.html</result>
-			-->
+		
 		</action>
 	</package>
-
+ -->
 <!-- 文件上传 -->
  <package name="upload" extends="struts-default" namespace="/upload">  
         <interceptors>  

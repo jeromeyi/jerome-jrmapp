@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.persistence.Transient;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
@@ -62,7 +63,7 @@ public class JsonTestAction extends ActionSupport {
         this.name = name;  
     }  
       
-    @Action(value="test",results={@Result(type="json",name="test")})  
+    @Action(value="test",results={@Result(type="json",name="test")},interceptorRefs = { @InterceptorRef("token") })  
     public String test() throws Exception{  
         this.name += ": Test method!!";  
           
