@@ -107,7 +107,7 @@ public class BbbAction extends ActionSupport {
 		   //throw new Exception("测试");
         user1.setName("test1"); 
 		//userService.save(user1);
-		user=userService.get(1);
+		user=userService.get(6);
     	System.out.println("userService===="+user.getName());
     	Set addSet=user.getAddresses();
     	Iterator iterator=addSet.iterator();
@@ -115,7 +115,7 @@ public class BbbAction extends ActionSupport {
     		Address address=(Address)iterator.next();
     		System.out.println("address===="+address.getAddress());
     	}
-		Address  address = (Address) addressDao.get(1L);  
+		Address  address = (Address) addressDao.get(6L);  
         System.out.println(address.getAddress());  
 		Vector v=new Vector();
 		Collections.synchronizedList(v);

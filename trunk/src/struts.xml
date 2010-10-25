@@ -14,6 +14,7 @@
 	<constant name="struts.velocity.configfile" value="WEB-INF/velocity.properties" /> 
 	<constant name="struts.configuration.xml.reload" value="true" />
  
+ <!-- 有要阻止重复提交的通过这里配置 -->
 	<package name="default" extends="struts-default" namespace="/">
 	<!-- 配置单个的默认拦截器，只能有一个默认的，要配置多个需要用到拦截器堆栈 
 	<default-interceptor-ref name="token"/>
@@ -22,6 +23,7 @@
 	<interceptors>  
 	<interceptor-stack name="tokenStack">
 	   <interceptor-ref name="token"/>
+	    <interceptor-ref name="defaultStack"/>
 	</interceptor-stack>
 	</interceptors>  
 	<default-interceptor-ref name="tokenStack"/>
@@ -40,8 +42,39 @@
 		</action>
 	</package>
 
- 
+<!-- 文件上传 -->
+ <package name="upload" extends="struts-default" namespace="/upload">  
+        <interceptors>  
+            <interceptor-stack name="uploadstack">  
+                <interceptor-ref name="token"/>
+                <interceptor-ref name="fileUpload">  
+                    <param name="allowedTypes">image/bmp,image/png,image/gif,image/jpg,image/pjpeg,text/plain,application/msword</param>  
+                    <param name="maximumSize">20000000</param>  
+                </interceptor-ref>  
+                <interceptor-ref name="defaultStack"></interceptor-ref>  
+            </interceptor-stack>  
+        </interceptors>  
+        
+         <global-results>  
+            <result name="invalid.token">/common/tokeninterceptor.html</result> 
+     </global-results>
+        <action name="uploadFile" class="com.jrmapp.action.upload.UploadAction">  
+            <result name="success">download.html</result>  
+            <result name="input">upload.html</result>  
+            <interceptor-ref name="uploadstack"></interceptor-ref>  
+        </action>  
+          <action name="goUpload" class="com.jrmapp.action.upload.UploadAction" method="goUpload">  
+            <result name="success">upload.html</result>  
+        </action>  
+          
+        <action name="downloadFile" class="com.jrmapp.action.upload.DownloadAction">  
+            <result name="success" type="stream">  
+                <param name="inputName">inputStream</param>   
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>    
+            </result>  
+        </action>  
+    </package>  
 
 
-	
+
 </struts>

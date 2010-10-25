@@ -1,0 +1,48 @@
+<head>
+<meta http-equiv=Content-Type content=text/html;charset=utf-8>
+        <title>上传多个文件</title>  
+        <script type="text/javascript">  
+            function addFile()  
+            {  
+                var td = document.getElementById("more");  
+                var br = document.createElement("br");  
+                var input = document.createElement("input");  
+                var button = document.createElement("button");  
+                  
+                input.type = "file";  
+                input.name = "upload";  
+                  
+                button.value = "delete";  
+                button.onclick = function(){  
+                    td.removeChild(br);  
+                    td.removeChild(input);  
+                    td.removeChild(button);  
+                }  
+                  
+                td.appendChild(br);  
+                td.appendChild(input);  
+                td.appendChild(button);  
+            }  
+        </script>  
+    </head>  
+  
+    <body>  
+       
+        <form action="uploadFile.do" method="post"  
+            enctype="multipart/form-data">     
+            <table border="1" width="400px">  
+                <tr>  
+                    <td id="more">  
+                        <input type="file" name="upload">  
+                        <input type="button" value="more..." onclick="addFile()">  
+                    </td>  
+                </tr>  
+                <tr>  
+                
+                    <td>
+                    		<input type="hidden" name="struts.token.name" value="token" />
+<input type="hidden" name="token" value="$TokenHelper.setToken("token")"  />
+                    <input type="submit" value="上传" align="center"/></td>  
+                </tr>  
+            </table>  
+        </form>  
