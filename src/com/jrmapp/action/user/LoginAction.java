@@ -57,15 +57,16 @@ public String execute() throws Exception {
 }
  
 	
-@Action(value="/user/login",results={@Result(name = LOGIN, location = "/login.html",type="redirect")})   
+@Action(value="/user/login",results={@Result(name = LOGIN, location = "/login.do",type="redirect")})   
 public String loginon() throws Exception{
 	HttpServletRequest request=ServletActionContext.getRequest();
 	if(null!=GenericBean.getUserSession(request))
 		return SUCCESS;
 	HttpSession session=request.getSession();
-/*	 String imgcode=(String)session.getAttribute(nl.captcha.servlet.Constants.SIMPLE_CAPCHA_SESSION_KEY);
+	 String imgcode=(String)session.getAttribute(nl.captcha.servlet.Constants.SIMPLE_CAPCHA_SESSION_KEY);
 	   if(verifycode==null||!verifycode.equals(imgcode)){
 		   loginmsg="验证码错误";
+		   super.addActionMessage("验证码错误");
 		   return LOGIN;
 	   }
 	   else if("admin".equals(username)&&"admin".equals(password)){
@@ -78,12 +79,12 @@ public String loginon() throws Exception{
 	else {
 		loginmsg="用户名或者密码错误";
 		return LOGIN;
-	}*/
-	   UserSession userSession=new UserSession();
+	}
+/*	   UserSession userSession=new UserSession();
 	   userSession.setUsername("谢毅");
 	   session.setAttribute(AppConstants.USERSESSION_KEY, userSession);
-	   loginmsg="登陆成功";
-	   return SUCCESS;
+	   loginmsg="登陆成功";*/
+	  // return SUCCESS;
 }
 
 @Action(value="/user/loginout",results={@Result(name = LOGIN, location = "/login.html",type="redirect")})   

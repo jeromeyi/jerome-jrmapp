@@ -9,8 +9,8 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 
-import org.apache.taglibs.standard.tag.common.xml.WhenTag;
-import org.hibernate.Query;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.validator.ClassValidator;
@@ -33,7 +33,11 @@ import com.opensymphony.xwork2.ActionSupport;
 @SuppressWarnings("serial")
 @Controller
 @Scope("prototype")
-
+//@InterceptorRef("checkLoginstack")//全局引用拦截器  
+/*@InterceptorRefs({ 
+    @InterceptorRef("interceptor-1"), 
+    @InterceptorRef("defaultStack") 
+}) */
 public class BbbAction extends ActionSupport {
 	@Resource(name="houseTypeDao")
 	private IBaseDao<HouseType,Integer> houseTypeDao;
@@ -83,11 +87,15 @@ public class BbbAction extends ActionSupport {
 	}
 
 	@Override
+	//@Action(interceptorRefs = { @InterceptorRef("checkLogin") })  
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		return super.execute();
 	}
-	
+	//局部引用拦截器,引用多个拦截器的话则是nterceptorRefs({@InterceptorRef("interceptor-1"),@InterceptorRef("interceptor-2")})  
+/*	@Action(value = "/input", results = { @Result(name = "INPUT", location = "/input.jsp"),  
+	@Result(name = "login", location = "/login.html") },interceptorRefs = { @InterceptorRef("token") })  */
+	@Action(interceptorRefs = { @InterceptorRef("token") })  
 	public String hello() throws Exception {
 		// TODO Auto-generated method stub
 		if(null==test){
