@@ -11,6 +11,9 @@ import java.io.OutputStream;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.Result;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -103,7 +106,9 @@ public class UploadAction extends ActionSupport
         }  
     }  
       
-    @Override  
+    @Override
+    @Action(value = "/upload",results = { @Result(name = "upload", location = "/upload.html")
+	},interceptorRefs = { @InterceptorRef("token") }) 
     public String execute() throws Exception  
     {  
         List<File> dstFiles = this.getUpload();  

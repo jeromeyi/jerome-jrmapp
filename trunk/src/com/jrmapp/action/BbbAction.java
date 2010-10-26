@@ -90,6 +90,7 @@ public class BbbAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
+        System.out.println("default execute......");
 		return super.execute();
 	}
 	//局部引用拦截器,引用多个拦截器的话则是nterceptorRefs({@InterceptorRef("interceptor-1"),@InterceptorRef("interceptor-2")})  
@@ -117,7 +118,7 @@ public class BbbAction extends ActionSupport {
 		   //throw new Exception("测试");
         user1.setName("test1"); 
 		//userService.save(user1);
-		user=userService.get(6);
+		user=userService.get(1);
     	System.out.println("userService===="+user.getName());
     	Set addSet=user.getAddresses();
     	Iterator iterator=addSet.iterator();
@@ -125,7 +126,7 @@ public class BbbAction extends ActionSupport {
     		Address address=(Address)iterator.next();
     		System.out.println("address===="+address.getAddress());
     	}
-		Address  address = (Address) addressDao.get(6L);  
+		Address  address = (Address) addressDao.get(1L);  
         System.out.println(address.getAddress());  
 		Vector v=new Vector();
 		Collections.synchronizedList(v);
