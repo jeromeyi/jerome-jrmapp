@@ -35,7 +35,7 @@ public class CheckLoginInterceptor extends AbstractInterceptor {
         }
         ActionProxy actionProxy = actionInvocation.getProxy();
 		Method method = action.getClass().getMethod(actionProxy.getMethod());
-		System.out.println("method===="+method.getName());
+		System.out.println("action====="+action.getClass().getName()+"   and   method===="+method.getName());
         // 确认Session中是否存在LOGIN
         Map session = actionInvocation.getInvocationContext().getSession();
         UserSession userSession = (UserSession) session.get(AppConstants.USERSESSION_KEY);
