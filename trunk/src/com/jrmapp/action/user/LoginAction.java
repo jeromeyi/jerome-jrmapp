@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
@@ -57,7 +58,7 @@ public String execute() throws Exception {
 }
  
 	
-@Action(value="/user/login",results={@Result(name = LOGIN, location = "/login.do",type="redirect")})   
+@Action(value="/user/login",results={@Result(name = LOGIN, location = "/login.html",type="redirect")} )   
 public String loginon() throws Exception{
 	HttpServletRequest request=ServletActionContext.getRequest();
 	if(null!=GenericBean.getUserSession(request))
