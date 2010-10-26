@@ -25,7 +25,7 @@ interceptor保证actionMessage在redirect后不会丢失
 <interceptors> 
 <interceptor name="checkLogin" class="com.jrmapp.interceptor.CheckLoginInterceptor"/> 
 <interceptor-stack name="myStack"> 
-<interceptor-ref name="checkLogin"/>
+<interceptor-ref name="checkLogin"/> 
 <interceptor-ref name="store"> 
 <param name="operationMode">AUTOMATIC</param> 
 </interceptor-ref> 
@@ -38,6 +38,7 @@ interceptor保证actionMessage在redirect后不会丢失
 <result name="executeResult" type="freemarker">/commons/execute_result.ftl</result> 
 <result name="exception" type="freemarker">/commons/exception.ftl</result> 
  <result name="invalid.token">/common/tokeninterceptor.html</result>  
+  <result name="login" type="redirect">/login.html</result>  
 </global-results> 
 </package> 
  

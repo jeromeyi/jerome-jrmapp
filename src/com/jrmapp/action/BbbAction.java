@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
-import org.apache.struts2.convention.annotation.InterceptorRefs;
+import org.apache.struts2.convention.annotation.Result;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.validator.ClassValidator;
@@ -88,7 +88,6 @@ public class BbbAction extends ActionSupport {
 	}
 
 	@Override
-	//@Action(interceptorRefs = { @InterceptorRef("checkLogin") })  
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		return super.execute();
@@ -96,8 +95,9 @@ public class BbbAction extends ActionSupport {
 	//局部引用拦截器,引用多个拦截器的话则是nterceptorRefs({@InterceptorRef("interceptor-1"),@InterceptorRef("interceptor-2")})  
 /*	@Action(value = "/input", results = { @Result(name = "INPUT", location = "/input.jsp"),  
 	@Result(name = "login", location = "/login.html") },interceptorRefs = { @InterceptorRef("token") })  */
-	//@Action(interceptorRefs = { @InterceptorRef("token") }) 
-	@Action(interceptorRefs = { @InterceptorRef("token"),@InterceptorRef("checkLogin") })
+	@Action(value = "/bbbhello",results = { @Result(name = "hello", location = "/bbb-hello.html")
+	},interceptorRefs = { @InterceptorRef("token") }) 
+	//@Action(interceptorRefs=@InterceptorRef("token"))
 	public String hello() throws Exception {
 		// TODO Auto-generated method stub
 		if(null==test){
