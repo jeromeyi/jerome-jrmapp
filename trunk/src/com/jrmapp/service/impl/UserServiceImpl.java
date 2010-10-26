@@ -1,8 +1,8 @@
 package com.jrmapp.service.impl;
 
-import java.io.Serializable;
-
 import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 
 import com.jrmapp.dao.base.IBaseDao;
 import com.jrmapp.pojo.Address;
@@ -10,7 +10,6 @@ import com.jrmapp.pojo.Message;
 import com.jrmapp.pojo.User;
 import com.jrmapp.pojo.UserIdCard;
 import com.jrmapp.service.UserService;
-import com.jrmapp.service.base.BaseService;
 import com.jrmapp.service.base.BaseServiceImpl;
 
 /**
@@ -18,6 +17,8 @@ import com.jrmapp.service.base.BaseServiceImpl;
  * @version 创建时间：Oct 9, 2010 2:46:25 PM
  * @类说明
  */
+@Service("userService")
+//等价于@Component("userService")
 public class UserServiceImpl extends BaseServiceImpl implements UserService{
 	@Resource(name="userDao")
 	private IBaseDao<User,Long> userDao;

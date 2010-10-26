@@ -9,6 +9,7 @@ xmlns:context="http://www.springframework.org/schema/context"
 	>
 	 
 	  <context:component-scan base-package="com.jrmapp.action" />  
+	  <context:component-scan base-package="com.jrmapp.service"/>
 	<!-- 使用外部文件配置数据源的属性 -->
 	<!--   换成<context:property-placeholder location="classpath:database_conn.properties"/> 这样的方式载入
 	<bean

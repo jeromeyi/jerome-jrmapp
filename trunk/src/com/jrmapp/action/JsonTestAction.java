@@ -24,7 +24,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @类说明
  */
 @SuppressWarnings("serial")
-@ParentPackage("json-default")  
+//@ParentPackage("json-default")  
 @Result(type="json",name="test") 
 @Controller
 @Scope("prototype")
