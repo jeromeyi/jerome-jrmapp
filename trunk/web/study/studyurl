@@ -1,3 +1,14 @@
+集成了：
+1. axis webservice
+2. 全文检索
+3. activemq jms
+4. 权限可通过struts2拦截器获取action和method进行处理
+5. 数据库连接池优化  每秒并发3000没有任何问题
+
+
+--娱乐
+http://www.dapenti.com/
+
 --spring annotation
 http://www.blogjava.net/sealyu/archive/2010/06/02/309801.html
 
