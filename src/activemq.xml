@@ -4,7 +4,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
   http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.4.1.xsd">
-
+<!--  
  <broker useJmx="false" brokerName="jdbcBroker" xmlns="http://activemq.apache.org/schema/core">
     <persistenceAdapter>
        <jdbcPersistenceAdapter  dataSource="#datasource"/>
@@ -14,6 +14,40 @@
        <transportConnector name="default" uri="tcp://localhost:61616"/>
     </transportConnectors>
   </broker>
+ -->
+ <broker xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" dataDirectory="/data" destroyApplicationContextOnStop="true">
+   <destinationPolicy>
+            <policyMap>
+              <policyEntries>
+                <policyEntry topic=">" producerFlowControl="true" memoryLimit="1mb">
+                  <pendingSubscriberPolicy>
+                    <vmCursor />
+                  </pendingSubscriberPolicy>
+                </policyEntry>
+                <policyEntry queue=">" producerFlowControl="true" memoryLimit="1mb">
+                  <!-- Use VM cursor for better latency
+                       For more information, see:
+                       
+                       http://activemq.apache.org/message-cursors.html
+                       
+                  <pendingQueuePolicy>
+                    <vmQueueCursor/>
+                  </pendingQueuePolicy>
+                  -->
+                </policyEntry>
+              </policyEntries>
+            </policyMap>
+        </destinationPolicy> 
+           <managementContext>
+            <managementContext createConnector="false"/>
+        </managementContext>
+         <persistenceAdapter>
+            <kahaDB directory="/data/kahadb"/>
+        </persistenceAdapter>
+            <transportConnectors>
+       <transportConnector name="default" uri="tcp://localhost:61616"/>
+    </transportConnectors>
+ </broker>
  
   <!-- Embedded Derby DataSource Sample Setup 
   <bean id="derby-ds" class="org.apache.derby.jdbc.EmbeddedDataSource">
