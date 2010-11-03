@@ -31,26 +31,21 @@ xmlns:context="http://www.springframework.org/schema/context"
     </bean>
 
 	
- <bean id="connectionFactory"  
-        class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
-        <property name="brokerURL" value="tcp://localhost:61616"/>  
-        <property name="useAsyncSend" value="true"/>  
-    </bean>  
-  
-    <bean id="topicListenConnectionFactory"  
-        class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
-        <property name="brokerURL" value="tcp://localhost:61617"/>  
-        <property name="clientID" value="com.jrmapp.client1"/>  
-         <property name="optimizeAcknowledge" value="true" />
-    </bean>  
- <!--定义消息队列-->  
-    <bean id="myQueue" class="org.apache.activemq.command.ActiveMQQueue">  
-          <constructor-arg value="com.jrmapp.queue"/>  
-    </bean>  
-    <!--定义订阅主题-->  
-    <bean id="myTopic"  class="org.apache.activemq.command.ActiveMQTopic">  
-          <constructor-arg value="com.jrmapp.topic"/>  
-    </bean>  
+<bean id="connectionFactory"  class="org.apache.activemq.ActiveMQConnectionFactory">
+<property name="brokerURL" value="tcp://localhost:61616" />
+</bean>
+
+<!-- 
+<bean id="dest" class="org.apache.activemq.command.ActiveMQQueue">
+<constructor-arg value="myDest"/>
+</bean>
+ -->
+<bean id="QUEUE" class="org.apache.activemq.command.ActiveMQQueue">
+<constructor-arg value="myQueue"/>
+</bean>
+<bean id="TOPIC" class="org.apache.activemq.command.ActiveMQTopic">
+<constructor-arg value="myTopic"/>
+</bean>
 
 <bean id="jmsTemplate"
         class="org.springframework.jms.core.JmsTemplate">
@@ -61,12 +56,10 @@ xmlns:context="http://www.springframework.org/schema/context"
             </bean>
         </property>
         <property name="defaultDestination"
-            ref="myQueue" />
+            ref="QUEUE" />
         <property name="messageConverter"
             ref="defaultMessageConverter" />
     </bean>
-    
-    
 <!-- 
 <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory">
@@ -102,12 +95,12 @@ xmlns:context="http://www.springframework.org/schema/context"
 
 	<!-- POJO which send Message uses  Spring JmsTemplate -->
 	<bean id="topicMessageProducer" class="com.jrmapp.activemq.TopicMessageProducer">
-		<property name="template" ref="jmsTopicTemplate" />
-		<property name="destination" ref="myTopic" />
+		<property name="template" ref="jmsTemplate" />
+		<property name="destination" ref="TOPIC" />
 	</bean>
 	<bean id="queueMessageProducer" class="com.jrmapp.activemq.QueueMessageProducer">
-		<property name="template" ref="jmsQueueTemplate" />
-		<property name="destination" ref="myQueue" />
+		<property name="template" ref="jmsTemplate" />
+		<property name="destination" ref="QUEUE" />
 	</bean>
 
 	<!--  Message Driven POJO (MDP) -->
@@ -129,7 +122,13 @@ xmlns:context="http://www.springframework.org/schema/context"
 		<property name="messageConverter" ref="defaultMessageConverter" />
 	</bean>
 
-
+	<bean id="topicListenerB" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg ref="topicConsumerB" />
+		<!--  may be other method -->
+		<property name="defaultListenerMethod" value="receive" />
+		<!-- custom MessageConverter define -->
+		<property name="messageConverter" ref="defaultMessageConverter" />
+	</bean>
 
     <bean id="queueListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
 		<constructor-arg ref="queueConsumer" />
@@ -139,55 +138,22 @@ xmlns:context="http://www.springframework.org/schema/context"
 		<property name="messageConverter" ref="defaultMessageConverter" />
 	</bean>
 
-    <!--  listener container，MDP无需实现接口	subscriptionDurable属性：设置监听是否是持久--> 
+    <!--  listener container，MDP无需实现接口 -->
 	<bean id="topicListenerContainerA" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-		<property name="connectionFactory" ref="topicListenConnectionFactory" />
-		<property name="pubSubDomain" value="true"/>  
-          
-        <property name="concurrentConsumers" value="1"/>  
-        <property name="maxConcurrentConsumers" value="1"/>  
-        <property name="receiveTimeout" value="10000"/>  
-		<property name="destination" ref="myTopic" />
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="TOPIC" />
 		<property name="messageListener" ref="topicListenerA" />
-	     <property name="subscriptionDurable" value="true"/>  
-        <property name="clientId" value="com.jrmapp.client1"/>  
-        <property name="durableSubscriptionName" value="com.jrmapp.client1"/>  
-         <property name="taskExecutor" ref="taskExecutor" />  
-        <property name="cacheLevel" value="0"/>  
 	</bean>
 
+    <bean id="topicListenerContainerB" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="TOPIC" />
+		<property name="messageListener" ref="topicListenerB" />
+	</bean>
     
     <bean id="queueListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="destination" ref="myQueue" />
+		<property name="destination" ref="QUEUE" />
 		<property name="messageListener" ref="queueListener" />
-		 <property name="concurrentConsumers" value="1"/>  
-        <property name="maxConcurrentConsumers" value="1"/>  
-        <property name="receiveTimeout" value="10000"/>  
-        <property name="sessionAcknowledgeModeName" value="CLIENT_ACKNOWLEDGE"/>
-        <property name="taskExecutor" ref="taskExecutor" />  
-        <property name="cacheLevel" value="0"/>  
 	</bean>
-
-	 <!--DefaultMessageListenerContainer默认的线程池支持-->  
-    <bean id="taskExecutor"   
-        class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>  
-	<!--消息发送模板-->  
-    <bean id="jmsQueueTemplate"  
-        class="org.springframework.jms.core.JmsTemplate102">  
-        <property name="connectionFactory" ref="connectionFactory"/>  
-        <property name="messageConverter" ref="defaultMessageConverter"/>  
-        <property name="sessionTransacted" value="true"/>  
-        <property name="receiveTimeout" value="10000"/>  
-    </bean>  
-      
-    <bean id="jmsTopicTemplate"  
-        class="org.springframework.jms.core.JmsTemplate102">  
-        <property name="connectionFactory" ref="connectionFactory"/>  
-        <property name="messageConverter" ref="defaultMessageConverter"/>  
-        <property name="pubSubDomain" value="true"/>  
-        <property name="sessionTransacted" value="true"/>  
-         <property name="explicitQosEnabled" value="true" />  
-        <property name="receiveTimeout" value="10000"/>  
-    </bean>  
 </beans>
