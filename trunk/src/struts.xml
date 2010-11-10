@@ -25,7 +25,9 @@ interceptor保证actionMessage在redirect后不会丢失
 <interceptors> 
 <interceptor name="checkLogin" class="com.jrmapp.interceptor.CheckLoginInterceptor"/> 
 <interceptor-stack name="myStack"> 
+<!-- 
 <interceptor-ref name="checkLogin"/> 
+ -->
 <interceptor-ref name="store"> 
 <param name="operationMode">AUTOMATIC</param> 
 </interceptor-ref> 
