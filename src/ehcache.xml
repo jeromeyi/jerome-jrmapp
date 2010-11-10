@@ -37,18 +37,18 @@
 		diskExpiryThreadIntervalSeconds- The number of seconds between runs of the disk expiry thread. The default value
 		is 120 seconds.
 	-->
-
+<terracottaConfig url="localhost:9510"/>
 
 	<cache name="org.hibernate.cache.StandardQueryCache"
 		maxElementsInMemory="50" 
 		eternal="false" 
 		timeToIdleSeconds="3600"
 		timeToLiveSeconds="7200" 
-		overflowToDisk="true" />
+	   />
 	<cache name="org.hibernate.cache.UpdateTimestampsCache"
 		  maxElementsInMemory="5000" 
 		  eternal="true" 
-		  overflowToDisk="true" />
+		   />
 		  
     <!--
         默认的Cache配置。用来实现CacheManager.add(String cacheName)创建的缓存
@@ -80,5 +80,7 @@
 		eternal="false" 
 		timeToIdleSeconds="10000"
 		timeToLiveSeconds="10000" 
-		overflowToDisk="true" />
+		>
+		 <terracotta clustered="true" coherent="false"/>
+		 </cache>
 </ehcache>
