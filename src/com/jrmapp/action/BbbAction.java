@@ -63,8 +63,8 @@ public class BbbAction extends ActionSupport {
     private long userID;  
     private long addressID;
     private User user;
-    private int pageNo;
-    private int pageSize;
+    private int pageNo=1;
+    private int pageSize=1;
 	public int getPageNo() {
 		return pageNo;
 	}
