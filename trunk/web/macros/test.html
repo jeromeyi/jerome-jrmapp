@@ -1,3 +1,86 @@
 #macro (testMacro $helloinfo)   
    hello,$helloinfo, This is my HTML page. <br>
 #end    
+
+
+##生成分页信息链接
+##必须跟#macro(jsPage $pageInfo $form)一起使用
+#macro(jsPageLink $pageInfo $form)
+#if($!pageInfo.count>0)
+<div style="text-align:right">$!pageInfo.page/$!pageInfo.pages&nbsp;
+#if($!pageInfo.page>1)<a href="javascript:TurnPage ($pageInfo.prePageNo,'$form')">上一页</a>
+#else<span class="txt_01">上一页</span>
+#end
+#if($pageInfo.page<$pageInfo.pages)<a href="javascript:TurnPage ($pageInfo.nextPageNo,'$form')">下一页</a>
+#else<span class="txt_01">下一页</span>
+#end
+</div>
+#end
+#end
+
+
+
+##生成分页信息条
+##并且实现javascript
+##function TurnPage (PageNum,frm)
+##{
+##	if(frm==null || frm=='')
+##       frm=document.getElementById('listForm');
+##   else
+##	   frm=document.getElementById(frm);
+##	if (PageNum!="goto"){
+##	   frm.page.value = PageNum;
+##	}
+##	frm.submit ();
+##}
+##在my中指需要加载/web/scripts/corcenter/functions.js
+##
+## $pageInfo为PageBean 实例
+## $form为 分页参数表单id
+#macro(jsPage $pageInfo $form)
+#if($!pageInfo.totalCount>0)
+<div class="pagination" align="right"> 
+#if($!pageInfo.getCurrentPageNo()>1)
+<a href="javascript:TurnPage (1,'$form')" style="cursor:hand;" title="第一页"> << </a> 
+#else
+<a  class="noncepage"> << </a> 
+#end
+#if($!pageInfo.getCurrentPageNo()>1)
+<a href="javascript:TurnPage ($!pageInfo.getCurrentPageNo()-1,'$form')" style="cursor:hand;" title="上一页"><</a> 
+#else
+<a  class="noncepage"> < </a> 
+#end
+
+ #set($begin = 1)	#if($!pageInfo.getCurrentPageNo() > 2)	#set($begin = $!pageInfo.getCurrentPageNo() - 2)	#end
+	  #set($last = $begin + 4) #if($last > $!pageInfo.getTotalPageCount()) #set($last = $!pageInfo.getTotalPageCount()) #end
+	  #foreach($index in [$begin..$last])
+		#if($index==$!pageInfo.getCurrentPageNo())
+		<a class="noncepage" title="当前页">$index</a> 
+		#else
+		<a href="javascript:TurnPage ($index,'$form')" style="cursor:hand;" title="第$index页">$index</a> 
+		#end
+	#end
+	
+	#if($pageInfo.getCurrentPageNo()<$pageInfo.getTotalPageCount())
+<a href="javascript:TurnPage ($!pageInfo.getCurrentPageNo()+1,'$form')" style="cursor:hand;" title="下一页"> > </a> 
+#else
+<a  class="noncepage"> > </a> 
+#end
+#if($pageInfo.getCurrentPageNo()<$pageInfo.getTotalPageCount())
+<a href="javascript:TurnPage ($!pageInfo.getTotalPageCount(),'$form')" style="cursor:hand;" title="最末页"> >> </a> 
+#else
+<a  class="noncepage"> >> </a> 
+#end
+Pages:  $!pageInfo.getCurrentPageNo() / $!pageInfo.getTotalPageCount()
+<input name="pageNo" type="text" value="$!pageInfo.currentPageNo" class="inputnumber"  /> 
+<input name="pageSize" type="hidden" value="$!pageInfo.pageSize" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }"/>
+<input name="go" id="go" type="button" value="GO" class="inputgo" onclick="TurnPage ('goto','$form')"/> 
+</div>  
+ 
+#end
+#end
+
+
+
+
+

@@ -63,6 +63,24 @@ public class BbbAction extends ActionSupport {
     private long userID;  
     private long addressID;
     private User user;
+    private int pageNo;
+    private int pageSize;
+	public int getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -118,7 +136,7 @@ public class BbbAction extends ActionSupport {
 		   //throw new Exception("测试");
         user1.setName("test1"); 
 		//userService.save(user1);
-		user=userService.get(1);
+		user=userService.get(6);
     	System.out.println("userService===="+user.getName());
     	Set addSet=user.getAddresses();
     	Iterator iterator=addSet.iterator();
@@ -126,7 +144,7 @@ public class BbbAction extends ActionSupport {
     		Address address=(Address)iterator.next();
     		System.out.println("address===="+address.getAddress());
     	}
-		Address  address = (Address) addressDao.get(1L);  
+		Address  address = (Address) addressDao.get(6L);  
         System.out.println(address.getAddress());  
 		Vector v=new Vector();
 		Collections.synchronizedList(v);
@@ -205,6 +223,11 @@ public class BbbAction extends ActionSupport {
 			System.out.println("native--"+objs[0]+"==="+objs[1]);
 		}*/
 		return page;
+	}
+	
+	public String testQuery() throws Exception{
+		testPage=houseTypeDao.pagedQuery(pageNo, pageSize);
+		return "testQuery";
 	}
 	
 	public String getA() {

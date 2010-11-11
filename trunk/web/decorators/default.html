@@ -56,6 +56,19 @@ html, body {
  
 </style> 
 	</head>
+	<script>
+	function TurnPage (PageNum,frm)
+{
+	if(frm==null || frm=='')
+       frm=document.getElementById('listForm');
+   else
+	   frm=document.getElementById(frm);
+	if (PageNum!="goto"){
+	   frm.pageNo.value = PageNum;
+	}
+	frm.submit ();
+}
+</script>
 	<body>
 		##include("decorators/header.html")
 		#parse("decorators/header.html")
