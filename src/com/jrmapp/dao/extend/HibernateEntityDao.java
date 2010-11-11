@@ -217,8 +217,8 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
 
         // 执行查询 
         int totalCount = ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue(); 
-        if(totalCount<pageNo*pageSize)
-        	return new Page(); 
+/*        if(totalCount<pageNo*pageSize)
+        	return new Page(); */
         // 将之前的Projection和OrderBy条件重新设回去 
         criteria.setProjection(projection); 
         if (projection == null) { 
