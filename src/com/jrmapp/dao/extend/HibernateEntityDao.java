@@ -216,7 +216,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
         } 
 
         // 执行查询 
-        int totalCount = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult(); 
+        int totalCount = ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue(); 
 
         // 将之前的Projection和OrderBy条件重新设回去 
         criteria.setProjection(projection); 
