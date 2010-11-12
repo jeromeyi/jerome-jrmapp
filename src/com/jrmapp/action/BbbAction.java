@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -30,6 +31,7 @@ import com.jrmapp.pojo.UserIdCard;
 import com.jrmapp.pojo.test;
 import com.jrmapp.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 
 @SuppressWarnings("serial")
 @Controller
@@ -64,7 +66,7 @@ public class BbbAction extends ActionSupport {
     private long addressID;
     private User user;
     private int pageNo=1;
-    private int pageSize=1;
+    private int pageSize=20;
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -104,6 +106,32 @@ public class BbbAction extends ActionSupport {
 	public void setTest(test test) {
 		this.test = test;
 	}
+
+	@Override
+	public void validate()  {
+		System.out.println("验证开始。。。。。");
+		Map map=this.getFieldErrors();
+		this.clearFieldErrors();
+		Set set=map.keySet();
+		Iterator iterator=set.iterator();
+		while(iterator.hasNext()){
+			String key=iterator.next().toString();
+			String mess=map.get(key).toString();
+			if("pageSize".equals(key))
+		       this.addFieldError(key, "每页记录数输入错误!");
+			else if("pageNo".equals(key)){
+			   this.addFieldError(key, "页数输入错误!");
+			   this.addFieldError("test", "测试一条!");
+			}
+			
+		}
+		 //return   (intStr   ==   null)   ?   false   :   intStr.matches( "\\d+ "); 
+		if (pageSize < 0) {
+			this.addFieldError("number", "请您输入一个大于０的整数!");
+		}
+	}
+	
+	
 
 	@Override
 	public String execute() throws Exception {
@@ -224,9 +252,16 @@ public class BbbAction extends ActionSupport {
 		}*/
 		return page;
 	}
-	
+	//return "testQuery" 返回到bbb-testQuery.html  return "success" 返回 bbb.html
+	//@InputConfig(methodName="query")
+	@InputConfig(resultName="testQuery")
 	public String testQuery() throws Exception{
 		testPage=houseTypeDao.pagedQuery(pageNo, pageSize);
+		return "testQuery";
+	}
+	
+	//注意和@InputConfig结合使用
+	public String query() {
 		return "testQuery";
 	}
 	
