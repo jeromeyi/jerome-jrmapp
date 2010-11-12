@@ -202,6 +202,10 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
     public Page pagedQuery(Criteria criteria, int pageNo, int pageSize) throws Exception{ 
     	getHibernateTemplate().setCacheQueries(true);  
         Assert.notNull(criteria); 
+        if(pageSize<1)
+        	pageSize=1;
+        if(pageNo<1)
+        	pageNo=1;
         Assert.isTrue(pageNo >= 1, "pageNo should start from 1"); 
         CriteriaImpl impl = (CriteriaImpl) criteria; 
 
@@ -214,11 +218,12 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
         } catch (Exception e) { 
             throw new InternalError(" Runtime Exception impossibility throw "); 
         } 
-
         // 执行查询 
         int totalCount = ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue(); 
-/*        if(totalCount<pageNo*pageSize)
-        	return new Page(); */
+
+        if(pageNo*pageSize-totalCount>=pageSize)
+        	pageNo=totalCount % pageSize == 0?totalCount/ pageSize:totalCount/ pageSize+1;
+        	//return new Page(); 
         // 将之前的Projection和OrderBy条件重新设回去 
         criteria.setProjection(projection); 
         if (projection == null) { 
