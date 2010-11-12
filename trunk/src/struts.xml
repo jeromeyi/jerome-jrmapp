@@ -38,7 +38,7 @@ interceptor保证actionMessage在redirect后不会丢失
 <default-interceptor-ref name="myStack" /> 
 <global-results> 
 <result name="executeResult" type="freemarker">/commons/execute_result.ftl</result> 
-<result name="exception" type="freemarker">/commons/exception.ftl</result> 
+<result name="exception" type="freemarker">/error.jsp</result> 
  <result name="invalid.token">/common/tokeninterceptor.html</result>  
   <result name="login" type="redirect">/login.html</result>  
 </global-results> 
