@@ -107,22 +107,7 @@ H1 a {
 	width: 182px;
 	text-decoration: none;
 }
-.MM a:active {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	line-height: 26px;
-	color: #333333;
-	background-image: url(images/menu_bg2.gif);
-	background-repeat: no-repeat;
-	height: 26px;
-	width: 182px;
-	display: block;
-	text-align: center;
-	margin: 0px;
-	padding: 0px;
-	overflow: hidden;
-	text-decoration: none;
-}
+
 .MM a:hover {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -139,9 +124,21 @@ H1 a {
 	width: 182px;
 	text-decoration: none;
 }
+.test {
+	font-weight: bold;
+}
 </style>
 </head>
-
+<script>
+function changeBg(vhref)
+{
+var alllinks=document.getElementsByName("menuhref");
+for(var i=0;i<alllinks.length;i++){
+   alllinks[i].className="";//默认未点击时引用的样式
+}
+vhref.className="test";//点击切换样式
+}
+</script>
 <body  scroll="auto">
 <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#EEF2FB">
   <tr>
@@ -154,9 +151,9 @@ H1 a {
           </tr>
         </table>
         <ul class="MM">
-          <li><a href="table.html" target="main">基本设置</a></li>
-          <li><a href="right.html" target="main">邮件设置</a></li>
-          <li><a href="right.html" target="main">广告设置</a></li>
+          <li><a name="menuhref" id="menuhref" href="bbb!testQuery.do" target="main" onclick="changeBg(this)">基本设置</a></li>
+          <li><a name="menuhref" id="menuhref" href="table.html" target="main" onclick="changeBg(this)">邮件设置</a></li>
+          <li><a name="menuhref" id="menuhref" href="right.html" target="main" onclick="changeBg(this)">广告设置</a></li>
           <li><a href="right.html" target="main">114增加</a></li>
           <li><a href="right.html" target="main">114管理</a></li>
           <li><a href="right.html" target="main">联系方式</a></li>
