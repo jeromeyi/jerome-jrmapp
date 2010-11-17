@@ -17,7 +17,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Proxy;
-
+import org.hibernate.validator.Max;
+import org.hibernate.validator.Min;
 
 
 @Entity
@@ -55,6 +56,8 @@ public class HouseType implements  Serializable {
 		private long toparea       ;//number(10)    y                最高适用面积(实测M2)        
 		
 		@Column(nullable=false, length=1)
+		@Min(value = 0,message = table+"状态值必须大于等于{value}")
+		@Max(value = 1,message = table+"状态值必须小于等于{value}")
 		private int status        ;//number(1)              1       有效状态 （1：有效  0：无效） 
 		
 		@Column(nullable=true, length=32)
