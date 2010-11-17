@@ -41,14 +41,14 @@
 #if($!pageInfo.totalCount>0)
 <div class="pagination" align="right"> 
 #if($!pageInfo.getCurrentPageNo()>1)
-<a href="javascript:TurnPage (1,'$form')" style="cursor:hand;" title="第一页"> << </a> 
+<a href="javascript:TurnPage (1,'$form')" style="cursor:hand;" title="第一页"><<</a> 
 #else
-<a  class="noncepage"> << </a> 
+<a  class="noncepage"><<</a> 
 #end
 #if($!pageInfo.getCurrentPageNo()>1)
 <a href="javascript:TurnPage ($!pageInfo.getCurrentPageNo()-1,'$form')" style="cursor:hand;" title="上一页"><</a> 
 #else
-<a  class="noncepage"> < </a> 
+<a  class="noncepage"><</a> 
 #end
 
  #set($begin = 1)	#if($!pageInfo.getCurrentPageNo() > 5)	#set($begin = $!pageInfo.getCurrentPageNo() - 5)	#end
@@ -62,16 +62,16 @@
 	#end
 	
 	#if($pageInfo.getCurrentPageNo()<$pageInfo.getTotalPageCount())
-<a href="javascript:TurnPage ($!pageInfo.getCurrentPageNo()+1,'$form')" style="cursor:hand;" title="下一页"> > </a> 
+<a href="javascript:TurnPage ($!pageInfo.getCurrentPageNo()+1,'$form')" style="cursor:hand;" title="下一页">></a> 
 #else
-<a  class="noncepage"> > </a> 
+<a  class="noncepage">></a> 
 #end
 #if($pageInfo.getCurrentPageNo()<$pageInfo.getTotalPageCount())
-<a href="javascript:TurnPage ($!pageInfo.getTotalPageCount(),'$form')" style="cursor:hand;" title="最末页"> >> </a> 
+<a href="javascript:TurnPage ($!pageInfo.getTotalPageCount(),'$form')" style="cursor:hand;" title="最末页">>></a> 
 #else
-<a  class="noncepage"> >> </a> 
+<a  class="noncepage">>></a> 
 #end
-&nbsp;&nbsp;每页显示
+|每页显示
 <input name="pageSize" type="text" class="inputnumber"  value="$!pageInfo.pageSize" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }"/>
 条记录|
 第<input name="pageNo" type="text" value="$!pageInfo.currentPageNo" class="inputnumber" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }" /> 页,共$!pageInfo.getTotalPageCount()页
