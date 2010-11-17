@@ -1,14 +1,9 @@
 package com.test;
 import java.util.Collections;
-import java.util.List;
 import java.util.Vector;
 
 import javax.annotation.Resource;
 
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.validator.ClassValidator;
-import org.hibernate.validator.InvalidValue;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,20 +11,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jrmapp.dao.base.IBaseDao;
-import com.jrmapp.dao.support.Page;
 import com.jrmapp.pojo.HouseType;
 import com.jrmapp.pojo.SellSeries;
+import com.jrmapp.service.HouseTypeService;
 
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class DaoTest {
+/*@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})*/
+public class DaoTest  extends JavenTestCase{
     
 	@Resource(name="houseTypeDao")
 	private IBaseDao<HouseType,Integer> houseTypeDao;
 	@Resource(name="sellSeriesDao")
 	private IBaseDao<SellSeries,Integer> sellSeriesDao;
+	@Resource(name="houseTypeService")
+	private HouseTypeService houseTypeService;
 	
 	@Test
 	public void test() throws Exception{
@@ -38,13 +35,13 @@ public class DaoTest {
          
 			//HouseType ht1=houseTypeDao.get(2923);
 			//SellSeries ss=sellSeriesDao.get(3062);
-			HouseType ht=new HouseType();
-			ht.setHousetypename("测试");
+/*			HouseType ht=new HouseType();
+			ht.setHousetypename("测试异常");
 			ht.setHousecatid(23668);
 			ht.setInitarea(100);
 			ht.setToparea(200);
 			ht.setStatus(2);
-			/******************Test validator ********/
+
 		    // 注意该处只验证了HouseType 为了说明 @Valid 注释的使用
 		    ClassValidator<HouseType> classValidator = new ClassValidator<HouseType> (HouseType.class);
 		    InvalidValue[] validMessages = classValidator.getInvalidValues(ht);
@@ -57,15 +54,28 @@ public class DaoTest {
 		        +" Value 是: " + value.getValue()
 		        +" Bean 是: "+ value.getBean()
 		        +" \n\t BeanClass 是:" + value.getBeanClass());
-		    }
+		    }*/
 		    
 		    	
 			    //System.out.println("验证消息是: " + value.getMessage() );
 			//}
 		    
-		    Assert.assertTrue(validMessages.length>0);
-		    
-			houseTypeDao.save(ht);
+		   // Assert.assertTrue(validMessages.length>0);
+		HouseType ht=new HouseType();
+		ht.setHousetypename("测试异常");
+		ht.setHousecatid(1);
+		ht.setInitarea(40);
+		ht.setToparea(40);
+		ht.setStatus(1);
+/*		HouseType ht1=new HouseType();
+		ht1.setHousetypename("测试异常");
+		ht1.setHousecatid(1);
+		ht1.setInitarea(40);
+		ht1.setToparea(40);
+		ht1.setStatus(1);
+		houseTypeService.save(ht);
+		houseTypeService.save(ht1);*/
+		houseTypeService.save(ht);
 			
 		/*//System.out.println("ht1====="+ht1.getHousetypename());
 		//System.out.println("ss====="+ss.getSeriesname());

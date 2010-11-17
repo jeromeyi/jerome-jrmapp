@@ -15,8 +15,6 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.validator.ClassValidator;
-import org.hibernate.validator.InvalidValue;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -189,25 +187,7 @@ public class BbbAction extends ActionSupport {
 			ht.setInitarea(100);
 			ht.setToparea(200);
 			ht.setStatus(2);
-			/******************Test validator ********/
-		    // 注意该处只验证了HouseType 为了说明 @Valid 注释的使用
-		    ClassValidator<HouseType> classValidator = new ClassValidator<HouseType> (HouseType.class);
-		    InvalidValue[] validMessages = classValidator.getInvalidValues(ht);
-		    for (InvalidValue value : validMessages) {
-		     /** 
-		    System.out.println("InvalidValue 的长度是:" + validMessages.length
-		        +" . 验证消息是: " + value.getMessage() 
-		        +" . PropertyPath 是:" + value.getPropertyPath()
-		        +" .\n\t PropertyName 是: " +value.getPropertyName()
-		        +" Value 是: " + value.getValue()
-		        +" Bean 是: "+ value.getBean()
-		        +" \n\t BeanClass 是:" + value.getBeanClass());
-		    }
-		    **/
-		    	
-			    //System.out.println("验证消息是: " + value.getMessage() );
-			}
-		    
+			
 
 		    
 			//houseTypeDao.save(ht);
