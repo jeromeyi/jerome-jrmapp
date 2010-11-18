@@ -60,8 +60,10 @@ xmlns:context="http://www.springframework.org/schema/context"
                     ref="connectionFactory" />
             </bean>
         </property>
+        <!-- 
         <property name="defaultDestination"
             ref="myQueue" />
+             -->
         <property name="messageConverter"
             ref="defaultMessageConverter" />
     </bean>
