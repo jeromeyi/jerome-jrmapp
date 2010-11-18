@@ -41,7 +41,7 @@
 		<!-- 	<tx:method name="update(..)" propagation="REQUIRED" rollback-for="java.lang.Exception"/>  -->
 		<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
 			<tx:method name="del*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
-			<tx:method name="nested*" propagation="NESTED" rollback-for="java.lang.Exception"/>
+			<tx:method name="nested*" propagation="NESTED"/>
 			<tx:method name="requiresNew*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
 		<tx:method name="*" propagation="SUPPORTS" read-only="true" /> 
 		</tx:attributes>

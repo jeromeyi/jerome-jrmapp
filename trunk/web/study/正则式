@@ -1,0 +1,13 @@
+匹配中文字符的正则表达式： [\u4e00-\u9fa5]
+匹配双字节字符(包括汉字在内)：[^\x00-\xff]
+匹配空行的正则表达式：\n[\s| ]*\r
+匹配HTML标记的正则表达式：/<(.*)>.*<\/\1>|<(.*) \/>/ 
+匹配首尾空格的正则表达式：(^\s*)|(\s*$)
+
+利用正则表达式分解和转换IP地址：/(\d+)\.(\d+)\.(\d+)\.(\d+)/g
+匹配Email地址的正则表达式：\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*
+匹配网址URL的正则表达式：http://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?
+用正则表达式限制只能输入中文：onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,&#39;&#39;)" onbeforepaste="clipboardData.setData(&#39;text&#39;,clipboardData.getData(&#39;text&#39;).replace(/[^\u4E00-\u9FA5]/g,&#39;&#39;))"
+用正则表达式限制只能输入全角字符： onkeyup="value=value.replace(/[^\uFF00-\uFFFF]/g,&#39;&#39;)" onbeforepaste="clipboardData.setData(&#39;text&#39;,clipboardData.getData(&#39;text&#39;).replace(/[^\uFF00-\uFFFF]/g,&#39;&#39;))"
+用正则表达式限制只能输入数字：onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;) "onbeforepaste="clipboardData.setData(&#39;text&#39;,clipboardData.getData(&#39;text&#39;).replace(/[^\d]/g,&#39;&#39;))"
+用正则表达式限制只能输入数字和英文：onkeyup="value=value.replace(/[\W]/g,&#39;&#39;) "onbeforepaste="clipboardData.setData(&#39;text&#39;,clipboardData.getData(&#39;text&#39;).replace(/[^\d]/g,&#39;&#39;))"

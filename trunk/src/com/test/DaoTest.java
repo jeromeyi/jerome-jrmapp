@@ -1,14 +1,18 @@
 package com.test;
+import static org.junit.Assert.*;
+
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jrmapp.dao.base.IBaseDao;
 import com.jrmapp.pojo.HouseType;
@@ -67,6 +71,16 @@ public class DaoTest  extends JavenTestCase{
 		ht.setInitarea(40);
 		ht.setToparea(40);
 		ht.setStatus(1);
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<HouseType>> constraintViolations =
+			validator.validate(ht);
+		Iterator<ConstraintViolation<HouseType>> iterator=constraintViolations.iterator();
+		while(iterator.hasNext()){
+			ConstraintViolation<HouseType> cv=iterator.next();
+			System.out.println(cv.getInvalidValue()+"---"+cv.getMessage());
+		}
+		//assertEquals(0, constraintViolations.size());
 /*		HouseType ht1=new HouseType();
 		ht1.setHousetypename("测试异常");
 		ht1.setHousecatid(1);
