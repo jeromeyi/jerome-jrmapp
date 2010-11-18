@@ -7,16 +7,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 
 
@@ -46,6 +51,8 @@ public class HouseType implements  Serializable {
 		@Column(nullable=false, length=100,unique=true)
 		@Basic(fetch = FetchType.EAGER)
 		//@OneToOne(fetch = FetchType.LAZY)
+		@NotEmpty
+		//@Pattern(regexp="\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*",message="不是邮箱的格式")
 		private String  housetypename ;//varchar2(100)                  户型名称                      
 		
 		@Column(nullable=true, length=10)
@@ -55,6 +62,9 @@ public class HouseType implements  Serializable {
 		private long toparea       ;//number(10)    y                最高适用面积(实测M2)        
 		
 		@Column(nullable=false, length=1)
+		@NotNull
+        @Min(0)
+        @Max(1)
 		private int status        ;//number(1)              1       有效状态 （1：有效  0：无效） 
 		
 		@Column(nullable=true, length=32)

@@ -33,7 +33,7 @@ public class HouseTypeServiceImpl extends BaseServiceImpl implements
 			ht.setToparea(40);
 			ht.setStatus(1);
 			houseTypeDao.save(ht);  
-		 throw new Exception("抛出异常");
+		 throw new RuntimeException("抛出异常");
 	 }
 	 public void requiresNewSave() throws Exception{
 		 HouseType ht1=new HouseType();
