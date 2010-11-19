@@ -134,6 +134,12 @@
 #end  
 #end 
 
+##token宏模板
+#macro (token)   
+   <input type="hidden" name="struts.token.name" value="token" />
+<input type="hidden" name="token" value="$TokenHelper.setToken("token")"  />
+#end   
+
 
 
 
