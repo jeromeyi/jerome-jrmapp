@@ -1,23 +1,18 @@
 package com.test;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jrmapp.dao.base.IBaseDao;
 import com.jrmapp.pojo.Address;
-import com.jrmapp.pojo.HouseType;
 import com.jrmapp.pojo.Message;
-import com.jrmapp.pojo.SellSeries;
 import com.jrmapp.pojo.User;
 import com.jrmapp.pojo.UserIdCard;
+import com.jrmapp.service.HouseTypeService;
 import com.jrmapp.service.UserService;
 
 
@@ -33,6 +28,8 @@ public class TestUser extends JavenTestCase{
 	private IBaseDao<Address,Long> addressDao;
 	@Resource(name="userService")
 	private UserService userService;
+	@Resource(name="houseTypeService")
+	private HouseTypeService houseTypeService;
 	
 	 private long userID;  
 	    private long addressID;  
@@ -104,7 +101,7 @@ public class TestUser extends JavenTestCase{
 	    @Test  
 	    public void testAdd1() throws Exception {
 	    	User user = new User();  
-	        user.setName("test1");  
+	        user.setName("测试");  
 	        userService.save(user);  
 	        
 		}
