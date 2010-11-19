@@ -9,6 +9,7 @@ import com.jrmapp.pojo.Address;
 import com.jrmapp.pojo.Message;
 import com.jrmapp.pojo.User;
 import com.jrmapp.pojo.UserIdCard;
+import com.jrmapp.service.HouseTypeService;
 import com.jrmapp.service.UserService;
 import com.jrmapp.service.base.BaseServiceImpl;
 
@@ -28,6 +29,8 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 	private IBaseDao<Message,Long> messageDao;
 	@Resource(name="addressDao")
 	private IBaseDao<Address,Long> addressDao;
+	@Resource(name="houseTypeService")
+	private HouseTypeService houseTypeService;
 	 public User get(long id) throws Exception{
 		/* User user = new User();  
 	        user.setName("test1");  
@@ -38,11 +41,16 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 		 return userDao.get(id);
 	 }
 	 public void save(User user) throws Exception{
-	        User user1 = new User();  
-	        user1.setName("test2");  
-	        userDao.save(user1);  
+	       // User user1 = new User();  
+	        //user1.setName("test2");  
+	        //userDao.save(user1);  
 		 userDao.save(user);
-		 throw new Exception("抛出异常");
+		 try{
+		 houseTypeService.nestedSave();
+		 }catch (Exception e) {
+			// TODO: handle exception
+		}
+		// throw new Exception("抛出异常");
 	 }
 
 }
