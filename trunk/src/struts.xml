@@ -18,6 +18,7 @@ value="my-default" />
 	
 	<!-- 用于CRUD Action的parent package --> 
 <package name="my-default" extends="convention-default,json-default"> 
+
 <!-- 
 基于paramsPrepareParamsStack, 增加store 
 interceptor保证actionMessage在redirect后不会丢失 
@@ -36,12 +37,19 @@ interceptor保证actionMessage在redirect后不会丢失
 </interceptors> 
 
 <default-interceptor-ref name="myStack" /> 
+
+<default-action-ref name="notFound" />
+
 <global-results> 
 <result name="executeResult" type="freemarker">/commons/execute_result.ftl</result> 
 <result name="exception" type="freemarker">/error.jsp</result> 
  <result name="invalid.token">/common/tokeninterceptor.html</result>  
   <result name="login" type="redirect">/login.html</result>  
 </global-results> 
+
+   <action name="notFound">
+    <result>404.html</result>
+   </action>
 </package> 
  
  <!-- 有要阻止重复提交的通过这里配置
