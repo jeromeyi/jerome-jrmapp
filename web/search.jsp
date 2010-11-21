@@ -93,7 +93,7 @@
 	<% String searchWord = (String)request.getAttribute("searchWord");%>
 	<CENTER><h1>Lucene Search Engine Demo Client</h1>
 	<div class="search">
-	  <FORM id=searchForm action=SearchController>
+	  <FORM id=searchForm action=SearchController method="post">
 	  <TABLE>
 	    <TBODY>
 	      <TR>

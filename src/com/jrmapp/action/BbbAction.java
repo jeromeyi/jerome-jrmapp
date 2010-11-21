@@ -197,10 +197,10 @@ public class BbbAction extends ActionSupport {
 		for(HouseType obj:htList){
 		//	System.out.println(obj.getHousetypename());
 		}*/
-		List<HouseType> htList1=houseTypeDao.find(" from HouseType where initarea>? and toparea>?", 0l,0l);
+	/*	List<HouseType> htList1=houseTypeDao.find(" from HouseType where initarea>? and toparea>?", 0l,0l);
 		for(HouseType obj:htList1){
 			System.out.println(obj.getHousetypename());
-		}
+		}*/
 		Criterion  c1=Restrictions.ge("initarea", 0l) ;
 		Criterion  c2=Restrictions.ge("toparea", 0l) ;
 		Criterion c3=Restrictions.conjunction().add(

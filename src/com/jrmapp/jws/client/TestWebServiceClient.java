@@ -42,7 +42,7 @@ public class TestWebServiceClient {
          call1.getMessageContext().setPassword("pass3");//密码
          call1.setTargetEndpointAddress(url1);       
          call1.setOperationName(new QName(url1, "getUserName"));
-         String ret3 = (String) call1.invoke(new Object[] { 6L });
+         String ret3 = (String) call1.invoke(new Object[] { 1L });
          System.out.println("return value is " + ret3);
        } catch (Exception e) {
          e.printStackTrace();

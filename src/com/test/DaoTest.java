@@ -65,13 +65,16 @@ public class DaoTest  extends JavenTestCase{
 			//}
 		    
 		   // Assert.assertTrue(validMessages.length>0);
+		for(int i=1;i<1000000;i++){
 		HouseType ht=new HouseType();
-		ht.setHousetypename("测试异常");
+		ht.setHousetypename("测试异常"+i);
 		ht.setHousecatid(1);
 		ht.setInitarea(40);
 		ht.setToparea(40);
 		ht.setStatus(1);
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		houseTypeService.save(ht);
+		}
+/*		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<HouseType>> constraintViolations =
 			validator.validate(ht);
@@ -79,7 +82,7 @@ public class DaoTest  extends JavenTestCase{
 		while(iterator.hasNext()){
 			ConstraintViolation<HouseType> cv=iterator.next();
 			System.out.println(cv.getInvalidValue()+"---"+cv.getMessage());
-		}
+		}*/
 		//assertEquals(0, constraintViolations.size());
 /*		HouseType ht1=new HouseType();
 		ht1.setHousetypename("测试异常");
@@ -89,7 +92,7 @@ public class DaoTest  extends JavenTestCase{
 		ht1.setStatus(1);
 		houseTypeService.save(ht);
 		houseTypeService.save(ht1);*/
-		houseTypeService.save(ht);
+
 			
 		/*//System.out.println("ht1====="+ht1.getHousetypename());
 		//System.out.println("ss====="+ss.getSeriesname());

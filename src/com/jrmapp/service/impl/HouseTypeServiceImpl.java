@@ -16,12 +16,12 @@ public class HouseTypeServiceImpl extends BaseServiceImpl implements
 	private IBaseDao<HouseType,Long> houseTypeDao;
 	public void save(HouseType houseType) throws Exception{
 		houseTypeDao.save(houseType);
-		try{
+/*		try{
 		nestedSave();
 		}catch (Exception e) {
 			// TODO: handle exception
 			requiresNewSave();
-		}
+		}*/
 		//requiresNewSave();
 		 //throw new Exception("抛出异常");
 	}
