@@ -38,7 +38,7 @@
 			height:20px;
 			line-height:20px;
 			text-align:center;
-		}	
+		}
 
 		Table.stock td{    
 			border-bottom:1px solid #e6e6e6;
@@ -47,6 +47,14 @@
 			line-height:20px;
 			
 			text-align:center;
+			
+			/**
+			border-right:#C8B9AE solid 1px;
+			border-bottom:#C8B9AE solid 1px;
+			background-color: #D7D1CB;
+			padding:10px 10px 6px;
+			vertical-align: top;
+			**/
 		}
 
 		Table.stock td a{    

@@ -1,84 +1,5 @@
 <head><title>my title</title></head>
 	<body>
-	<script type="text/javascript">
-/* 
-jQuery().ready(function (){
-	jQuery("#gridTable").jqGrid({
-	   	url:'json-test!testObj.do',
-		datatype: "json",
-		 height: 250,
-         width:800,
-	   //	colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
-	   	colNames:['id','name'],
-	   	colModel:[
-	   		{name:'housetypeid',index:'housetypeid', width:55},
-	   		{name:'housetypename',index:'housetypename', width:90},
-	   		//{name:'name',index:'name asc, invdate', width:100},
-	   		//{name:'amount',index:'amount', width:80, align:"right"},
-	   		//{name:'tax',index:'tax', width:80, align:"right"},		
-	   		//{name:'total',index:'total', width:80,align:"right"},		
-	   		//{name:'note',index:'note', width:150, sortable:false}		
-	   	],
-	   	rowNum:10,
-	   	rowList:[10,20,30],
-	    jsonReader: {
-            root:"testPage.result",                // 数据行（默认为：rows）
-            page: "testPage.pageSize",            // 当前页
-            total: "testPage.pageSize",    // 总页数
-            records: "testPage.totalCount",    // 总记录数
-            repeatitems : false                // 设置成false，在后台设置值的时候，可以乱序。且并非每个值都得设
-    },
-	   	pager: '#gridPager',
-	   	sortname: 'id',
-	    viewrecords: true,
-	    sortorder: "desc",
-	    caption:"JSON Example"
-	});
-	jQuery("#gridTable").jqGrid('navGrid','#gridPager',{edit:false,add:false,del:false});
-});	
-	*/
-	
-	jQuery().ready(function(){jQuery("#gridTable").jqGrid({
-			                url:'json-test!testObj.do',
-			                datatype: "json",
-			                height: 250,
-			                width:800,
-			                colNames:['编号','名称'],
-			                colModel:[
-			                        {name:'housetypeid',index:'housetypeid'},
-			                        {name:'housetypename',index:'housetypeid'}
-			                        //{name:'gender',index:'gender',}
-			                       // {name:'email',index:'email', ;string"},
-			                        //{name:'QQ',index:'QQ'}           
-			                       // {name:'mobilePhone',index:'mobilePhone'},           
-			                       // {name:'birthday',index:'birthday', sorttype:"date"}
-			                ],
-			                sortname:'housetypeid',
-			                sortorder:'asc',
-			                viewrecords:true,
-			                rowNum:10,
-			                rowList:[10,20,30],
-			                jsonReader: {
-			                        root:"testPage.result",                // 数据行（默认为：rows）
-			                        page:1,            // 当前页
-			                        total: "testPage.pageSize",    // 总页数
-			                        records: "testPage.totalCount",    // 总记录数
-			                        repeatitems : false                // 设置成false，在后台设置值的时候，可以乱序。且并非每个值都得设
-			                },
-			                //prmNames:{rows:2,page:1,sort:"desc",order:"asc"},
-			                pager:"#gridPager",
-			                 recordtext: "查看 {0} - {1} of {2}",  
-			                emptyrecords: "No records to view",  
-			            loadtext: "加载...",  
-			            pgtext : "页 {0} of {1}"  ,
-			                caption: "jqGrid与Struts2集成"
-			})
-			//.navGrid('#gridPager',{edit:true,add:true,del:true})
-			;
-			});
-	
-
-</script> 
 	<script type="text/javascript">  
   
     function alt() {  
@@ -124,15 +45,47 @@ jQuery().ready(function (){
         //jQuery("#div1").hide(1000);    
        //jQuery("#div2").show();   
     }
+             
+/*             validate插件 
+    $(document).ready(function(){ 
+    $("#commentForm").validate(); 
+}); 
+    commentForm为form对应的ID 
+    input对应的class为验证方法，如：class="required"，class="required email"等， 
+    可通过设置title来显示错误信息 
+    
+    也可以自定义validate,这样可以使input能干干净净的，如： */
+/**
+jQuery(document).ready(function(){      
+var validator = jQuery("#queryForm").validate({ 
+rules: { 
+a: "required email" 
+}, 
+messages:{ 
+required:"必填项" 
+} 
+}) 
+});
+    **/
+    jQuery(document).ready(function(){  
+   jQuery("#queryForm").validate();  
+ });
 </script>  
+<style type="text/css">  
+* { font-family: Verdana; font-size: 96%; }  
+label { width: 10em; float: left; }  
+label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }  
+p { clear: both; }  
+.submit { margin-left: 12em; }  
+em { font-weight: bold; padding-right: 1em; vertical-align: top; }  
+</style>  
 		#set($i=2)
 		hello $i !!!<br/>
 		<a href="bbb.do?a=2">link2</a>
-		<form action="$base/bbbhello.do" method="post">
-		<input name="a" type="text" />
+		<form action="$base/bbbhello.do" method="post" id="queryForm">
+		<input name="a" type="text" class="required"/>
 		
-		<input type="hidden" name="struts.token.name" value="token" />
-<input type="hidden" name="token" value="$TokenHelper.setToken("token")"  />
+#token()
  
 <input type="submit">
 		</form>
@@ -147,8 +100,8 @@ jQuery().ready(function (){
 	<div id="div3">
 		测试remove
 	</div>
-	
+	<!-- 
 	 <table id="gridTable" class="ui-layout-center ui-helper-reset ui-widget-content" ></table>
         <div id="gridPager" ></div>
-        
+       -->  
 	</body>
