@@ -16,6 +16,10 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.impl.CriteriaImpl;
 import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.stat.SecondLevelCacheStatistics;
+import org.hibernate.stat.Statistics;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
@@ -23,6 +27,7 @@ import org.springframework.util.ReflectionUtils;
 
 import com.jrmapp.dao.support.BeanUtils;
 import com.jrmapp.dao.support.Page;
+import com.test.JavenTestCase;
 
 
 
@@ -34,7 +39,7 @@ import com.jrmapp.dao.support.Page;
  * @see    继承自spring的HibernateDaoSupport 
  */ 
 public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoSupport implements IEntityDao<T, PK> { 
-
+	private static final Logger log = LoggerFactory.getLogger(HibernateEntityDao.class); 
     protected Class<T> entityClass;// DAO所管理的Entity类型. 
     public void setEntityClass(Class<T> type){ 
         this.entityClass=type; 
@@ -322,6 +327,29 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
         Assert.hasText(idName, clazz.getSimpleName() + " has no identifier property define."); 
         return idName; 
     } 
+    
+    public void logSecondLevelCacheStatisticsInfo(){ 
+    	Statistics stat = getHibernateTemplate().getSessionFactory().getStatistics(); 
+    	String [] queryRegionNames = stat.getSecondLevelCacheRegionNames(); 
+    	String queryRegionName = null; 
+    	SecondLevelCacheStatistics slcStat = null; 
+    	log.info("#########################SECOND LEVEL CACHE REGION NAMES#########################"); 
+    	for(int i = 0; i < queryRegionNames.length; i ++){ 
+    	queryRegionName = queryRegionNames[i]; 
+    	slcStat = stat.getSecondLevelCacheStatistics(queryRegionName); 
+    	long memCnt = slcStat.getElementCountInMemory(); 
+    	long diskCnt = slcStat.getElementCountOnDisk(); 
+    	long putCnt = slcStat.getPutCount(); 
+    	long hitCnt = slcStat.getHitCount(); 
+    	long missCnt = slcStat.getMissCount(); 
+    	long size = slcStat.getSizeInMemory(); 
+    	log.info("#" + queryRegionNames[i] + "|total:" + putCnt + "|memory:" + memCnt + "|disk:" + diskCnt + 
+    	"|hit:" + hitCnt + "|miss:" + missCnt + "|size:" + size ); 
+    	} 
+    	log.info("#################################################################################"); 
+
+    	} 
+      
 
 } 
 
