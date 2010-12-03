@@ -28,7 +28,7 @@
             	//  $("#div1").append("<li>Id:"+json.testPage.result[i].housetypeid+"&nbsp; Name:"+json.testPage.result[i].housetypename+"</li>") 
             	//或者
             	 jQuery.each(json.testPage.result,function(i,ht){ 
-            	$("#div1").append("<li>Id:"+ht.housetypeid+"&nbsp; Name:"+ht.housetypename+"</li>") 
+            	jQuery("#div1").append("<li>Id:"+ht.housetypeid+"&nbsp; Name:"+ht.housetypename+"</li>") 
             	  }); 
        // alert(jQuery('#div1').html());
         //jQuery("#div1").html(htmlstr);
@@ -69,7 +69,16 @@ required:"必填项"
     **/
     jQuery(document).ready(function(){  
    jQuery("#queryForm").validate();  
+  
+   	jQuery("#submitbtn").bind("click", function () {
+					jQuery("#queryForm").mask("请等待...");
+				});
+				
+				jQuery("#cancelbtn").bind("click", function () {
+					jQuery("#queryForm").unmask();
+				});
  });
+
 </script>  
 <style type="text/css">  
 * { font-family: Verdana; font-size: 96%; }  
@@ -84,11 +93,34 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 		<a href="bbb.do?a=2">link2</a>
 		<form action="$base/bbbhello.do" method="post" id="queryForm">
 		<input name="a" type="text" class="required"/>
-		
+		<table>
+	<tr><td>Date</td><td><input id="date" type="text" tabindex="1"></td><td>99/99/9999</td>
+	</tr><tr><td>Phone</td><td><input id="phone" type="text" tabindex="3"></td><td>(999) 999-9999</td></tr>
+	<tr><td>Phone + Ext</td><td><input id="phoneext" type="text" tabindex="4"></td><td>(999) 999-9999? x99999</td></tr>
+	<tr><td>Tax ID</td><td><input id="tin" type="text" tabindex="5"></td><td>99-9999999</td></tr>
+	<tr><td>SSN</td><td><input id="ssn" type="text" tabindex="6"></td><td>999-99-9999</td></tr>
+	<tr><td>Product Key</td><td><input id="product" type="text" tabindex="7"></td><td>a*-999-a999</td></tr>
+	<tr><td>Eye Script</td><td><input id="eyescript" type="text" tabindex="8"></td><td>~9.99 ~9.99 999</td></tr>
+	</table>
 #token()
  
-<input type="submit">
+<input type="submit" id="submitbtn"/>
+<input type="button" id="cancelbtn" value="取消"/>
 		</form>
+		<script>
+		jQuery(function(jQuery){
+   jQuery("#date").mask("99/99/9999");
+   jQuery("#phone").mask("(999) 999-9999");
+   jQuery("#phoneext").mask("(999) 999-9999? x99999");
+   jQuery("#tin").mask("99-9999999");
+   jQuery("#ssn").mask("999-99-9999");
+   //jQuery("#product").mask("99/99/9999",{placeholder:" "});
+   jQuery("#product").mask("a*-999-a999");
+   //$("#product").mask("99/99/9999",{completed:function(){alert("You typed the following: "+this.val());}});
+   jQuery.mask.definitions['~']='[+-]';
+   jQuery("#eyescript").mask("~9.99 ~9.99 999");
+});
+		</script>
 				<button id="a" onclick="alt();">点我-Default</button>  
 <button id="b" onclick="altTest();">点我-Test</button>
 <button id="b" onclick="altTestObj();">点我-TestObj</button>    
