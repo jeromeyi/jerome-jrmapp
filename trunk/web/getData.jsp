@@ -58,6 +58,7 @@ java.util.List<com.jrmapp.xloadtree.Node> list= new java.util.ArrayList<com.jrma
 			list.add(node);
 		}
 		**/
-		net.sf.json.JSONArray json= net.sf.json.JSONArray.fromObject(list);   
+		net.sf.json.JSONArray json= net.sf.json.JSONArray.fromObject(list); 
+		System.out.println(json);
 	    out.println(json);  
 %>

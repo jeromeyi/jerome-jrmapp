@@ -175,9 +175,12 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>sitemesh</filter-name>
-		<url-pattern>/*</url-pattern><!-- 如果将'/*'改成.do表示只修饰该后缀名的文件 -->
+		<url-pattern>*.do</url-pattern><!-- 如果将'/*'改成.do表示只修饰该后缀名的文件 -->
 	</filter-mapping>
-
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>*.html</url-pattern><!-- 如果将'/*'改成.do表示只修饰该后缀名的文件 -->
+	</filter-mapping>
 	<!-- 部署filter的名称以及对应的类 -->
 	<filter>
 		<filter-name>Struts2</filter-name>
