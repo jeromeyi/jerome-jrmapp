@@ -7,7 +7,7 @@
  * Following code is based on Element.mask() implementation from ExtJS framework (http://extjs.com/)
  *
  */
-;(function($){
+(function($){
 	
 	/**
 	 * Displays loading mask over selected element(s). Accepts both single and multiple selectors.
@@ -18,7 +18,7 @@
 	 *              before the delay times out, no mask is displayed. This can be used to prevent unnecessary 
 	 *              mask display for quick processes.   	
 	 */
-	$.fn.mask = function(label, delay){
+	$.fn.masked = function(label, delay){
 		$(this).each(function() {
 			if(delay !== undefined && delay > 0) {
 		        var element = $(this);
@@ -32,7 +32,7 @@
 	/**
 	 * Removes mask from the element(s). Accepts both single and multiple selectors.
 	 */
-	$.fn.unmask = function(){
+	$.fn.unmasked = function(){
 		$(this).each(function() {
 			$.unmaskElement($(this));
 		});

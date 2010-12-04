@@ -125,6 +125,7 @@ H1 a {
 	text-decoration: none;
 }
 .test {
+background-image: url(images/menu_bg2.gif);
 	font-weight: bold;
 }
 </style>
@@ -135,8 +136,14 @@ function changeBg(vhref)
 var alllinks=document.getElementsByName("menuhref");
 for(var i=0;i<alllinks.length;i++){
    alllinks[i].className="";//默认未点击时引用的样式
+   alllinks[i].style.color="#000000";
+  // alllinks[i].style.backgroundImage="images/menu_bg1.gif";
 }
+
 vhref.className="test";//点击切换样式
+vhref.style.color="Red";
+//alert(vhref.backgroundImage);
+//vhref.style.backgroundImage="images/menu_bg2.gif";
 }
 </script>
 <body  scroll="auto">
@@ -158,7 +165,7 @@ vhref.className="test";//点击切换样式
           <li><a name="menuhref" id="menuhref" href="search.jsp" target="main" onclick="changeBg(this)">全文检索</a></li>
           <li><a name="menuhref" id="menuhref" href="aaa.html" target="main" onclick="changeBg(this)">ajax+json演示</a></li>
           <li><a name="menuhref" id="menuhref" href="jquery-validate/demo/index.html" target="main" onclick="changeBg(this)">jQuery验证</a></li>
-          <li><a href="right.html" target="main">增加链接</a></li>
+          <li><a name="menuhref" id="menuhref" href="aaa.html?printable=true" target="main" onclick="changeBg(this)">nositemesh演示</a></li>
           <li><a href="right.html" target="main">管理链接</a></li>
           
           <li><a href="table.html" target="main">基本设置</a></li>

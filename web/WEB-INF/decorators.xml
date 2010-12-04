@@ -13,5 +13,5 @@
 	<decorator name="main" page="default.html">
 		<pattern>*</pattern>
 	</decorator>
-
+<decorator name="printable" page="printable.html" />
 </decorators>

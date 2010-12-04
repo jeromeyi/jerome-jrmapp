@@ -53,29 +53,69 @@
     commentForm为form对应的ID 
     input对应的class为验证方法，如：class="required"，class="required email"等， 
     可通过设置title来显示错误信息 
-    
+ class="{required:true,minlength:5}" /> 使用class="{}"的方式，必须引入包：jquery.metadata.js
+ class="{required:true,minlength:5,messages:{required:'请输入内容'}}"
+在使用equalTo关键字时，后面的内容必须加上引号，如下代码：
+class="{required:true,minlength:5,equalTo:'#password'}"   
     也可以自定义validate,这样可以使input能干干净净的，如： */
-/**
+
 jQuery(document).ready(function(){      
-var validator = jQuery("#queryForm").validate({ 
+//jQuery().ready(function(){      
+jQuery("#queryForm").validate({ 
+	//debug:true,
 rules: { 
-a: "required email" 
+a: "required" ,
+//firstname: "required",
+firstname:{
+required: true,	
+rangelength:[2,20]	
+},
+email: {
+required: true,
+email: true
+},
+password: {
+required: true,
+minlength: 5
+},
+confirm_password: {
+required: true,
+minlength: 5,
+equalTo: "#password"
+}
 }, 
-messages:{ 
-required:"必填项" 
-} 
+messages: {
+//firstname: "请输入姓名",
+firstname:{
+required:"请输入姓名",
+rangelength:jQuery.format("请输入一个长度介于 {0} 和 {1} 之间的姓名")
+},
+email: {
+required: "请输入Email地址",
+email: "请输入正确的email地址"
+},
+password: {
+required: "请输入密码",
+minlength: jQuery.format("密码不能小于{0}个字符")
+},
+confirm_password: {
+required: "请输入确认密码",
+minlength: "确认密码不能小于5个字符",
+equalTo: "两次输入密码不一致"
+}
+}
 }) 
 });
-    **/
+    
     jQuery(document).ready(function(){  
    jQuery("#queryForm").validate();  
   
    	jQuery("#submitbtn").bind("click", function () {
-					jQuery("#queryForm").mask("请等待...");
+					jQuery("#queryForm").masked("请等待...");
 				});
 				
 				jQuery("#cancelbtn").bind("click", function () {
-					jQuery("#queryForm").unmask();
+					jQuery("#queryForm").unmasked();
 				});
  });
 
@@ -92,7 +132,23 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 		hello $i !!!<br/>
 		<a href="bbb.do?a=2">link2</a>
 		<form action="$base/bbbhello.do" method="post" id="queryForm">
-		<input name="a" type="text" class="required"/>
+		<p>
+<label for="firstname">Firstname</label>
+<input id="firstname" name="firstname" class="required" />
+</p>
+<p>
+<label for="email">E-Mail</label>
+<input id="email" name="email" class="required email" />
+</p>
+<p>
+<label for="password">Password</label>
+<input id="password" name="password" type="password" class="{required:true,minlength:5}" />
+</p>
+<p>
+<label for="confirm_password">确认密码</label>
+<input id="confirm_password" name="confirm_password" type="password" class="{required:true,minlength:5,equalTo:'#password'}" />
+</p>
+		<input name="a" id="a" type="text"/>
 		<table>
 	<tr><td>Date</td><td><input id="date" type="text" tabindex="1"></td><td>99/99/9999</td>
 	</tr><tr><td>Phone</td><td><input id="phone" type="text" tabindex="3"></td><td>(999) 999-9999</td></tr>
@@ -101,12 +157,14 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 	<tr><td>SSN</td><td><input id="ssn" type="text" tabindex="6"></td><td>999-99-9999</td></tr>
 	<tr><td>Product Key</td><td><input id="product" type="text" tabindex="7"></td><td>a*-999-a999</td></tr>
 	<tr><td>Eye Script</td><td><input id="eyescript" type="text" tabindex="8"></td><td>~9.99 ~9.99 999</td></tr>
+	<tr><td>test</td><td><input id="test" type="text" tabindex="8"></td><td>00:00 - 23:59</td></tr>
 	</table>
 #token()
  
 <input type="submit" id="submitbtn"/>
-<input type="button" id="cancelbtn" value="取消"/>
+
 		</form>
+		<input type="button" id="cancelbtn" value="取消"/>
 		<script>
 		jQuery(function(jQuery){
    jQuery("#date").mask("99/99/9999");
@@ -119,6 +177,7 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
    //$("#product").mask("99/99/9999",{completed:function(){alert("You typed the following: "+this.val());}});
    jQuery.mask.definitions['~']='[+-]';
    jQuery("#eyescript").mask("~9.99 ~9.99 999");
+   jQuery("#test").mask("99:99",{pattern: "^(([0-1]*[0-9])|(2[0-3])):[0-5][0-9]"});
 });
 		</script>
 				<button id="a" onclick="alt();">点我-Default</button>  
