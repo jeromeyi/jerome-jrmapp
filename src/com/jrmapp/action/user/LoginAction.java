@@ -92,8 +92,10 @@ public String loginon() throws Exception{
 public String loginout() throws Exception{
 	HttpServletRequest request=ServletActionContext.getRequest();
 	UserSession userSession =GenericBean.getUserSession(request);
-	if(null!=userSession)
+	if(null!=userSession){
 		request.getSession().removeAttribute(AppConstants.USERSESSION_KEY);
+		request.getSession().invalidate();
+	}
 	return SUCCESS;
 
 }

@@ -4,7 +4,8 @@
 <script language=JavaScript>
 function logout(){
 	if (confirm("您确定要退出控制面板吗？"))
-	top.location = "user/login!loginout.do";
+	top.location = "user/login!loginout.do?logoutRequest=yes";
+	//top.location = "https://localhost:8443/cas/logout";
 	//top.location = "user/loginout.do";
 	return false;
 }
