@@ -111,14 +111,15 @@ equalTo: "两次输入密码不一致"
     
     jQuery(document).ready(function(){  
    jQuery("#queryForm").validate();  
-  
+  /***
    	jQuery("#submit").bind("click", function () {
 					jQuery("#queryForm").masked("请等待...");
 				});
 				
 				jQuery("#cancelbtn").bind("click", function () {
 					jQuery("#queryForm").unmasked();
-				});			
+				});	
+				***/		
  });
 
 
@@ -135,7 +136,7 @@ equalTo: "两次输入密码不一致"
 <div id="container">
 <form action="$base/bbbhello.do" method="post" id="queryForm" class="niceform" >
 	<fieldset>
-    	<legend>Personal Info</legend>
+    	<legend>输入验证</legend>
     	#set($i=2)
 		
     	 <dl>
@@ -152,7 +153,7 @@ equalTo: "两次输入密码不一致"
         </dl>
         <dl>
         	<dt><label for="firstname">firstname:</label></dt>
-            <dd><input type="text" name="firstname" id="firstname" size="32" maxlength="32" /></dd>
+            <dd><input type="text" name="firstname" id="firstname" size="32" maxlength="32"/></dd>
         </dl>
         <dl>
         	<dt><label for="email">Email:</label></dt>
@@ -172,38 +173,38 @@ equalTo: "两次输入密码不一致"
         </dl>
     </fieldset>
     <fieldset>
-    	<legend>Preferences</legend>
+    	<legend>控制输入</legend>
          <dl>
-        	<dt><label for="date">date:</label></dt>
-            <dd><input type="text" name="date" id="date" size="32" maxlength="128" /></dd>
+        	<dt><label for="date">Date:</label></dt>
+            <dd><input type="text" name="date" id="date" size="32" maxlength="128" />99/99/9999</dd>
         </dl>
          <dl>
-        	<dt><label for="phone">phone:</label></dt>
-            <dd><input type="text" name="phone" id="phone" size="32" maxlength="128" /></dd>
+        	<dt><label for="phone">Phone:</label></dt>
+            <dd><input type="text" name="phone" id="phone" size="32" maxlength="128" />(999) 999-9999</dd>
         </dl>
          <dl>
-        	<dt><label for="phoneext">phoneext:</label></dt>
-            <dd><input type="text" name="phoneext" id="phoneext" size="32" maxlength="128" /></dd>
+        	<dt><label for="phoneext">Phone + Ext:</label></dt>
+            <dd><input type="text" name="phoneext" id="phoneext" size="32" maxlength="128" />(999) 999-9999? x99999</dd>
         </dl>
          <dl>
-        	<dt><label for="tin">tin:</label></dt>
-            <dd><input type="text" name="tin" id="tin" size="32" maxlength="128" /></dd>
+        	<dt><label for="tin">Tax ID:</label></dt>
+            <dd><input type="text" name="tin" id="tin" size="32" maxlength="128" />99-9999999</dd>
         </dl>
          <dl>
-        	<dt><label for="ssn">ssn:</label></dt>
-            <dd><input type="text" name="ssn" id="ssn" size="32" maxlength="128" /></dd>
+        	<dt><label for="ssn">SSN:</label></dt>
+            <dd><input type="text" name="ssn" id="ssn" size="32" maxlength="128" />999-99-9999</dd>
         </dl>
          <dl>
-        	<dt><label for="product">product:</label></dt>
-            <dd><input type="text" name="product" id="product" size="32" maxlength="128" /></dd>
+        	<dt><label for="product">Product Key:</label></dt>
+            <dd><input type="text" name="product" id="product" size="32" maxlength="128" />a*-999-a999</dd>
         </dl>
          <dl>
-        	<dt><label for="eyescript">eyescript:</label></dt>
-            <dd><input type="text" name="eyescript" id="eyescript" size="32" maxlength="128" /></dd>
+        	<dt><label for="eyescript">Eye Script:</label></dt>
+            <dd><input type="text" name="eyescript" id="eyescript" size="32" maxlength="128" />~9.99 ~9.99 999</dd>
         </dl>
         <dl>
         	<dt><label for="test">test:</label></dt>
-            <dd><input type="text" name="test" id="test" size="32" maxlength="128" /></dd>
+            <dd><input type="text" name="test" id="test" size="32" maxlength="128" />00:00 - 23:59</dd>
         </dl>
     </fieldset>
     <fieldset class="action">
