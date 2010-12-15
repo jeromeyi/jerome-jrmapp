@@ -3,7 +3,17 @@
 <title>测试AJAX</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript">  
-  
+/**
+  jQuery.validator.setDefaults({
+	submitHandler: function(form) { 
+	  //alert(validator);
+	 // alert("submitted!"); 
+	 // document.getElementByID("queryForm").submit(); 
+	 jQuery("#queryForm").masked("请等待...");
+	 form.submit();
+  }
+});
+**/
     function alt() {  
         jQuery.getJSON("json-test.do", function(json){alert(json.name);});  
     }
@@ -63,8 +73,13 @@ class="{required:true,minlength:5,equalTo:'#password'}"
 
 jQuery(document).ready(function(){      
 //jQuery().ready(function(){      
-jQuery("#queryForm").validate({ 
+var validator =jQuery("#queryForm").validate({ 
 	//debug:true,
+	  submitHandler:function(form){
+            //alert("submitted");  
+            jQuery("#queryForm").masked("请等待...");
+            form.submit();
+        }, 
 rules: { 
 a: "required" ,
 //firstname: "required",
@@ -106,12 +121,16 @@ minlength: "确认密码不能小于5个字符",
 equalTo: "两次输入密码不一致"
 }
 }
-}) 
+});
+$("#reset").click(function() {
+        validator.resetForm();
+    })
 });
     
     jQuery(document).ready(function(){  
+    	  /***
    jQuery("#queryForm").validate();  
-  /***
+
    	jQuery("#submit").bind("click", function () {
 					jQuery("#queryForm").masked("请等待...");
 				});
@@ -209,8 +228,8 @@ equalTo: "两次输入密码不一致"
     </fieldset>
     <fieldset class="action">
     #token()
-    	<input type="submit" name="submit" id="submit" value="提交" />
-    		<input type="button" id="cancelbtn" value="取消"/>
+    	<input type="submit" name="submit" id="submit" value="提交" />&nbsp;&nbsp;<input type="reset" name="reset" id="reset" value="重置" />
+    	&nbsp;&nbsp;	<input type="button" id="cancelbtn" value="取消"/>
     </fieldset>
     <button id="a" onclick="alt();">点我-Default</button>  
 <button id="b" onclick="altTest();">点我-Test</button>
@@ -224,7 +243,6 @@ equalTo: "两次输入密码不一致"
 		测试remove
 	</div>
 </form>
-<p id="footer">Niceforms v.2.0<br />&copy;Lucian Slatineanu - <a href="http://www.emblematiq.com/">Emblematiq</a><br />Last update: Nov 13 2008</p>
 </div>
 <script>
 		jQuery(function(jQuery){
