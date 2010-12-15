@@ -76,10 +76,13 @@ jQuery(document).ready(function(){
 var validator =jQuery("#queryForm").validate({ 
 	//debug:true,
 	  submitHandler:function(form){
-            //alert("submitted");  
-            jQuery("#queryForm").masked("请等待...");
-            form.submit();
-        }, 
+            //alert("submitted");
+            if(confirm('确认提交数据？')){
+            	jQuery("#queryForm").masked("请等待...");
+            	form.submit();
+            }
+        },
+/**        
 rules: { 
 a: "required" ,
 //firstname: "required",
@@ -101,6 +104,7 @@ minlength: 5,
 equalTo: "#password"
 }
 }, 
+**/
 messages: {
 //firstname: "请输入姓名",
 firstname:{
@@ -159,19 +163,19 @@ $("#reset").click(function() {
     	#set($i=2)
 		
     	 <dl>
-        	<dt><label for="hello">hello:</label></dt>
+        	<dt><label for="hello">Hello:</label></dt>
             <dd>hello $i !!!</dd>
         </dl>
          <dl>
-        	<dt><label for="href">href:</label></dt>
+        	<dt><label for="href">Href:</label></dt>
             <dd><a href="bbb.do?a=2">link2</a></dd>
         </dl>
         <dl>
-        	<dt><label for="tautocomplete">autocomplete:</label></dt>
+        	<dt><label for="tautocomplete">Autocomplete:</label></dt>
             <dd><input type="text" name="tautocomplete" id="tautocomplete" size="32" maxlength="128" /></dd>
         </dl>
         <dl>
-        	<dt><label for="firstname">firstname:</label></dt>
+        	<dt><label for="firstname">Firstname:</label></dt>
             <dd><input type="text" name="firstname" id="firstname" size="32" maxlength="32"/></dd>
         </dl>
         <dl>
@@ -179,7 +183,7 @@ $("#reset").click(function() {
             <dd><input type="text" name="email" id="email" size="32" maxlength="32" /></dd>
         </dl>
         <dl>
-        	<dt><label for="password">password:</label></dt>
+        	<dt><label for="password">Password:</label></dt>
             <dd><input type="password" name="password" id="password" size="32" maxlength="32" /></dd>
         </dl>
         <dl>
@@ -187,43 +191,75 @@ $("#reset").click(function() {
             <dd><input type="password" name="confirm_password" id="confirm_password" size="32" maxlength="32" /></dd>
         </dl>
          <dl>
-        	<dt><label for="a">a:</label></dt>
-            <dd><input type="text" name="a" id="a" size="32" maxlength="32" /></dd>
+        	<dt><label for="a">A:</label></dt>
+           <dd> <input type="text" name="a" id="a" size="32" maxlength="32" /> </dd> 
         </dl>
+        <!-- 
+        <table border="0">
+        <tr>
+        <td>
+         1:
+        </td>
+          <td>
+         <input type="text" />
+        </td>
+         <td>
+         2:
+        </td>
+          <td>
+         <input type="text" />
+        </td>
+        </tr>
+         <tr>
+        <td>
+         1:
+        </td>
+          <td>
+         <input type="text" />
+        </td>
+         <td>
+         2:
+        </td>
+          <td>
+         <input type="text" />
+        </td>
+        </tr>
+        </table>
+         -->
     </fieldset>
     <fieldset>
     	<legend>控制输入</legend>
          <dl>
         	<dt><label for="date">Date:</label></dt>
-            <dd><input type="text" name="date" id="date" size="32" maxlength="128" />99/99/9999</dd>
+            <dd><input type="text" name="date" id="date" size="32" maxlength="128" />&nbsp;&nbsp;99/99/9999</dd>
         </dl>
          <dl>
         	<dt><label for="phone">Phone:</label></dt>
-            <dd><input type="text" name="phone" id="phone" size="32" maxlength="128" />(999) 999-9999</dd>
+            <dd><input type="text" name="phone" id="phone" size="32" maxlength="128" />&nbsp;&nbsp;(999) 999-9999</dd>
         </dl>
          <dl>
         	<dt><label for="phoneext">Phone + Ext:</label></dt>
-            <dd><input type="text" name="phoneext" id="phoneext" size="32" maxlength="128" />(999) 999-9999? x99999</dd>
+            <dd><input type="text" name="phoneext" id="phoneext" size="32" maxlength="128" />&nbsp;&nbsp;(999) 999-9999? x99999</dd>
         </dl>
          <dl>
         	<dt><label for="tin">Tax ID:</label></dt>
-            <dd><input type="text" name="tin" id="tin" size="32" maxlength="128" />99-9999999</dd>
+            <dd><input type="text" name="tin" id="tin" size="32" maxlength="128" />&nbsp;&nbsp;99-9999999</dd>
         </dl>
          <dl>
         	<dt><label for="ssn">SSN:</label></dt>
-            <dd><input type="text" name="ssn" id="ssn" size="32" maxlength="128" />999-99-9999</dd>
+            <dd><input type="text" name="ssn" id="ssn" size="32" maxlength="128" />&nbsp;&nbsp;999-99-9999</dd>
         </dl>
          <dl>
         	<dt><label for="product">Product Key:</label></dt>
-            <dd><input type="text" name="product" id="product" size="32" maxlength="128" />a*-999-a999</dd>
+            <dd><input type="text" name="product" id="product" size="32" maxlength="128" />&nbsp;&nbsp;a*-999-a999</dd>
         </dl>
          <dl>
         	<dt><label for="eyescript">Eye Script:</label></dt>
-            <dd><input type="text" name="eyescript" id="eyescript" size="32" maxlength="128" />~9.99 ~9.99 999</dd>
+            <dd><input type="text" name="eyescript" id="eyescript" size="32" maxlength="128" />&nbsp;&nbsp;~9.99 ~9.99 999</dd>
         </dl>
         <dl>
-        	<dt><label for="test">test:</label></dt>
-            <dd><input type="text" name="test" id="test" size="32" maxlength="128" />00:00 - 23:59</dd>
+        	<dt><label for="test">Test:</label></dt>
+            <dd><input type="text" name="test" id="test" size="32" maxlength="128" />&nbsp;&nbsp;00:00 - 23:59</dd>
         </dl>
     </fieldset>
     <fieldset class="action">
@@ -231,7 +267,8 @@ $("#reset").click(function() {
     	<input type="submit" name="submit" id="submit" value="提交" />&nbsp;&nbsp;<input type="reset" name="reset" id="reset" value="重置" />
     	&nbsp;&nbsp;	<input type="button" id="cancelbtn" value="取消"/>
     </fieldset>
-    <button id="a" onclick="alt();">点我-Default</button>  
+</form>
+ <button id="a" onclick="alt();">点我-Default</button>  
 <button id="b" onclick="altTest();">点我-Test</button>
 <button id="b" onclick="altTestObj();">点我-TestObj</button>    
 			<div id="div1">
@@ -242,7 +279,6 @@ $("#reset").click(function() {
 	<div id="div3">
 		测试remove
 	</div>
-</form>
 </div>
 <script>
 		jQuery(function(jQuery){
@@ -262,14 +298,15 @@ $("#reset").click(function() {
 
 jQuery(document).ready(function(){  
     $("#tautocomplete").autocomplete("json-test!testObj.do", {
-    extraParams: {name:function(){return $('#tautocomplete').val();}},       
-      multiple: true,       
-      width:150,       
+    //extraParams: {name:function(){return $('#tautocomplete').val();}},       
+      //multiple: true,    
+      autoFill:true,
+      width:$("#tautocomplete").width(),       
       max:50,       
-      multipleSeparator: ',', 
-      delay:10,     
-      dataType: 'json',    
-      cacheLength:1,
+      //multipleSeparator: ',', 
+      //delay:10,     
+      //dataType: 'json',    
+     // cacheLength:1,
      //加入对返回的json对象进行解析函数，函数返回一个数组         
       parse: function(data) {
       //alert($("#tautocomplete").val());
@@ -296,10 +333,11 @@ jQuery(document).ready(function(){
       return parsed;     
         },     
       formatItem: function(item,i,max) {
-        return "<i>"+item.housetypename+"|"+i+"|"+max+"</i>";
+        //return "<i>"+item.housetypename+"|"+i+"|"+max+"</i>";
         //return item+"|"+i+"|"+max;
-    },
-    formatMatch: function(item){return item.housetypename;}
+        return item.housetypename;
+    }
+   //,formatMatch: function(item){return item.housetypename;}
     //formatResult: function(item){return item.housetypename+"result"; }
    });   
     });  
