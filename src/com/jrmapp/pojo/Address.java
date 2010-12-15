@@ -1,5 +1,7 @@
 package com.jrmapp.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +13,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Proxy;
 
 @Entity  
 @Table(name="ADDRESS")
 //@Proxy (lazy = false )
-public class Address {  
+public class Address implements Serializable{  
       
     @Id  
     @Column(name="ID")  

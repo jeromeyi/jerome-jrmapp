@@ -76,7 +76,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      */ 
     @SuppressWarnings("unchecked") 
     public List<T> getAll() throws Exception{ 
-    	getHibernateTemplate().setCacheQueries(true);  
+    	//getHibernateTemplate().setCacheQueries(true);  
         return (List<T>)(getHibernateTemplate().loadAll(getEntityClass())); 
     } 
      
@@ -205,7 +205,7 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      */ 
     @SuppressWarnings("unchecked") 
     public Page pagedQuery(Criteria criteria, int pageNo, int pageSize) throws Exception{ 
-    	getHibernateTemplate().setCacheQueries(true);  
+    	//getHibernateTemplate().setCacheQueries(true);  
         Assert.notNull(criteria); 
 
         if(pageNo<1)

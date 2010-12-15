@@ -1,5 +1,13 @@
+
 <head><title>my title</title></head>
 	<body>
+	<script type='text/javascript' src='$base/js/autocomplete/jquery.bgiframe.min.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/jquery.ajaxQueue.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/thickbox-compressed.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/jquery.autocomplete.js'></script>
+<link href="$base/css/autocomplete/main.css" rel="stylesheet" type="text/css" />
+<link href="$base/css/autocomplete/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<link href="$base/css/autocomplete/thickbox.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">  
   
     function alt() {  
@@ -11,7 +19,7 @@
     }
     
     function altTestObj() {  
-        jQuery.getJSON("json-test!testObj.do",{name:"test",age:20} , function(json){
+        jQuery.getJSON("json-test!testObj.do",{name:"测试中文",age:20} , function(json){
         testObj(json);
         });  
     }
@@ -119,6 +127,50 @@ equalTo: "两次输入密码不一致"
 				});
  });
 
+
+ jQuery(document).ready(function(){  
+    $("#tautocomplete").autocomplete("json-test!testObj.do", {
+    extraParams: {name:function(){return $('#tautocomplete').val();}},       
+      multiple: true,       
+      width:150,       
+      max:50,       
+      multipleSeparator: ',', 
+      delay:10,     
+      dataType: 'json',    
+      cacheLength:1,
+     //加入对返回的json对象进行解析函数，函数返回一个数组         
+      parse: function(data) {
+      //alert($("#tautocomplete").val());
+      var results=data.testPage.result;
+      //alert(results);     
+         var parsed = [];     
+        for(var i=0; i<results.length; i++){     
+      // alert( results[i].housetypename);
+       /**
+         rows[rows.length] = {      
+           data:results[i].housetypeid      
+           //value:results[i].housetypeid,      
+           //result:results[i].housetypeid      
+           };  
+           */    
+           parsed[parsed.length] = {
+                //data: results[i].housetypeid+"-"+results[i].housetypename,
+                data: results[i],
+         //返回的json数据：{["kindname":"a"},["kindname":"b"]}
+                value: results[i].housetypeid,
+                result:results[i].housetypename
+            };
+         }     
+      return parsed;     
+        },     
+      formatItem: function(item,i,max) {
+        return "<i>"+item.housetypename+"|"+i+"|"+max+"</i>";
+        //return item+"|"+i+"|"+max;
+    },
+    formatMatch: function(item){return item.housetypename;}
+    //formatResult: function(item){return item.housetypename+"result"; }
+   });   
+    });  
 </script>  
 <style type="text/css">  
 * { font-family: Verdana; font-size: 96%; }  
@@ -132,6 +184,10 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 		hello $i !!!<br/>
 		<a href="bbb.do?a=2">link2</a>
 		<form action="$base/bbbhello.do" method="post" id="queryForm">
+				<p>
+<label for="autocomplete">autocomplete</label>
+<input id="tautocomplete" name="tautocomplete" />
+</p>
 		<p>
 <label for="firstname">Firstname</label>
 <input id="firstname" name="firstname" class="required" />
@@ -173,11 +229,12 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
    jQuery("#tin").mask("99-9999999");
    jQuery("#ssn").mask("999-99-9999");
    //jQuery("#product").mask("99/99/9999",{placeholder:" "});
-   jQuery("#product").mask("a*-999-a999");
-   //$("#product").mask("99/99/9999",{completed:function(){alert("You typed the following: "+this.val());}});
+   //jQuery("#product").mask("a*-999-a999");
+   $("#product").mask("a*-999-a999",{completed:function(){alert("You typed the following: "+this.val());}});
    jQuery.mask.definitions['~']='[+-]';
    jQuery("#eyescript").mask("~9.99 ~9.99 999");
-   jQuery("#test").mask("99:99",{pattern: "^(([0-1]*[0-9])|(2[0-3])):[0-5][0-9]"});
+   //jQuery("#test").mask("99小时99分钟",{pattern: "^(([0-1]*[0-9])|(2[0-3])):[0-5][0-9]"});
+   jQuery("#test").mask("99小时99分钟");
 });
 		</script>
 				<button id="a" onclick="alt();">点我-Default</button>  
