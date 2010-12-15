@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../lib/jquery-1.2.6.js" />
+/// <reference path="../../../lib/jquery-1.2.6.js" />
 /*
 	Masked Input plugin for jQuery
 	Copyright (c) 2007-2009 Josh Bush (digitalbush.com)
@@ -200,7 +200,8 @@
 							}
 							if (pos > test.length)
 								break;
-						} else if (buffer[i] == test[pos] && i!=partialPosition) {
+						//} else if (buffer[i] == test[pos] && i!=partialPosition) {
+						   } else if (buffer[i] == test.charAt(pos) && i!=partialPosition) {  
 							pos++;
 							lastMatch = i;
 						} 
