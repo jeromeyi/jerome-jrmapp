@@ -1,0 +1,255 @@
+
+<head><title>my title</title></head>
+	<body>
+	<script type='text/javascript' src='$base/js/autocomplete/jquery.bgiframe.min.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/jquery.ajaxQueue.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/thickbox-compressed.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/jquery.autocomplete.js'></script>
+<link href="$base/css/autocomplete/main.css" rel="stylesheet" type="text/css" />
+<link href="$base/css/autocomplete/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<link href="$base/css/autocomplete/thickbox.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">  
+  
+    function alt() {  
+        jQuery.getJSON("json-test.do", function(json){alert(json.name);});  
+    }
+  
+    function altTest() {  
+        jQuery.getJSON("json-test!test.do", function(json){alert(json.name);});  
+    }
+    
+    function altTestObj() {  
+        jQuery.getJSON("json-test!testObj.do",{name:"测试中文",age:20} , function(json){
+        testObj(json);
+        });  
+    }
+    function testObj(json){
+          //alert(json.name);
+          // alert(json.test.testa);
+           //alert(json.testPage.totalCount);
+          // alert(json.testPage.result);
+           var htmlstr=""; 
+          // for(i=0;i<json.testPage.result.length;i++)
+             // htmlstr+=json.testPage.result[i].housetypename+"<br/>";
+                //这样
+             // jQuery.each(json.testPage.result,function(i){ 
+            	//  $("#div1").append("<li>Id:"+json.testPage.result[i].housetypeid+"&nbsp; Name:"+json.testPage.result[i].housetypename+"</li>") 
+            	//或者
+            	 jQuery.each(json.testPage.result,function(i,ht){ 
+            	jQuery("#div1").append("<li>Id:"+ht.housetypeid+"&nbsp; Name:"+ht.housetypename+"</li>") 
+            	  }); 
+       // alert(jQuery('#div1').html());
+        //jQuery("#div1").html(htmlstr);
+        //jQuery("#div1")[0].innerHTML=htmlstr;   
+         //div1.innerHTML=htmlstr;   
+                   
+
+                //jQuery("div").empty();   
+          
+                //jQuery("div").remove();   
+        //jQuery("div").hide(1000);   
+       // jQuery("div").show(2000);
+       // jQuery("#div2").hide();  
+        //jQuery("#div1").hide(1000);    
+       //jQuery("#div2").show();   
+    }
+             
+/*             validate插件 
+    $(document).ready(function(){ 
+    $("#commentForm").validate(); 
+}); 
+    commentForm为form对应的ID 
+    input对应的class为验证方法，如：class="required"，class="required email"等， 
+    可通过设置title来显示错误信息 
+ class="{required:true,minlength:5}" /> 使用class="{}"的方式，必须引入包：jquery.metadata.js
+ class="{required:true,minlength:5,messages:{required:'请输入内容'}}"
+在使用equalTo关键字时，后面的内容必须加上引号，如下代码：
+class="{required:true,minlength:5,equalTo:'#password'}"   
+    也可以自定义validate,这样可以使input能干干净净的，如： */
+
+jQuery(document).ready(function(){      
+//jQuery().ready(function(){      
+jQuery("#queryForm").validate({ 
+	//debug:true,
+rules: { 
+a: "required" ,
+//firstname: "required",
+firstname:{
+required: true,	
+rangelength:[2,20]	
+},
+email: {
+required: true,
+email: true
+},
+password: {
+required: true,
+minlength: 5
+},
+confirm_password: {
+required: true,
+minlength: 5,
+equalTo: "#password"
+}
+}, 
+messages: {
+//firstname: "请输入姓名",
+firstname:{
+required:"请输入姓名",
+rangelength:jQuery.format("请输入一个长度介于 {0} 和 {1} 之间的姓名")
+},
+email: {
+required: "请输入Email地址",
+email: "请输入正确的email地址"
+},
+password: {
+required: "请输入密码",
+minlength: jQuery.format("密码不能小于{0}个字符")
+},
+confirm_password: {
+required: "请输入确认密码",
+minlength: "确认密码不能小于5个字符",
+equalTo: "两次输入密码不一致"
+}
+}
+}) 
+});
+    
+    jQuery(document).ready(function(){  
+   jQuery("#queryForm").validate();  
+  
+   	jQuery("#submitbtn").bind("click", function () {
+					jQuery("#queryForm").masked("请等待...");
+				});
+				
+				jQuery("#cancelbtn").bind("click", function () {
+					jQuery("#queryForm").unmasked();
+				});
+ });
+
+
+ jQuery(document).ready(function(){  
+    $("#tautocomplete").autocomplete("json-test!testObj.do", {
+    extraParams: {name:function(){return $('#tautocomplete').val();}},       
+      multiple: true,       
+      width:150,       
+      max:50,       
+      multipleSeparator: ',', 
+      delay:10,     
+      dataType: 'json',    
+      cacheLength:1,
+     //加入对返回的json对象进行解析函数，函数返回一个数组         
+      parse: function(data) {
+      //alert($("#tautocomplete").val());
+      var results=data.testPage.result;
+      //alert(results);     
+         var parsed = [];     
+        for(var i=0; i<results.length; i++){     
+      // alert( results[i].housetypename);
+       /**
+         rows[rows.length] = {      
+           data:results[i].housetypeid      
+           //value:results[i].housetypeid,      
+           //result:results[i].housetypeid      
+           };  
+           */    
+           parsed[parsed.length] = {
+                //data: results[i].housetypeid+"-"+results[i].housetypename,
+                data: results[i],
+         //返回的json数据：{["kindname":"a"},["kindname":"b"]}
+                value: results[i].housetypeid,
+                result:results[i].housetypename
+            };
+         }     
+      return parsed;     
+        },     
+      formatItem: function(item,i,max) {
+        return "<i>"+item.housetypename+"|"+i+"|"+max+"</i>";
+        //return item+"|"+i+"|"+max;
+    },
+    formatMatch: function(item){return item.housetypename;}
+    //formatResult: function(item){return item.housetypename+"result"; }
+   });   
+    });  
+</script>  
+<style type="text/css">  
+* { font-family: Verdana; font-size: 96%; }  
+label { width: 10em; float: left; }  
+label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }  
+p { clear: both; }  
+.submit { margin-left: 12em; }  
+em { font-weight: bold; padding-right: 1em; vertical-align: top; }  
+</style>  
+		#set($i=2)
+		hello $i !!!<br/>
+		<a href="bbb.do?a=2">link2</a>
+		<form action="$base/bbbhello.do" method="post" id="queryForm">
+				<p>
+<label for="autocomplete">autocomplete</label>
+<input id="tautocomplete" name="tautocomplete" />
+</p>
+		<p>
+<label for="firstname">Firstname</label>
+<input id="firstname" name="firstname" class="required" />
+</p>
+<p>
+<label for="email">E-Mail</label>
+<input id="email" name="email" class="required email" />
+</p>
+<p>
+<label for="password">Password</label>
+<input id="password" name="password" type="password" class="{required:true,minlength:5}" />
+</p>
+<p>
+<label for="confirm_password">确认密码</label>
+<input id="confirm_password" name="confirm_password" type="password" class="{required:true,minlength:5,equalTo:'#password'}" />
+</p>
+		<input name="a" id="a" type="text"/>
+		<table>
+	<tr><td>Date</td><td><input id="date" type="text" tabindex="1"></td><td>99/99/9999</td>
+	</tr><tr><td>Phone</td><td><input id="phone" type="text" tabindex="3"></td><td>(999) 999-9999</td></tr>
+	<tr><td>Phone + Ext</td><td><input id="phoneext" type="text" tabindex="4"></td><td>(999) 999-9999? x99999</td></tr>
+	<tr><td>Tax ID</td><td><input id="tin" type="text" tabindex="5"></td><td>99-9999999</td></tr>
+	<tr><td>SSN</td><td><input id="ssn" type="text" tabindex="6"></td><td>999-99-9999</td></tr>
+	<tr><td>Product Key</td><td><input id="product" type="text" tabindex="7"></td><td>a*-999-a999</td></tr>
+	<tr><td>Eye Script</td><td><input id="eyescript" type="text" tabindex="8"></td><td>~9.99 ~9.99 999</td></tr>
+	<tr><td>test</td><td><input id="test" type="text" tabindex="8"></td><td>00:00 - 23:59</td></tr>
+	</table>
+#token()
+ 
+<input type="submit" id="submitbtn"/>
+
+		</form>
+		<input type="button" id="cancelbtn" value="取消"/>
+		<script>
+		jQuery(function(jQuery){
+   jQuery("#date").mask("99/99/9999");
+   jQuery("#phone").mask("(999) 999-9999");
+   jQuery("#phoneext").mask("(999) 999-9999? x99999");
+   jQuery("#tin").mask("99-9999999");
+   jQuery("#ssn").mask("999-99-9999");
+   //jQuery("#product").mask("99/99/9999",{placeholder:" "});
+   //jQuery("#product").mask("a*-999-a999");
+   $("#product").mask("a*-999-a999",{completed:function(){alert("You typed the following: "+this.val());}});
+   jQuery.mask.definitions['~']='[+-]';
+   jQuery("#eyescript").mask("~9.99 ~9.99 999");
+   //jQuery("#test").mask("99小时99分钟",{pattern: "^(([0-1]*[0-9])|(2[0-3])):[0-5][0-9]"});
+   jQuery("#test").mask("99小时99分钟");
+});
+		</script>
+				<button id="a" onclick="alt();">点我-Default</button>  
+<button id="b" onclick="altTest();">点我-Test</button>
+<button id="b" onclick="altTestObj();">点我-TestObj</button>    
+			<div id="div1">
+	</div>
+		<div id="div2">
+		测试empty
+	</div>
+	<div id="div3">
+		测试remove
+	</div>
+	<!-- 
+	 <table id="gridTable" class="ui-layout-center ui-helper-reset ui-widget-content" ></table>
+        <div id="gridPager" ></div>
+       -->  
+	</body>
