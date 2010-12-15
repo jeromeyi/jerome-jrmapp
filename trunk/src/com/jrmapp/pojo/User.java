@@ -1,5 +1,6 @@
 package com.jrmapp.pojo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import org.hibernate.annotations.Proxy;
 @Entity  
 @Table(name="USERINFO") 
 //@Proxy (lazy = false )
-public class User {  
+public class User implements Serializable{  
       
     @Id  
     @Column(name="ID")  
