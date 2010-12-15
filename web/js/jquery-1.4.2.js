@@ -4935,7 +4935,9 @@ jQuery.extend({
 		url: location.href,
 		global: true,
 		type: "GET",
-		contentType: "application/x-www-form-urlencoded",
+		//contentType: "application/x-www-form-urlencoded",
+		//个人修改
+		contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 		processData: true,
 		async: true,
 		/*
