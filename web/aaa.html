@@ -304,12 +304,15 @@ $("#reset").click(function() {
             <dd><input type="text" name="test" id="test" size="32" maxlength="128" />&nbsp;&nbsp;00:00 - 23:59</dd>
         </dl>
     </fieldset>
+
     <fieldset class="action">
+        <div align="center">
     #token()
     	<input type="submit" name="submitbtn" id="submitbtn" value="提交" />&nbsp;&nbsp;<input type="reset" name="reset" id="reset" value="重置" />
-    	&nbsp;&nbsp;	<input type="button" id="cancelbtn" value="取消"/>
+      </div>
     </fieldset>
-</form>
+    <fieldset>
+        <div align="center">
  <button id="a" onclick="alt();">点我-Default</button>  
 <button id="b" onclick="altTest();">点我-Test</button>
 <button id="b" onclick="altTestObj();">点我-TestObj</button>    
@@ -322,6 +325,10 @@ $("#reset").click(function() {
 		测试remove
 	</div>
 </div>
+    </fieldset>
+
+</form>
+       </div>
 <script>
 		jQuery(function(jQuery){
    jQuery("#date").mask("99/99/9999");
