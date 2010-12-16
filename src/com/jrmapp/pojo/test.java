@@ -1,6 +1,8 @@
 package com.jrmapp.pojo;
 
-public class test {
+import java.io.Serializable;
+
+public class test  implements Serializable{
 private String testa;
 private String testb;
 public String getTesta() {

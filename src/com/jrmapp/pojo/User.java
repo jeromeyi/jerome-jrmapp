@@ -24,7 +24,6 @@ import org.hibernate.annotations.Proxy;
 @Table(name="USERINFO") 
 //@Proxy (lazy = false )
 public class User implements Serializable{  
-      
     @Id  
     @Column(name="ID")  
    /* @GeneratedValue(generator="system-uuid")  

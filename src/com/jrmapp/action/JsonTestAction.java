@@ -37,6 +37,14 @@ public class JsonTestAction extends ActionSupport {
 	private String email;
 	
 	private  test test;
+	public test getTest() {
+		return test;
+	}
+
+	public void setTest(test test) {
+		this.test = test;
+	}
+
 	private Page testPage;
 	@Resource(name="bbbAction")
 	private BbbAction bbbAction;
@@ -86,13 +94,7 @@ public class JsonTestAction extends ActionSupport {
     
     @Action(value="ajaxForm",results={@Result(type="json",name="test")})  
     public String testAjaxForm() throws Exception{  
-    	
-    	if(null==test){
-			test=new test();
-		test.setTesta("testa");
-		test.setTestb("testb");
-		}
-		testPage=bbbAction.test();
+    	 this.name="测试ajaxSubmit";
           
         return "test";  
     }

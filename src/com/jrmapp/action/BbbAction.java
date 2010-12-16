@@ -30,6 +30,7 @@ import com.jrmapp.pojo.test;
 import com.jrmapp.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @SuppressWarnings("serial")
 @Controller
@@ -141,7 +142,7 @@ public class BbbAction extends ActionSupport {
 /*	@Action(value = "/input", results = { @Result(name = "INPUT", location = "/input.jsp"),  
 	@Result(name = "login", location = "/login.html") },interceptorRefs = { @InterceptorRef("token") })  */
 	@Action(value = "/bbbhello",results = { @Result(name = "hello", location = "/bbb-hello.html")
-	},interceptorRefs = { @InterceptorRef("token") }) 
+	},interceptorRefs = { @InterceptorRef("token"),@InterceptorRef("defaultStack") }) 
 	//@Action(interceptorRefs=@InterceptorRef("token"))
 	public String hello() throws Exception {
 		// TODO Auto-generated method stub
