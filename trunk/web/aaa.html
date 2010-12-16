@@ -80,7 +80,7 @@ class="{required:true,minlength:5,equalTo:'#password'}"
        var options = {  
            type : "post",  
            dataType : "json",  
-           url : "$base/json-test!testObj.do",  
+           url : "$base/json-test!testAjaxForm.do",  
            //data : {"userID" : 1111,"a":$("#a").val()},  
            //cache : "false",  
            beforeSubmit : beforeCallBack,  
@@ -91,10 +91,13 @@ class="{required:true,minlength:5,equalTo:'#password'}"
       jQuery("#queryForm").ajaxSubmit(options);  
   }  
   function beforeCallBack(){
-  alert("beforeCallBack");
+	  jQuery("#queryForm").masked("请等待...");
+	  return true;
+  //alert("beforeCallBack");
   }
   function successCallBack(data){
    alert("successCallBack:"+data.name);
+   jQuery("#queryForm").unmasked();
   }
   function errorCallBack(data){ 
    alert("errorCallBack:"+data.message);
@@ -115,15 +118,17 @@ var validator =jQuery("#queryForm").validate({
             	form.submit();
             }
             **/
-            ajaxSub();
-            return false;
+           // ajaxSub();
+            //return false;
+            jQuery("#queryForm").masked("请等待...");
+            form.submit();
         },
         
 /**      
 rules: { 
 a: "required" ,
 //firstname: "required",
-'user.firstname':{
+'test.testa':{
 required: true,	
 rangelength:[2,20]	
 },
@@ -144,7 +149,7 @@ equalTo: "#password"
 **/
 messages: {
 //firstname: "请输入姓名",
-'user.firstname':{
+'test.testa':{
 required:"请输入姓名",
 rangelength:jQuery.format("请输入一个长度介于 {0} 和 {1} 之间的姓名")
 },
@@ -212,8 +217,8 @@ $("#reset").click(function() {
             <dd><input type="text" name="tautocomplete" id="tautocomplete" size="32" maxlength="128" /></dd>
         </dl>
         <dl>
-        	<dt><label for="firstname">Firstname:</label></dt>
-            <dd><input type="text" name="user.firstname" id="user.firstname" size="32" maxlength="32"/></dd>
+        	<dt><label for="test.testa">Firstname:</label></dt>
+            <dd><input type="text" name="test.testa" id="test.testa" size="32" maxlength="32"/></dd>
         </dl>
         <dl>
         	<dt><label for="email">Email:</label></dt>
