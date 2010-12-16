@@ -34,6 +34,7 @@ public class JsonTestAction extends ActionSupport {
 	//'transient'不会被序列化    
 	@Transient
 	private  String name = "fish119"; 
+	private String email;
 	
 	private  test test;
 	private Page testPage;
@@ -82,11 +83,32 @@ public class JsonTestAction extends ActionSupport {
           
         return "test";  
     }  
+    
+    @Action(value="ajaxForm",results={@Result(type="json",name="test")})  
+    public String testAjaxForm() throws Exception{  
+    	
+    	if(null==test){
+			test=new test();
+		test.setTesta("testa");
+		test.setTestb("testb");
+		}
+		testPage=bbbAction.test();
+          
+        return "test";  
+    }
       
     @Action(results={@Result(type="json",name="success")})  
     public String execute() throws Exception{  
         this.name +=": This is the default method!";  
           
         return SUCCESS;  
-    }  
+    }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}  
 }
