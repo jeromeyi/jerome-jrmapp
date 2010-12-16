@@ -91,7 +91,7 @@ class="{required:true,minlength:5,equalTo:'#password'}"
       jQuery("#queryForm").ajaxSubmit(options);  
   }  
   function beforeCallBack(){
-	  jQuery("#queryForm").masked("请等待...");
+	  jQuery("#queryForm").masked("正在处理，请稍后...");
 	  return true;
   //alert("beforeCallBack");
   }
@@ -124,7 +124,7 @@ var validator =jQuery("#queryForm").validate({
             //form.submit();
         },
         
-/**      
+      
 rules: { 
 a: "required" ,
 //firstname: "required",
@@ -146,7 +146,7 @@ minlength: 5,
 equalTo: "#password"
 }
 }, 
-**/
+
 messages: {
 //firstname: "请输入姓名",
 'test.testa':{
