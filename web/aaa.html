@@ -11,9 +11,13 @@
 	 // document.getElementByID("queryForm").submit(); 
 	 jQuery("#queryForm").masked("请等待...");
 	 form.submit();
+	  //document.getElementById("queryForm").submit(); 
+	 // $(form).ajaxSubmit();
   }
 });
 **/
+
+
     function alt() {  
         jQuery.getJSON("json-test.do", function(json){alert(json.name);});  
     }
@@ -71,22 +75,55 @@
 class="{required:true,minlength:5,equalTo:'#password'}"   
     也可以自定义validate,这样可以使input能干干净净的，如： */
 
+   ajaxSub = function() {  
+       //jQuery('#login_tmp').remove();  
+       var options = {  
+           type : "post",  
+           dataType : "json",  
+           url : "$base/json-test!testObj.do",  
+           //data : {"userID" : 1111,"a":$("#a").val()},  
+           //cache : "false",  
+           beforeSubmit : beforeCallBack,  
+          success : successCallBack,  
+          error : errorCallBack  
+      };  
+      // 异步提交登陆请求  
+      jQuery("#queryForm").ajaxSubmit(options);  
+  }  
+  function beforeCallBack(){
+  alert("beforeCallBack");
+  }
+  function successCallBack(data){
+   alert("successCallBack:"+data.name);
+  }
+  function errorCallBack(data){ 
+   alert("errorCallBack:"+data.message);
+  }
+
 jQuery(document).ready(function(){      
 //jQuery().ready(function(){      
 var validator =jQuery("#queryForm").validate({ 
-	//debug:true,
+	debug:true,
+	//event:"keyup",
+	
 	  submitHandler:function(form){
             //alert("submitted");
+            /**
             if(confirm('确认提交数据？')){
             	jQuery("#queryForm").masked("请等待...");
+            	//document.getElementById("queryForm").submit(); 
             	form.submit();
             }
+            **/
+            ajaxSub();
+            return false;
         },
-/**        
+        
+/**      
 rules: { 
 a: "required" ,
 //firstname: "required",
-firstname:{
+'user.firstname':{
 required: true,	
 rangelength:[2,20]	
 },
@@ -107,7 +144,7 @@ equalTo: "#password"
 **/
 messages: {
 //firstname: "请输入姓名",
-firstname:{
+'user.firstname':{
 required:"请输入姓名",
 rangelength:jQuery.format("请输入一个长度介于 {0} 和 {1} 之间的姓名")
 },
@@ -157,7 +194,7 @@ $("#reset").click(function() {
 <link href="$base/css/autocomplete/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <link href="$base/css/autocomplete/thickbox.css" rel="stylesheet" type="text/css" />
 <div id="container">
-<form action="$base/bbbhello.do" method="post" id="queryForm" class="niceform" >
+<form action="$base/bbbhello.do" method="post" id="queryForm" name="queryForm" class="niceform">
 	<fieldset>
     	<legend>输入验证</legend>
     	#set($i=2)
@@ -176,7 +213,7 @@ $("#reset").click(function() {
         </dl>
         <dl>
         	<dt><label for="firstname">Firstname:</label></dt>
-            <dd><input type="text" name="firstname" id="firstname" size="32" maxlength="32"/></dd>
+            <dd><input type="text" name="user.firstname" id="user.firstname" size="32" maxlength="32"/></dd>
         </dl>
         <dl>
         	<dt><label for="email">Email:</label></dt>
@@ -264,7 +301,7 @@ $("#reset").click(function() {
     </fieldset>
     <fieldset class="action">
     #token()
-    	<input type="submit" name="submit" id="submit" value="提交" />&nbsp;&nbsp;<input type="reset" name="reset" id="reset" value="重置" />
+    	<input type="submit" name="submitbtn" id="submitbtn" value="提交" />&nbsp;&nbsp;<input type="reset" name="reset" id="reset" value="重置" />
     	&nbsp;&nbsp;	<input type="button" id="cancelbtn" value="取消"/>
     </fieldset>
 </form>
