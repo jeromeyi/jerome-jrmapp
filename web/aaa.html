@@ -341,8 +341,8 @@ $("#reset").click(function() {
    $("#product").mask("a*-999-a999",{completed:function(){alert("You typed the following: "+this.val());}});
    jQuery.mask.definitions['~']='[+-]';
    jQuery("#eyescript").mask("~9.99 ~9.99 999");
-   //jQuery("#test").mask("99小时99分钟",{pattern: "^(([0-1]*[0-9])|(2[0-3])):[0-5][0-9]"});
-   jQuery("#test").mask("99小时99分钟");
+   jQuery("#test").mask("99小时99分钟",{pattern: "^(([0-1]*[0-9])|(2[0-3])):[0-5][0-9]"});
+   //jQuery("#test").mask("99小时99分钟");
 });
 
 jQuery(document).ready(function(){  
