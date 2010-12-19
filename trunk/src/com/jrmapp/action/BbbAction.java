@@ -66,6 +66,15 @@ public class BbbAction extends ActionSupport {
     private User user;
     private int pageNo=1;
     private int pageSize=20;
+    private String name;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -234,6 +243,10 @@ public class BbbAction extends ActionSupport {
 		return page;
 	}
 	//return "testQuery" 返回到bbb-testQuery.html  return "success" 返回 bbb.html
+	/*（1）当验证方法没有通过时，改变默认返回的input视图
+	（2） 执行指定的方法
+	（3）返回result 如果methodName 没有指定*/
+
 	//@InputConfig(methodName="query")
 	@InputConfig(resultName="testQuery")
 	public String testQuery() throws Exception{
@@ -245,6 +258,13 @@ public class BbbAction extends ActionSupport {
 	public String query() {
 		return "testQuery";
 	}
+	
+    @Action(results={@Result(type="json",name="bbbtest")})  
+    public String testAjaxForm() throws Exception{  
+    	 this.name="BBBACTION测试ajaxSubmit";
+          
+    	 return "bbbtest";  
+    }
 	
 	public String getA() {
 		return a;
