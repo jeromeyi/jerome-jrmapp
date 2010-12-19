@@ -65,7 +65,7 @@ public class HouseType implements  Serializable {
 		@NotNull
         @Min(0)
         @Max(1)
-		private int status        ;//number(1)              1       有效状态 （1：有效  0：无效） 
+		private int status=1        ;//number(1)              1       有效状态 （1：有效  0：无效） 
 		
 		@Column(nullable=true, length=32)
 		private long housecatid    ;//number(32)       
