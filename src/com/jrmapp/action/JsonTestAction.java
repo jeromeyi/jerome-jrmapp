@@ -16,6 +16,7 @@ import com.jrmapp.dao.base.IBaseDao;
 import com.jrmapp.dao.support.Page;
 import com.jrmapp.pojo.HouseType;
 import com.jrmapp.pojo.test;
+import com.jrmapp.service.HouseTypeService;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -25,7 +26,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @SuppressWarnings("serial")
 //@ParentPackage("json-default")  
-@Result(type="json",name="test") 
+@Result(type="json",name="jsontest") 
 @Controller
 @Scope("prototype")
 
@@ -37,6 +38,15 @@ public class JsonTestAction extends ActionSupport {
 	private String email;
 	
 	private  test test;
+	private  HouseType houseType;
+	public HouseType getHouseType() {
+		return houseType;
+	}
+
+	public void setHouseType(HouseType houseType) {
+		this.houseType = houseType;
+	}
+
 	public test getTest() {
 		return test;
 	}
@@ -46,15 +56,13 @@ public class JsonTestAction extends ActionSupport {
 	}
 
 	private Page testPage;
+	
 	@Resource(name="bbbAction")
 	private BbbAction bbbAction;
-/*    public test getTest() {
-		return test;
-	}
+	
+	@Resource(name="houseTypeService")
+	private HouseTypeService houseTypeService;
 
-	public void setTest(test test) {
-		this.test = test;
-	}*/
 
 	public Page getTestPage() {
 		return testPage;
@@ -76,7 +84,7 @@ public class JsonTestAction extends ActionSupport {
     public String test() throws Exception{  
         this.name += ": Test method!!";  
           
-        return "test";  
+        return "jsontest";  
     }  
     
     @Action(value="testObj",results={@Result(type="json",name="test")})  
@@ -89,14 +97,21 @@ public class JsonTestAction extends ActionSupport {
 		}
 		testPage=bbbAction.test();
           
-        return "test";  
+        return "jsontest";  
     }  
     
     @Action(value="ajaxForm",results={@Result(type="json",name="test")})  
     public String testAjaxForm() throws Exception{  
     	 this.name="测试ajaxSubmit";
           
-        return "test";  
+    	 return "jsontest";  
+    }
+    
+
+    public String saveHouseType() throws Exception{  
+    	houseTypeService.save(houseType);
+    	 this.name="保存成功";    
+        return "jsontest";  
     }
       
     @Action(results={@Result(type="json",name="success")})  

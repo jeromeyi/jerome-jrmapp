@@ -80,7 +80,8 @@ class="{required:true,minlength:5,equalTo:'#password'}"
        var options = {  
            type : "post",  
            dataType : "json",  
-           url : "$base/json-test!testAjaxForm.do",  
+           //url : "$base/json-test!testAjaxForm.do",  
+           url : "$base/bbb!testAjaxForm.do",  
            //data : {"userID" : 1111,"a":$("#a").val()},  
            //cache : "false",  
            beforeSubmit : beforeCallBack,  
@@ -106,7 +107,7 @@ class="{required:true,minlength:5,equalTo:'#password'}"
 jQuery(document).ready(function(){      
 //jQuery().ready(function(){      
 var validator =jQuery("#queryForm").validate({ 
-	debug:true,
+	//debug:true,
 	//event:"keyup",
 	
 	  submitHandler:function(form){
@@ -124,7 +125,7 @@ var validator =jQuery("#queryForm").validate({
             //form.submit();
         },
         
-      
+/*      
 rules: { 
 a: "required" ,
 //firstname: "required",
@@ -146,7 +147,7 @@ minlength: 5,
 equalTo: "#password"
 }
 }, 
-
+*/
 messages: {
 //firstname: "请输入姓名",
 'test.testa':{
@@ -311,7 +312,8 @@ $("#reset").click(function() {
     	<input type="submit" name="submitbtn" id="submitbtn" value="提交" />&nbsp;&nbsp;<input type="reset" name="reset" id="reset" value="重置" />
       </div>
     </fieldset>
-    <fieldset>
+
+</form>
         <div align="center">
  <button id="a" onclick="alt();">点我-Default</button>  
 <button id="b" onclick="altTest();">点我-Test</button>
@@ -325,9 +327,6 @@ $("#reset").click(function() {
 		测试remove
 	</div>
 </div>
-    </fieldset>
-
-</form>
        </div>
 <script>
 		jQuery(function(jQuery){
