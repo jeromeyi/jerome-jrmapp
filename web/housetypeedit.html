@@ -1,0 +1,124 @@
+
+<head>
+<title>测试保存</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">  
+   ajaxSub = function() {  
+       //jQuery('#login_tmp').remove();  
+       var options = {  
+           type : "post",  
+           dataType : "json",  
+           beforeSubmit : beforeCallBack,  
+          success : successCallBack,  
+          error : errorCallBack  
+      };  
+      // 异步提交登陆请求  
+      jQuery("#saveForm").ajaxSubmit(options);  
+  }  
+  function beforeCallBack(){
+	  jQuery("#saveForm").masked("正在处理，请稍后...");
+	  return true;
+  //alert("beforeCallBack");
+  }
+  function successCallBack(data){
+   alert("successCallBack:"+data.name);
+   jQuery("#saveForm").unmasked();
+  }
+  function errorCallBack(data){ 
+   alert("errorCallBack:"+data.message);
+  }
+
+jQuery(document).ready(function(){        
+var validator =jQuery("#saveForm").validate({ 
+	  submitHandler:function(form){
+              ajaxSub();
+            return false;
+        },
+        
+      
+rules: { 
+'houseType.housetypename':{
+required: true,	
+rangelength:[2,20]	
+},
+'houseType.initarea': {
+required: true,
+range:[0,1000]	
+},
+'houseType.toparea': {
+required: true,
+range:[0,1000]	
+},
+'houseType.housecatid': {
+required: true,
+range:[1,100]
+}
+}, 
+
+messages: {
+'houseType.housetypename':{
+required:"请输入户型名称",
+rangelength:jQuery.format("请输入一个长度介于 {0} 和 {1} 之间的姓名")
+},
+'houseType.initarea': {
+required: "请输入基础面积",
+range:jQuery.format("请输入一个长度介于 {0} 和 {1} 之间的基础面积")
+},
+'houseType.toparea': {
+required: "请输入最高面积",
+range:jQuery.format("请输入一个长度介于 {0} 和 {1} 之间的最高面积")
+},
+'houseType.housecatid': {
+required: "请输入户型类型",
+range:jQuery.format("请输入一个长度介于 {0} 和 {1} 之间的户型类型")
+}
+}
+});
+$("#reset").click(function() {
+        validator.resetForm();
+    })
+});
+
+</script>  
+</head>
+
+<body>
+	<script type='text/javascript' src='$base/js/autocomplete/jquery.bgiframe.min.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/jquery.ajaxQueue.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/thickbox-compressed.js'></script>
+<script type='text/javascript' src='$base/js/autocomplete/jquery.autocomplete.js'></script>
+<link href="$base/css/autocomplete/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+<link href="$base/css/autocomplete/thickbox.css" rel="stylesheet" type="text/css" />
+<div id="container">
+<form action="$base/json-test!saveHouseType.do" method="post" id="saveForm" name="saveForm" class="niceform">
+	<fieldset>
+    	<legend>基础数据</legend>
+        <dl>
+        	<dt><label for="houseType.housetypename">户型名称:</label></dt>
+            <dd><input type="text" name="houseType.housetypename" id="houseType.housetypename" size="32" maxlength="32"/></dd>
+        </dl>
+        <dl>
+        	<dt><label for="houseType.initarea">基础面积:</label></dt>
+            <dd><input type="text" name="houseType.initarea" id="houseType.initarea" size="32" maxlength="32" /></dd>
+        </dl>
+        <dl>
+        	<dt><label for="houseType.toparea">最高面积:</label></dt>
+            <dd><input type="text" name="houseType.toparea" id="houseType.toparea" size="32" maxlength="32" /></dd>
+        </dl>
+        <dl>
+        	<dt><label for="houseType.housecatid">房屋类型:</label></dt>
+            <dd><input type="text" name="houseType.housecatid" id="houseType.housecatid" size="32" maxlength="32" /></dd>
+        </dl>
+    </fieldset>
+ 
+
+    <fieldset class="action">
+        <div align="center">
+    #token()
+    	<input type="submit" name="submitbtn" id="submitbtn" value="提交" />&nbsp;&nbsp;<input type="reset" name="reset" id="reset" value="重置" />
+      </div>
+    </fieldset>
+</form>
+       </div>
+</body>
+
