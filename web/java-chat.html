@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>DWR Thin Chat Version 2.0</title>
+  <script type='text/javascript' src='$base/dwr/engine.js'> </script>
+  <script type='text/javascript' src='$base/dwr/interface/JavaChat.js'> </script>
+  <script type='text/javascript' src='$base/dwr/util.js'> </script>
+  <script type="text/javascript">
+    function sendMessage() {
+      JavaChat.addMessage(dwr.util.getValue("text"));
+    }
+      function receiveMessages(messages)  
+   {  
+      var chatlog = "";  
+     for (var data in messages) {  
+        chatlog = "<div>" + dwr.util.escapeHtml(messages[data]) + "</div>" + chatlog;  
+     }  
+      dwr.util.setValue("list", chatlog, { escapeHtml:false });  
+    }  
+  </script>
+</head>
+
+<body onload="dwr.engine.setActiveReverseAjax(true);">
+
+
+<h1>Java Chat</h1>
+
+
+
+
+    <p>
+      Your Message:
+      <input id="text" onkeypress="dwr.util.onReturn(event, sendMessage)"/>
+      <input type="button" value="Send" onclick="sendMessage()"/>
+    </p>
+    <hr/>
+    
+    <ul id="chatlog" style="list-style-type:none;">
+    </ul>
+
+
+
+</body>
+</html>
+
