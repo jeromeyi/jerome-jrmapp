@@ -94,7 +94,7 @@ public class TestUser extends JavenTestCase{
 				System.out.println(obj.getAddress());
 				System.out.println(obj.getUser().getName());
 			}*/
-	    	User user=userService.get(6);
+	    	User user=userService.getUser(6);
 	    	System.out.println(user.getName());
 			
 	    }  
@@ -102,7 +102,7 @@ public class TestUser extends JavenTestCase{
 	    public void testAdd1() throws Exception {
 	    	User user = new User();  
 	        user.setName("测试");  
-	        userService.save(user);  
+	        userService.saveUser(user);  
 	        
 		}
 	      

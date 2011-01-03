@@ -1,5 +1,7 @@
 package com.jrmapp.service.impl;
 
+import java.io.Serializable;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -31,16 +33,18 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 	private IBaseDao<Address,Long> addressDao;
 	@Resource(name="houseTypeService")
 	private HouseTypeService houseTypeService;
-	 public User get(long id) throws Exception{
+	 public User getUser(long id) throws Exception{
 		/* User user = new User();  
 	        user.setName("test1");  
 	        userDao.save(user);  
 	        User user1 = new User();  
 	        user1.setName("test2");  
 	        userDao.save(user1);  */
-		 return userDao.get(id);
+		 User user=userDao.get(id);
+		 //System.out.println("runthis=="+user.getName());
+		 return user;
 	 }
-	 public void save(User user) throws Exception{
+	 public void saveUser(User user) throws Exception{
 	       // User user1 = new User();  
 	        //user1.setName("test2");  
 	        //userDao.save(user1);  
@@ -51,6 +55,12 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 			// TODO: handle exception
 		}
 		// throw new Exception("抛出异常");
+	 }
+	 
+	 public String getUserName(long id)throws Exception{
+		 User user=userDao.get(id);
+		 System.out.println("runthis=="+user.getName());
+		 return user.getName();
 	 }
 
 }

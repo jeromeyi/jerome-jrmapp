@@ -172,7 +172,7 @@ public class BbbAction extends ActionSupport {
 		   //throw new Exception("测试");
         user1.setName("test1"); 
 		//userService.save(user1);
-		user=userService.get(1);
+		user=userService.getUser(1);
     	System.out.println("userService===="+user.getName());
     	Set addSet=user.getAddresses();
     	Iterator iterator=addSet.iterator();
