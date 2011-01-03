@@ -120,12 +120,11 @@
 </filter-mapping>
 
 
-  <!-- AXIS 1.4 Service -->
+  <!-- AXIS 1.4 Service  com.jrmapp.webservice.axis.SpringAxisServlet 
     <servlet>
     	<servlet-name>AxisServlet</servlet-name>
     	<servlet-class>
          org.apache.axis.transport.http.AxisServlet 
-        <!--	com.jrmapp.webservice.axis.SpringAxisServlet -->	
     	</servlet-class>
     </servlet>
    <servlet>
@@ -172,12 +171,11 @@
     	<servlet-name>AdminServlet</servlet-name>
     	<url-pattern>/servlet/AdminServlet</url-pattern>
     </servlet-mapping>
+    -->
     
-    
- <!-- axis2 1.5 
+ <!-- axis2 1.5 -->
   <servlet>  
     <servlet-name>AxisServlet</servlet-name>  
-    <display-name>Apache-Axis Servlet</display-name>  
     <servlet-class>  
       org.apache.axis2.transport.http.AxisServlet  
     </servlet-class>  
@@ -187,7 +185,7 @@
     <servlet-name>AxisServlet</servlet-name>  
     <url-pattern>/services/*</url-pattern>  
   </servlet-mapping>  
--->
+
 
 
     
