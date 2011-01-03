@@ -11,6 +11,7 @@ import com.jrmapp.service.base.BaseService;
  * @类说明
  */
 public interface UserService{
-	public User get(long id) throws Exception;
-	public void save(User user) throws Exception;
+	public User getUser(long id) throws Exception;
+	public void saveUser(User user) throws Exception;
+	public String getUserName(long id)throws Exception;
 }

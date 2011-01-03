@@ -18,11 +18,11 @@ public class JaxRpcUserService extends ServletEndpointSupport {
 	protected void onInit() { 
 		    userService=(UserService) getApplicationContext().getBean("userService");
 		}
-	
+	 
 	public String getUserName(long id) throws Exception {
 		//if (null==userService)
 		   // userService=(UserService) getApplicationContext().getBean("userService");  
-		User user=userService.get(id);
+		User user=userService.getUser(id);
 		return user.getName();
 	}
 
