@@ -9,7 +9,7 @@ keytool -list -keystore "%JAVA_HOME%/jre/lib/security/cacerts" -storepass change
 rem 列出系统证书仓库中存在证书名称列表 
 rem generator a key
 keytool -genkey -keyalg RSA -alias tomcatsso -dname "cn=jerome-PC" -storepass changeit
-rem 指定使用RSA算法，生成别名为tomcatsso的证书，存贮口令为changeit，证书的DN为"cn=linly" ，这个DN必须同当前主机完整名称一致哦，切记
+rem 指定使用RSA算法，生成别名为tomcatsso的证书，存贮口令为changeit，证书的DN为"cn=jerome-PC" ，这个DN必须同当前主机完整名称一致哦，切记
 rem export the key
 keytool -export -alias tomcatsso -file "%java_home%/jre/lib/security/tomcatsso.crt" -storepass changeit
 rem 从keystore中导出别名为tomcatsso的证书，生成文件tomcatsso.crt
