@@ -1,54 +1,39 @@
-<%@page contentType="text/html"%>
-<%@page pageEncoding="UTF-8"%>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="org.jasig.cas.client.authentication.AttributePrincipal" %>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
+<%@ page language="java" pageEncoding="utf-8"%>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CAS Test</title>
-    </head>
-    <body>
+	<head>
+		<title>chat</title>
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<script type='text/javascript' src='/jrmApp/dwr/interface/ChatManager.js'></script>
+		<script type='text/javascript' src='/jrmApp/dwr/engine.js'></script>
+		<script type='text/javascript' src='/jrmApp/dwr/util.js'></script>
+		<script type="text/javascript" src="/jrmApp/chat.js"></script>
+	</head>
+	<body>
+		<input type="hidden" name="userid" id="userid" />
+		<br>
+		昵称:
+		<input type="text" name="username" id="username" />
+		<input type="button" value="注册" onclick="register(this);" />
+		<br />
+		<br />
+		我要对
+		<select name="receiver" id="receiver" disabled=true" >
+		</select>
+		说:
+		<input type="text" name="message" id="message" disabled="true" />
+		<input type="button" value="发送" id="send" name="send" disabled="true"
+			onclick="send();" />
+		<br />
+		<br />
+		在线用户列表:
+		<ul id="users">
+		</ul>
 
-    <h1>CAS Test</h1>
-
-    <p><%= request.getRemoteUser() %></p>
-<%
-
-AttributePrincipal principal = (AttributePrincipal)request.getUserPrincipal();
-
-Map attributes = principal.getAttributes();
-String username = principal.getName();     
-out.println(username);
-
-Iterator attributeNames = attributes.keySet().iterator();
-
-out.println("<table>");
-
-for (; attributeNames.hasNext();) {
-
-out.println("<tr><th>");
-
-String attributeName = (String) attributeNames.next();
-
-      out.println(attributeName);
-
-      out.println("</th><td>");
-
-      Object attributeValue = attributes.get(attributeName);
-
-      out.println(attributeValue);
-
-      out.println("</td></tr>");
-
-}
-
-out.println("</table>");
-
-%>
-    </body>
-</html> 
+		<div id="showMessage" style="display: none">
+			<span id="sender"></span>对你说:
+			<span id="msg"></span>
+		</div>
+	</body>
+</html>

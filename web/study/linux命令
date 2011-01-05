@@ -1,0 +1,54 @@
+Oracle启动和关闭
+启动步骤：
+
+su - oracle
+
+[oracle@websvr1 oracle]$ sqlplus /nolog
+
+SQL> connect / as sysdba
+
+SQL> startup
+
+SQL> quit
+
+[oracle@websvr1 oracle]$ lsnrctl start
+
+可用 [oracle@websvr1 oracle]$ lsnrctl status 查看监听是否已经启动
+
+关闭步骤：
+
+su - oracle
+
+[oracle@websvr1 oracle]$ lsnrctl stop
+
+[oracle@websvr1 oracle]$ sqlplus /nolog
+
+SQL> connect / as sysdba
+
+SQL> shutdown immediate
+
+SQL> quit
+
+
+重要的几个命令：
+
+一，磁盘操作
+
+1. ls 列出此目录下的目录和文件
+2. cd 改变路径 cd / 返回根目录。
+3. mkdir directory_name 根据目录名称建立目录
+4. rmdir directory_name 删除指定的目录，注意：用这个命令删除目录，目录必须为empty，如果目录不为空，删除会失败，提示
+
+omitting directory
+5. rm 删除目录或文件，常用参数：-r (递归删除) -f(强制删除) -i (删除前询问) -v（显示删除情况），所以一般命令: rm -rfv
+
+directory_name。
+6. cp 两个文件或文件夹之间进行复制，参数 -a 是必须的，cp [参数] [源文件或目录] [目标文件或目录] ，常用的：cp -a [源文件] [目
+
+标文件]
+
+二，网络配置和操作
+
+1. cfconfig  查看和配置网卡的ip地址和掩码。 常用命令：cfconfig [设备名] [up] [ip address] [netmask] [255.255.255.0] ，up参数是要马上
+
+就生效。
