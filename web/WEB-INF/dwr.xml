@@ -10,9 +10,11 @@
     <create creator="new" scope="application">
       <param name="class" value="com.jrmapp.dwr.reverseajax.JavaChat"/>
     </create>
+    <!-- 
     <create creator="spring" javascript="Msg">
 <param name="beanName" value="dwrAction"/>
 </create> 
+ -->
     		<create creator="new" javascript="ChatManager">
 			 <param name="class" value="com.jrmapp.dwr.reverseajax.ChatManager"/>
 		</create>
