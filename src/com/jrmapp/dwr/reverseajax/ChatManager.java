@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.directwebremoting.ScriptBuffer;
 import org.directwebremoting.ScriptSession;
 import org.directwebremoting.ServerContext;
 import org.directwebremoting.ServerContextFactory;
@@ -103,5 +104,26 @@ public class ChatManager {
 		util.setStyle("showMessage", "display", "");
 		util.setValue("sender", sender);
 		util.setValue("msg", msg);
+		ScriptBuffer sb = new ScriptBuffer();
+	     sb.appendScript("commonCall(");
+	     sb.appendData(msg);
+	     sb.appendScript(")");
+	     session.addScript(sb);
 	}
+	
+	public void exitChat(String curuser,HttpServletRequest request){
+		   System.out.println("++++++");
+		   Collection<ScriptSession> sessions = new HashSet<ScriptSession>();
+			sessions.addAll(ServerContextFactory.get(request.getSession().getServletContext())
+					.getScriptSessionsByPage("/jrmApp/chat.html"));
+			for (ScriptSession session : sessions) {
+				String xuserid = (String) session.getAttribute("userid");
+				if (xuserid != null && xuserid.equals(curuser)) {
+					System.out.println("remove");
+					session.invalidate();
+					return;
+				}
+			}
+		  }
+	
 }

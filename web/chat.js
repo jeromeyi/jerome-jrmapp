@@ -39,5 +39,17 @@ function send() {
 	var msg = dwr.util.getValue('message'); // 获得消息内容
 	ChatManager.send(sender, receiver, msg); // 发送消息
 }
+function exitCurChat(){
+	if(confirm('确认离开当前页？')){
+	ChatManager.exitChat($('userid').value);
+	ChatManager.updateUsersList(null, false);
+	}
+}
+
+function commonCall(mess){
+	alert(mess+":recall function!");
+}
 
 window.onload = init;//页面加载完毕后执行初始化方法init
+ window.onbeforeunload=exitCurChat;
+   //window.document.body.onunload=exitCurChat;
