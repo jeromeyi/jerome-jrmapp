@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>chat</title>
+		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="cache-control" content="no-cache"/>
+		<meta http-equiv="expires" content="0"/>
+		<script type='text/javascript' src='/jrmApp/dwr/interface/ChatManager.js'></script>
+		<script type='text/javascript' src='/jrmApp/dwr/engine.js'></script>
+		<script type='text/javascript' src='/jrmApp/dwr/util.js'></script>
+		<script type="text/javascript" src="/jrmApp/chat.js"></script>
+	</head>
+	<body>
+		<input type="hidden" name="userid" id="userid" />
+		<br/>
+		昵称:
+		<input type="text" name="username" id="username" />
+		<input type="button" value="注册" onclick="register(this);" />
+		<br />
+		<br />
+		我要对
+		<select name="receiver" id="receiver" disabled=true" >
+		</select>
+		说:
+		<input type="text" name="message" id="message" disabled="true" />
+		<input type="button" value="发送" id="send" name="send" disabled="true"
+			onclick="send();" />
+		<br />
+		<br />
+		在线用户列表:
+		<ul id="users">
+		</ul>
+
+		<div id="showMessage" style="display: none">
+			<span id="sender"></span>对你说:
+			<span id="msg"></span>
+		</div>
+	</body>
+</html>
