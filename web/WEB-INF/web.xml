@@ -133,6 +133,11 @@
 			<param-name>debug</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		 <!-- 新加corssDomainSessionSecurity参数 -->  
+   <init-param>     
+             <param-name>crossDomainSessionSecurity</param-name>     
+             <param-value>false</param-value>     
+     </init-param>  
 		<init-param>
 			<description>使用服务器推技术(反转AJAX)</description>
 			<param-name>activeReverseAjaxEnabled</param-name>
