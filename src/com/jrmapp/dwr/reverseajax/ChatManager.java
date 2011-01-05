@@ -48,7 +48,7 @@ public class ChatManager {
 		ServletContext sc = request.getSession().getServletContext();
 		ServerContext sctx = ServerContextFactory.get(sc);
 		//获得当前浏览 index.jsp 页面的所有脚本session
-		Collection sessions = sctx.getScriptSessionsByPage("/jrmApp/index.jsp");
+		Collection sessions = sctx.getScriptSessionsByPage("/jrmApp/chat.html");
 		Util util = new Util(sessions);
 		//处理这些页面中的一些元素
 		util.removeAllOptions("users");
@@ -80,7 +80,7 @@ public class ChatManager {
 		ScriptSession scriptSessions = null;
 		Collection<ScriptSession> sessions = new HashSet<ScriptSession>();
 		sessions.addAll(ServerContextFactory.get(request.getSession().getServletContext())
-				.getScriptSessionsByPage("/jrmApp/index.jsp"));
+				.getScriptSessionsByPage("/jrmApp/chat.html"));
 		for (ScriptSession session : sessions) {
 			String xuserid = (String) session.getAttribute("userid");
 			if (xuserid != null && xuserid.equals(userid)) {
