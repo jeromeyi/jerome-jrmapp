@@ -59,6 +59,10 @@ http://log-cd.javaeye.com/blog/138720
 --插件
 velocity  http://gundumw100.javaeye.com/blog/452021
 
+--velocity
+新版新用法
+http://www.oschina.net/code/snippet_12_2526
+
 --分布式缓存
 Terracotta 3.2.1简介 (一)
 http://lima01.javaeye.com/blog/661093
@@ -179,3 +183,7 @@ http://www.javaeye.com/topic/392456
 
 --lombok
 http://codedestiny.javaeye.com/blog/660436
+
+--分布式 Key-Value 存储系统：Cassandra 入门
+http://www.ibm.com/developerworks/cn/opensource/os-cn-cassandra/
+http://www.oschina.net/p/cassandra
