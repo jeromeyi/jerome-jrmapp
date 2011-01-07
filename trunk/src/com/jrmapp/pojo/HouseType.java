@@ -20,6 +20,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -53,6 +54,7 @@ public class HouseType implements  Serializable {
 		//@OneToOne(fetch = FetchType.LAZY)
 		@NotEmpty
 		//@Pattern(regexp="\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*",message="不是邮箱的格式")
+		//@Email
 		private String  housetypename ;//varchar2(100)                  户型名称                      
 		
 		@Column(nullable=true, length=10)
