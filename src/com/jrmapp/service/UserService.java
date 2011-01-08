@@ -1,9 +1,6 @@
 package com.jrmapp.service;
 
-import java.io.Serializable;
-
 import com.jrmapp.pojo.User;
-import com.jrmapp.service.base.BaseService;
 
 /**
  * @author 谢毅(Jerome) E-mail:xieyi@kebao.cn

@@ -15,8 +15,8 @@ import org.directwebremoting.ServerContextFactory;
 import org.directwebremoting.ui.dwr.Util;
 import org.springframework.stereotype.Controller;
 
+import com.jrmapp.action.base.BaseAction;
 import com.jrmapp.dwr.reverseajax.Message;
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author 谢毅(Jerome) E-mail:xieyi@kebao.cn
@@ -25,7 +25,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @Controller("dwrAction")
 //@Scope("prototype")
-public class DWRAction extends ActionSupport implements ServletContextAware,
+public class DWRAction extends BaseAction implements ServletContextAware,
 		java.io.Serializable {
 	protected ServletContext servletContext;
 

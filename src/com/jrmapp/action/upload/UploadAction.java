@@ -15,14 +15,14 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 
-import com.opensymphony.xwork2.ActionSupport;
+import com.jrmapp.action.base.BaseAction;
 
 /**
  * @author 谢毅(Jerome) E-mail:xieyi@kebao.cn
  * @version 创建时间：Oct 25, 2010 10:51:00 AM
  * @类说明
  */
-public class UploadAction extends ActionSupport  
+public class UploadAction extends BaseAction  
 {  
     private static final int BUFFER_SIZE = 16 * 1024;  
     private List<File> upload;  

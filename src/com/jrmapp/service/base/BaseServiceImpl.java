@@ -13,6 +13,6 @@ import org.springframework.stereotype.Service;
 和 @Controller。在目前的 Spring 版本中，这 3 个注释和 @Component 是等效的，但是从注释类的命名上，很容易看出这 
 3 个注释分别和持久层、业务层和控制层（Web 层）相对应。
  */
-public class BaseServiceImpl implements BaseService {
+public abstract class BaseServiceImpl{
 	
 }

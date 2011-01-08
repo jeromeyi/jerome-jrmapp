@@ -12,6 +12,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.jrmapp.action.base.BaseAction;
 import com.jrmapp.dao.base.IBaseDao;
 import com.jrmapp.dao.support.Page;
 import com.jrmapp.pojo.HouseType;
@@ -30,7 +31,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @Controller
 @Scope("prototype")
 
-public class JsonTestAction extends ActionSupport {
+public class JsonTestAction extends BaseAction {
 	//没有setter和getter方法的字段不会被序列化     
 	//'transient'不会被序列化    
 	@Transient

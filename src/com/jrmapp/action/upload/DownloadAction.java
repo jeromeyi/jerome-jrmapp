@@ -5,14 +5,14 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.opensymphony.xwork2.ActionSupport;
+import com.jrmapp.action.base.BaseAction;
 
 /**
  * @author 谢毅(Jerome) E-mail:xieyi@kebao.cn
  * @version 创建时间：Oct 25, 2010 10:54:26 AM
  * @类说明
  */
-public class DownloadAction extends ActionSupport  
+public class DownloadAction extends BaseAction  
 {  
     private String fileName;  
       
