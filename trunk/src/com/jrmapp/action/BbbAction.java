@@ -18,6 +18,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.jrmapp.action.base.BaseAction;
 import com.jrmapp.dao.base.IBaseDao;
 import com.jrmapp.dao.support.Page;
 import com.jrmapp.pojo.Address;
@@ -28,9 +29,7 @@ import com.jrmapp.pojo.User;
 import com.jrmapp.pojo.UserIdCard;
 import com.jrmapp.pojo.test;
 import com.jrmapp.service.UserService;
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @SuppressWarnings("serial")
 @Controller
@@ -40,7 +39,7 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
     @InterceptorRef("interceptor-1"), 
     @InterceptorRef("defaultStack") 
 }) */
-public class BbbAction extends ActionSupport {
+public class BbbAction extends BaseAction {
 	@Resource(name="houseTypeDao")
 	private IBaseDao<HouseType,Integer> houseTypeDao;
 	@Resource(name="sellSeriesDao")

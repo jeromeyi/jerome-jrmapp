@@ -5,14 +5,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
+import com.jrmapp.action.base.BaseAction;
 import com.jrmapp.common.util.GenericBean;
 import com.jrmapp.common.util.UserSession;
 import com.jrmapp.constants.AppConstants;
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 
@@ -25,7 +24,7 @@ import com.opensymphony.xwork2.ActionSupport;
 	  @Result(name="login", location="/login.html",type="redirect"),
 	  @Result(name="success", location="/index.do",type="redirect")   
 	})  
-public class LoginAction extends ActionSupport {
+public class LoginAction extends BaseAction {
 private String username;
 private String password;
 private String verifycode;
@@ -90,7 +89,7 @@ public String loginon() throws Exception{
 
 @Action(value="/user/loginout",results={@Result(name = LOGIN, location = "/login.html",type="redirect")})   
 public String loginout() throws Exception{
-	HttpServletRequest request=ServletActionContext.getRequest();
+	//HttpServletRequest request=ServletActionContext.getRequest();
 	UserSession userSession =GenericBean.getUserSession(request);
 	if(null!=userSession){
 		request.getSession().removeAttribute(AppConstants.USERSESSION_KEY);

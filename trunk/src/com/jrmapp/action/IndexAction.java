@@ -1,14 +1,10 @@
 package com.jrmapp.action;
 
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
-
-import com.opensymphony.xwork2.ActionSupport;
+import com.jrmapp.action.base.BaseAction;
 
 @SuppressWarnings("serial")
-public class IndexAction extends ActionSupport {
+public class IndexAction extends BaseAction {
 	private String testindex;
 	
 	public String getTestindex() {

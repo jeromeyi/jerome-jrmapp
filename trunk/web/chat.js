@@ -40,10 +40,17 @@ function send() {
 	ChatManager.send(sender, receiver, msg); // 发送消息
 }
 function exitCurChat(){
-	if(confirm('确认离开当前页？')){
+	return '确认离开当前页？';
+/*	if(confirm('确认离开当前页？')){
 	ChatManager.exitChat($('userid').value);
 	ChatManager.updateUsersList(null, false);
-	}
+	}*/
+}
+
+function clearCurChat(){
+	alert("last");
+		ChatManager.exitChat($('userid').value);
+	ChatManager.updateUsersList(null, false);
 }
 
 function commonCall(mess){
@@ -51,5 +58,10 @@ function commonCall(mess){
 }
 
 window.onload = init;//页面加载完毕后执行初始化方法init
- window.onbeforeunload=exitCurChat;
-   //window.document.body.onunload=exitCurChat;
+var thisPage=false;
+ window.onbeforeunload=function checkLeave(e){
+ var evt = e ? e : (window.event ? window.event : null);        //此方法为了在firefox中的兼容
+ 
+    if(!thisPage)evt.returnValue='离开会使编写的内容丢失。';
+  }
+ window.onunload=clearCurChat;
