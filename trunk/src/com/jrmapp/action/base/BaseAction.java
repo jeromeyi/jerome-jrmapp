@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -19,7 +20,7 @@ public abstract class BaseAction extends ActionSupport  implements  ServletReque
 	protected HttpServletResponse response;
 
 	public BaseAction() {
-		System.out.println("BaseAction---->>");
+		System.out.println("go----"+this.getClass().getName());
 	}
 	
 	public String execute() throws Exception {
