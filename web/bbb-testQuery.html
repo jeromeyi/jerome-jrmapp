@@ -79,8 +79,21 @@ html, body {
         </thead>
         <tbody>
          #set($class="even")
+         ##$velocityCount 的新用法 $foreach.count
         #foreach($obj in $testPage.getResult())
-         #if($velocityCount%2==0)
+        
+        ##退出foreach循环 
+        ##if( $foreach.count >5 )
+	        ##break
+	    ##end
+	    
+	    ##$velocityHasNext 的新用法
+	    ##if( $foreach.hasNext ) $foreach.count #end
+	     
+	    ##同时引入多个文件
+	    ##include( "one.gif","two.txt","three.htm" )
+	    
+         #if($foreach.count%2==0)
             #set($class="odd")
          #else
             #set($class="even")   
