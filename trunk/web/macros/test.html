@@ -76,8 +76,53 @@
 条,共$!pageInfo.totalCount条记录|
 第<input name="pageNo" type="text" value="$!pageInfo.currentPageNo" class="inputnumber" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }" /> 页,共$!pageInfo.getTotalPageCount()页
 <input name="go" id="go" type="button" value="GO" class="inputgo" style="cursor:hand;" onclick="TurnPage ('goto','$form')"/> 
-</div>  
- 
+</div>   
+#end
+#end
+
+##另一个分页
+#macro(jPage $pageInfo $form)
+#if($!pageInfo.totalCount>0)
+<ul class="pagination" title="分页列表" aligh="right">
+#if($!pageInfo.getCurrentPageNo()>1)
+ <li class="firstPage"><a href="javascript:TurnPage (1,'$form')" title="首页">首页</a></li>
+#else
+ <li class="firstPage currentState"><a href="javascript:;" title="首页">首页</a></li>
+#end
+#if($!pageInfo.getCurrentPageNo()>1)
+  <li class="previousPage"><a href="javascript:TurnPage ($!pageInfo.getCurrentPageNo()-1,'$form')" style="cursor:hand;" title="前一页">前一页</a></li>
+#else
+<li class="previousPage currentState"><a href="javascript:;" title="前一页">前一页</a></li>
+#end
+ <li>
+    <ol>
+ #set($begin = 1)	#if($!pageInfo.getCurrentPageNo() > 5)	#set($begin = $!pageInfo.getCurrentPageNo() - 5)	#end
+	  #set($last = $begin + 10) #if($last > $!pageInfo.getTotalPageCount()) #set($last = $!pageInfo.getTotalPageCount()) #end
+	  #foreach($index in [$begin..$last])
+		#if($index==$!pageInfo.getCurrentPageNo())
+		      <li class="currentState" title="当前页"><a href="javascript:;">$index</a></li>
+		#else
+		<li><a href="javascript:TurnPage ($index,'$form')" style="cursor:hand;" title="转到第$index页">$index</a> </li>
+		#end
+	#end
+    </ol>
+  </li>	
+	#if($pageInfo.getCurrentPageNo()<$pageInfo.getTotalPageCount())
+  <li class="nextPage"><a href="javascript:TurnPage ($!pageInfo.getCurrentPageNo()+1,'$form')" style="cursor:hand;" title="后一页">后一页</a></li>
+#else
+  <li class="nextPage currentState"><a href="javascript:;"  title="后一页">后一页</a></li>
+#end
+#if($pageInfo.getCurrentPageNo()<$pageInfo.getTotalPageCount())
+  <li class="lastPage"><a href="javascript:TurnPage ($!pageInfo.getTotalPageCount(),'$form')" style="cursor:hand;" title="尾页">尾页</a></li>
+#else
+  <li class="lastPage currentState"><a href="javascript:;" title="尾页">尾页</a></li>
+#end
+|每页显示
+<input name="pageSize" type="text" class="inputnumber" size="4" value="$!pageInfo.pageSize" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }"/>
+条,共$!pageInfo.totalCount条记录|
+第<input name="pageNo" type="text" size="4" value="$!pageInfo.currentPageNo" class="inputnumber" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }" /> 页,共$!pageInfo.getTotalPageCount()页
+<input name="go" id="go" type="button" value="GO" class="inputgo" style="cursor:hand;" onclick="TurnPage ('goto','$form')"/> 
+</ul>
 #end
 #end
 
