@@ -94,9 +94,8 @@
 
 
 		
-		<!--
-		分页
-		-->
+<!--分页-->
+/**
 .pagination { 
     float: right; 
     font-size: 16px; 
@@ -107,14 +106,11 @@
 } 
 
 .pagination a { 
-
-    /*float: left; */
     text-decoration: none; 
    font-weight: bold; 
     border: 1px solid #FFFFFF; 
     background-color: #668B8B; 
     color: #FFFFFF; 
-    /*margin: 1px 1px 0 0;*/ 
     margin: 0 -1px 0 -1px;
     padding: 0 5px 2px 5px; 
     line-height: normal; 
@@ -130,7 +126,6 @@
     color: #668B8B; 
     background-color: #ffffff; 
     border: 1px solid #668B8B; 
-    /*margin-right:3px; */
     margin-right:0px;
 } 
 
@@ -149,10 +144,97 @@
     width: 45px; 
     height: 22px; 
     background-color: #668B8B; 
-    /*border: 1px solid #91b0cc; */
     border: 1px solid #668B8B; 
     font-size: 12px; 
     font-weight: bold; 
     color: #ffffff; 
     cursor:hand;
-} 
+}
+**/
+
+<!-- 新分页-->
+.pagination{
+ overflow:hidden;
+ margin:0;
+ padding:10px 10px 6px 10px;
+ border-top:1px solid #f60;
+ _zoom:1;
+}
+.pagination *{
+ display:inline;
+ float:left;
+ margin:0;
+ padding:0;
+ font-size:12px;
+}
+.pagination i{
+ float:none;
+ padding-right:1px;
+}
+.currentPage b{
+ float:none;
+ color:#f00;
+}
+.pagination li{
+ list-style:none;
+ margin:0 5px;
+}
+.pagination li li{
+ position:relative;
+ margin:-2px 0 0;
+ font-family: Arial, Helvetica, sans-serif
+}
+.firstPage a,.previousPage a,.nextPage a,.lastPage a{
+ overflow:hidden;
+ height:0;
+ text-indent:-9999em;
+ border-top:8px solid #EEF2FB;
+ border-bottom:8px solid #EEF2FB;
+}
+.pagination li li a{
+ margin:0 1px;
+ padding:0 4px;
+ border:3px double #fff;
+ +border-color:#eee;
+ background:#eee;
+ color:#06f;
+ text-decoration:none;
+}
+.pagination li li a:hover{
+ background:#f60;
+ border-color:#fff;
+ +border-color:#f60;
+ color:#fff;
+}
+li.firstPage{
+ margin-left:40px;
+ border-left:3px solid #06f;
+}
+.firstPage a,.previousPage a{
+ border-right:12px solid #06f;
+}
+.firstPage a:hover,.previousPage a:hover{
+ border-right-color: #f60;
+}
+.nextPage a,.lastPage a{
+ border-left:12px solid #06f;
+}
+.nextPage a:hover,.lastPage a:hover{
+ border-left-color:#f60;
+}
+li.lastPage{
+ border-right:3px solid #06f;
+}
+li li.currentState a{
+ position:relative;
+ margin:-1px 3px;
+ padding:1px 4px;
+ border:3px double #EEF2FB;
+ +border-color:#f60;
+ background:#f60;
+ color:#EEF2FB;
+}
+li.currentState,.currentState a,.currentState a:hover{
+ border-color:#EEF2FB #ccc;
+ cursor:default;
+}
