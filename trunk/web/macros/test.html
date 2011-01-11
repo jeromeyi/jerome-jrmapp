@@ -83,7 +83,10 @@
 ##另一个分页
 #macro(jPage $pageInfo $form)
 #if($!pageInfo.totalCount>0)
-<ul class="pagination" title="分页列表" aligh="right">
+<ul class="pagination" title="分页列表">
+  <li class="totalAnnal">总记录数：<i>$!pageInfo.totalCount</i></li>
+  <li class="totalPage">总页数：<i>$!pageInfo.getTotalPageCount()</i></li>
+  <li class="currentPage">当前页：<b>$!pageInfo.currentPageNo</b></li>
 #if($!pageInfo.getCurrentPageNo()>1)
  <li class="firstPage"><a href="javascript:TurnPage (1,'$form')" title="首页">首页</a></li>
 #else
@@ -96,8 +99,8 @@
 #end
  <li>
     <ol>
- #set($begin = 1)	#if($!pageInfo.getCurrentPageNo() > 5)	#set($begin = $!pageInfo.getCurrentPageNo() - 5)	#end
-	  #set($last = $begin + 10) #if($last > $!pageInfo.getTotalPageCount()) #set($last = $!pageInfo.getTotalPageCount()) #end
+ #set($begin = 1)	#if($!pageInfo.getCurrentPageNo() > 2)	#set($begin = $!pageInfo.getCurrentPageNo() - 2)	#end
+	  #set($last = $begin + 4) #if($last > $!pageInfo.getTotalPageCount()) #set($last = $!pageInfo.getTotalPageCount()) #end
 	  #foreach($index in [$begin..$last])
 		#if($index==$!pageInfo.getCurrentPageNo())
 		      <li class="currentState" title="当前页"><a href="javascript:;">$index</a></li>
@@ -117,12 +120,13 @@
 #else
   <li class="lastPage currentState"><a href="javascript:;" title="尾页">尾页</a></li>
 #end
-|每页显示
-<input name="pageSize" type="text" class="inputnumber" size="4" value="$!pageInfo.pageSize" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }"/>
-条,共$!pageInfo.totalCount条记录|
-第<input name="pageNo" type="text" size="4" value="$!pageInfo.currentPageNo" class="inputnumber" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }" /> 页,共$!pageInfo.getTotalPageCount()页
-<input name="go" id="go" type="button" value="GO" class="inputgo" style="cursor:hand;" onclick="TurnPage ('goto','$form')"/> 
+
+<input name="pageSize" type="hidden" class="inputnumber" size="4" value="$!pageInfo.pageSize" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }"/>
+
+<input name="pageNo" type="hidden" size="4" value="$!pageInfo.currentPageNo" class="inputnumber" onkeypress="if(event.keyCode=='13'){ document.getElementById('go').focus(); }" />
+
 </ul>
+
 #end
 #end
 
