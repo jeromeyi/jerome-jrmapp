@@ -154,6 +154,7 @@
 
 <!-- ÐÂ·ÖÒ³-->
 .pagination{
+	float: right; 
  overflow:hidden;
  margin:0;
  padding:10px 10px 6px 10px;
