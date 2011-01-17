@@ -95,7 +95,7 @@
 
 		
 <!--分页-->
-/**
+
 .pagination { 
     float: right; 
     font-size: 16px; 
@@ -150,9 +150,11 @@
     color: #ffffff; 
     cursor:hand;
 }
-**/
 
-<!-- 新分页-->
+
+
+<!-- 新分页 -->
+/**
 .pagination{
 	float: right; 
  overflow:hidden;
@@ -239,3 +241,4 @@ li.currentState,.currentState a,.currentState a:hover{
  border-color:#EEF2FB #ccc;
  cursor:default;
 }
+**/
