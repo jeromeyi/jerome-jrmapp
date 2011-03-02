@@ -16,5 +16,9 @@
           <operation name="getUserName">
         <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </operation>
+     <!-- 要排除的方法 -->  
+    <excludeOperations>  
+        <operation>你的方法</operation>  
+    </excludeOperations>  
      </service>  
  </serviceGroup>  
