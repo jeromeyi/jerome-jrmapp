@@ -219,6 +219,7 @@ public class BbbAction extends BaseAction {
 				.add(Restrictions.eq("initarea", 0l))
 				);
 
+		@SuppressWarnings("unused")
 		Criterion c4=Restrictions.or(Restrictions.eq("initarea", 30l), Restrictions.eq("initarea", 40l));
 		Page page=houseTypeDao.pagedQuery(1, 20, c1,c2,c3);
 		List<HouseType> htList2=(List)page.getResult();
