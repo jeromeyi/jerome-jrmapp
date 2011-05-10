@@ -12,7 +12,9 @@ import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
@@ -31,7 +33,7 @@ import com.jrmapp.pojo.test;
 import com.jrmapp.service.UserService;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial"})
 @Controller
 @Scope("prototype")
 //@InterceptorRef("checkLoginstack")//全局引用拦截器  
@@ -39,6 +41,7 @@ import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
     @InterceptorRef("interceptor-1"), 
     @InterceptorRef("defaultStack") 
 }) */
+ @InterceptorRefs( {@InterceptorRef(value = "token" ,params = { "includeMethods" , "hello" } ),@InterceptorRef( "defaultStack" ) } )
 public class BbbAction extends BaseAction {
 	@Resource(name="houseTypeDao")
 	private IBaseDao<HouseType,Integer> houseTypeDao;
@@ -149,9 +152,11 @@ public class BbbAction extends BaseAction {
 	//局部引用拦截器,引用多个拦截器的话则是nterceptorRefs({@InterceptorRef("interceptor-1"),@InterceptorRef("interceptor-2")})  
 /*	@Action(value = "/input", results = { @Result(name = "INPUT", location = "/input.jsp"),  
 	@Result(name = "login", location = "/login.html") },interceptorRefs = { @InterceptorRef("token") })  */
+	/**
 	@Action(value = "/bbbhello",results = { @Result(name = "hello", location = "/bbb-hello.html")
 	},interceptorRefs = { @InterceptorRef("token"),@InterceptorRef("defaultStack") }) 
 	//@Action(interceptorRefs=@InterceptorRef("token"))
+	 */
 	public String hello() throws Exception {
 		// TODO Auto-generated method stub
 		if(null==test){
@@ -222,6 +227,7 @@ public class BbbAction extends BaseAction {
 		@SuppressWarnings("unused")
 		Criterion c4=Restrictions.or(Restrictions.eq("initarea", 30l), Restrictions.eq("initarea", 40l));
 		Page page=houseTypeDao.pagedQuery(1, 20, c1,c2,c3);
+		@SuppressWarnings("all")
 		List<HouseType> htList2=(List)page.getResult();
 		for(HouseType obj:htList2){
 			System.out.println(obj.getHousetypename()+"==="+obj.getInitarea());
