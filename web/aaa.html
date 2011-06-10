@@ -119,10 +119,10 @@ var validator =jQuery("#queryForm").validate({
             	form.submit();
             }
             **/
-              ajaxSub();
-            return false;
-            //jQuery("#queryForm").masked("请等待...");
-            //form.submit();
+              //ajaxSub();
+            //return false;
+            jQuery("#queryForm").masked("请等待...");
+            form.submit();
         },
         
 /*      
@@ -200,7 +200,7 @@ $("#reset").click(function() {
 <link href="$base/css/autocomplete/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
 <link href="$base/css/autocomplete/thickbox.css" rel="stylesheet" type="text/css" />
 <div id="container">
-<form action="$base/bbbhello.do" method="post" id="queryForm" name="queryForm" class="niceform">
+<form action="$base/bbb!hello.do" method="post" id="queryForm" name="queryForm" class="niceform">
 	<fieldset>
     	<legend>输入验证</legend>
     	#set($i=2)
