@@ -116,9 +116,6 @@ http://blog.csdn.net/welken/archive/2010/05/24/5620476.aspx
 多数据库
 http://www.iteye.com/topic/1007953
 
---JVM学习
-http://dustin.javaeye.com/blog/44291
-http://www.javaeye.com/topic/25053
 
 --JBoss Seam  比较麻烦的事情
 http://nlslzf.javaeye.com/blog/214549
@@ -175,15 +172,22 @@ http://www.javaeye.com/topic/378541
 http://www.javaeye.com/topic/841554
 pushlet
 http://renxiangzyq.javaeye.com/blog/440740
-http://www.javaeye.com/topic/89158
 http://renxiangzyq.javaeye.com/blog/430329
+http://www.iteye.com/topic/89158--非常有用
+http://www.iteye.com/topic/1097695 --例子
 
 --深入理解JVM
 http://www.javaeye.com/topic/634530
 http://melin.javaeye.com/blog/704963
 http://blog.csdn.net/kelly859/archive/2010/08/20/5827365.aspx
-http://www.javaeye.com/topic/802573
+http://www.javaeye.com/topic/802573  --非常有用
+http://www.iteye.com/topic/802638  --非常有用
 http://apps.hi.baidu.com/share/detail/23550625
+http://hllvm.group.iteye.com/group/topic/20168
+http://www.iteye.com/topic/752755  精华帖
+--JVM学习
+http://dustin.javaeye.com/blog/44291
+http://www.javaeye.com/topic/25053
 
 --eclipse mat
 http://www.eclipse.org/mat/downloads.php
@@ -276,13 +280,12 @@ http://jeromeyiapi.appspot.com/
 --Quartz
 http://www.javaeye.com/topic/441951
 http://www.javaeye.com/topic/486055
+http://sundoctor.iteye.com/blog/480405
+http://www.iteye.com/topic/399980
+http://teddywang.iteye.com/blog/751008
+http://www.iteye.com/problems/47143
 
 --LG 播放格式720X576
-
---张家界游玩
-http://www.tianya.cn/new/TechForum/Content.asp?idWriter=0&Key=0&idItem=817&idArticle=1310
-http://www.douban.com/group/topic/16124154/
-http://www.douban.com/group/topic/16146612/
 
 --url rewrite
 urlrewritefilter-2.6.zip
@@ -336,9 +339,6 @@ http://tcrct.iteye.com/blog/728299
 --java 读写文件
 http://blog.csdn.net/smartcat86/archive/2009/04/16/4085739.aspx
 
---知乎用户申请表
-https://spreadsheets1.google.com/spreadsheet/viewform?hl=zh_CN&formkey=dEMzWlFOb3ZCcnpPbkp1SmlLbG1nVWc6MQ&ifq
-
 --javascript学习
 http://www.iteye.com/topic/630410
 
@@ -353,3 +353,113 @@ http://blog.csdn.net/TechChan/archive/2010/04/01/5440775.aspx
 http://ipmingsee.blog.163.com/blog/static/712637201123054831982/
 用JAVA通过LDAP修改AD用户密码注意事项
 http://ipmingsee.blog.163.com/blog/static/712637201123054929693/
+AD证书
+http://blog.csdn.net/freewind88/archive/2007/08/17/1748225.aspx
+
+--findbugs
+http://www.oschina.net/question/132964_21234
+
+--javashop
+http://www.javamall.com.cn/
+
+--kindle
+http://dogear.mobi/
+
+--数据库操作
+http://lovejuan1314.iteye.com/blog/413694  多行合并一行
+
+--网站访问统计系统 Piwik
+http://www.oschina.net/p/piwik
+
+
+--jquery tree table
+http://www.oschina.net/code/snippet_105457_3422
+--jquery tools
+http://flowplayer.org/tools/demos/index.html
+
+--ckeditor
+http://sarin.iteye.com/blog/599056
+http://sarin.iteye.com/blog/599499
+
+--Sigma Grid 研究及使用
+http://karlhell.iteye.com/blog/454411
+
+--ifttt
+http://www.douban.com/note/158797775/
+
+--设计模式
+http://my.oschina.net/lovedreamland/blog/12996
+--表格设计
+http://www.oschina.net/question/12_7973
+--页面滚动插件
+http://www.oschina.net/project/tag/285/jquery-scroll
+http://www.infinite-scroll.com/infinite-scroll-jquery-plugin/
+
+--分布式事务JTA之实践:Spring+ATOMIKOS
+http://sjsky.iteye.com/blog/1112012
+
+--spring3.0.3+hibernate3.5.4+JOTM2.2.1实现JTA事务管理
+http://blog.csdn.net/yyb_gz/archive/2010/09/23/5902234.aspx
+
+--使用spring+atomikos+ibatis实现声明式DB2多数据库全局分布式事务  非常有用
+http://blog.csdn.net/xujiaqiang/archive/2009/02/23/3928718.aspx
+
+--Oracle数据库优化器的优化方式
+http://saybody.iteye.com/blog/1111810
+
+--秒杀
+http://www.iteye.com/topic/1109974
+
+--activemq+spring
+http://www.iteye.com/topic/1109932
+
+--git版本控制
+
+--jdk6原生态webservice
+http://www.iteye.com/topic/1110560
+
+--jbpm4.4+spring
+http://blog.csdn.net/centre10/article/details/6361104  非常有用
+http://ljz0898.iteye.com/blog/796958
+
+--推荐11款jQuery开发的复选框和单选框美化插件
+http://www.oschina.net/question/156697_23126
+
+--知乎
+http://www.zhihu.com/people/xie_yi/followers?g=1
+
+--产品经理网站导航
+http://www.pm265.com/
+
+--15 个开发者必备的Web开发工具！
+http://www.oschina.net/news/19502/15-free-web-development-tools
+
+--java nio
+http://www.iteye.com/topic/834447
+
+--spring3mvc+jquery easyui
+http://www.iteye.com/topic/1081739
+http://www.iteye.com/topic/1021643
+
+--CAS 之 Ajax跨域实现单点登录
+http://www.iteye.com/topic/1111931
+https://wiki.jasig.org/display/CAS/Using+CAS+without+the+Login+Screen
+
+--Jersey1.8在spring环境下的实现 包括实例代码
+http://xosadan.iteye.com/blog/1119235
+
+--rest
+http://www.infoq.com/cn/articles/rest-introduction
+http://baike.baidu.com/view/1077487.htm
+http://www.iteye.com/topic/858160  牛人的
+
+--oracle常用技巧
+http://denger.iteye.com/blog/805815
+
+--sso
+新浪微博如何实现 SSO 的分析
+http://www.iteye.com/topic/1039052
+
+-使用 JSONP 实现跨域通信，第 1 部分: 结合 JSONP 和 jQuery 快速构建强大的 mashup
+http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/
+
