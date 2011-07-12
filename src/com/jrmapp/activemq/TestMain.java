@@ -23,8 +23,10 @@ public class TestMain {
 			FooMessage fm = new FooMessage();
 			fm.setId(count);
 			fm.setName("测试JMS==="+fm.getId()); 
-			topicProducer.send(fm);
+			/*topicProducer.send(fm);
+			System.out.println("订阅  send  count="+count);
 			queueProducer.send(fm);
+			System.out.println("队列 send  count="+count);*/
 			count ++;
 		}
 	}
