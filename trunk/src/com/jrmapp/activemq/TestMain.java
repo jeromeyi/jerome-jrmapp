@@ -16,15 +16,15 @@ public class TestMain {
        new TestMain().removeFile(file);
 		ListableBeanFactory lsb = new ClassPathXmlApplicationContext("classpath:applicationContext-activemq.xml");
 		GenericBeanFactoryAccessor gba = new GenericBeanFactoryAccessor(lsb);
-		TopicMessageProducer fmpa = gba.getBean("topicMessageProducer");
-		QueueMessageProducer fmpb = gba.getBean("queueMessageProducer");
+		TopicMessageProducer topicProducer = gba.getBean("topicMessageProducer");
+		QueueMessageProducer queueProducer = gba.getBean("queueMessageProducer");
 		int count = 1;
 		while (true) {
 			FooMessage fm = new FooMessage();
 			fm.setId(count);
 			fm.setName("测试JMS==="+fm.getId()); 
-			fmpa.send(fm);
-			fmpb.send(fm);
+			topicProducer.send(fm);
+			queueProducer.send(fm);
 			count ++;
 		}
 	}

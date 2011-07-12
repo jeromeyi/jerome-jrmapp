@@ -40,7 +40,14 @@ xmlns:context="http://www.springframework.org/schema/context"
     <bean id="topicListenConnectionFactory"  
         class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
         <property name="brokerURL" value="tcp://localhost:61617"/>  
-        <property name="clientID" value="com.jrmapp.client1"/>  
+        <property name="clientID" value="com.jrmapp.clientA"/>  
+         <property name="optimizeAcknowledge" value="true" /> <!-- 批量确认 -->
+    </bean>  
+    
+     <bean id="topicListenConnectionFactoryB"  
+        class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
+        <property name="brokerURL" value="tcp://localhost:61617"/>  
+        <property name="clientID" value="com.jrmapp.clientB"/>  
          <property name="optimizeAcknowledge" value="true" />
     </bean>  
  <!--定义消息队列-->  
@@ -67,7 +74,8 @@ xmlns:context="http://www.springframework.org/schema/context"
         <property name="messageConverter"
             ref="defaultMessageConverter" />
     </bean>
-    
+    <!-- 可以在JmsTemplate发送配置中,加上<property name=”timeToLive” value=”432000000”/>,5天的生命期,如果消息一直没有被处理,消息会被删除,
+    但是表中会存在CONTAINER为queue://ActiveMQ.DLQ的记录.也就是说,相当于将过期的消息发给了一个ActiveMQ自定义的删除队列..  -->
     
 <!-- 
 <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
@@ -130,7 +138,13 @@ xmlns:context="http://www.springframework.org/schema/context"
 		<!-- custom MessageConverter define -->
 		<property name="messageConverter" ref="defaultMessageConverter" />
 	</bean>
-
+	<bean id="topicListenerB" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg ref="topicConsumerB" />
+		<!--  may be other method -->
+		<property name="defaultListenerMethod" value="receive" />
+		<!-- custom MessageConverter define -->
+		<property name="messageConverter" ref="defaultMessageConverter" />
+	</bean>
 
 
     <bean id="queueListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
@@ -152,8 +166,24 @@ xmlns:context="http://www.springframework.org/schema/context"
 		<property name="destination" ref="myTopic" />
 		<property name="messageListener" ref="topicListenerA" />
 	     <property name="subscriptionDurable" value="true"/>  
-        <property name="clientId" value="com.jrmapp.client1"/>  
-        <property name="durableSubscriptionName" value="com.jrmapp.client1"/>  
+        <property name="clientId" value="com.jrmapp.clientA"/>  
+        <property name="durableSubscriptionName" value="com.jrmapp.clientA"/>  <!-- 持久订阅者名称  ACTIVEMQ_ACKS表的SUB_NAME字段 -->
+         <property name="taskExecutor" ref="taskExecutor" />  
+        <property name="cacheLevel" value="0"/>  
+	</bean>
+	
+		<bean id="topicListenerContainerB" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="topicListenConnectionFactoryB" />
+		<property name="pubSubDomain" value="true"/>  
+          
+        <property name="concurrentConsumers" value="1"/>  
+        <property name="maxConcurrentConsumers" value="1"/>  
+        <property name="receiveTimeout" value="10000"/>  
+		<property name="destination" ref="myTopic" />
+		<property name="messageListener" ref="topicListenerB" />
+	     <property name="subscriptionDurable" value="true"/>  
+        <property name="clientId" value="com.jrmapp.clientB"/>  
+        <property name="durableSubscriptionName" value="com.jrmapp.clientB"/>  
          <property name="taskExecutor" ref="taskExecutor" />  
         <property name="cacheLevel" value="0"/>  
 	</bean>
