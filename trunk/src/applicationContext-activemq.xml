@@ -11,8 +11,7 @@ xmlns:context="http://www.springframework.org/schema/context"
 	>
 	<context:property-placeholder location="classpath:database_conn.properties"/> 
 <!--
-	    使用spring的listenerContainer，消息用持久化保存，服务器重启不会丢失
-	   -->
+	    使用spring的listenerContainer，消息用持久化保存，服务器重启不会丢失 oracle -->
 	   <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> 
       <property name="url">
@@ -23,7 +22,17 @@ xmlns:context="http://www.springframework.org/schema/context"
       <property name="maxActive" value="200"/> 
       <property name="poolPreparedStatements" value="true"/> 
     </bean> 
- 
+     
+     <!-- 
+  <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
+      <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
+      <property name="url" value="jdbc:mysql://localhost:3306/shopxx?useUnicode=true&characterEncoding=UTF-8" />
+      <property name="username" value="root"/> 
+      <property name="password" value="root"/> 
+      <property name="maxActive" value="200"/> 
+      <property name="poolPreparedStatements" value="true"/> 
+    </bean> 
+     -->
 	<!--    -->
   <bean id="broker"
         class="org.apache.activemq.xbean.BrokerFactoryBean">
