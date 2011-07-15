@@ -460,6 +460,20 @@ http://denger.iteye.com/blog/805815
 新浪微博如何实现 SSO 的分析
 http://www.iteye.com/topic/1039052
 
--使用 JSONP 实现跨域通信，第 1 部分: 结合 JSONP 和 jQuery 快速构建强大的 mashup
+--使用 JSONP 实现跨域通信，第 1 部分: 结合 JSONP 和 jQuery 快速构建强大的 mashup
 http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/
+
+--spring+jmx   mx4j
+http://luisfigo.iteye.com/blog/703759  非常不错
+http://www.ibm.com/developerworks/cn/java/j-springjmx/
+http://www.blogjava.net/baallee/articles/132092.html?opt=admin
+
+--spring+activemq
+http://www.cnblogs.com/steeven/archive/2005/11/17/278462.html  事务
+http://obullxl.iteye.com/blog/1114827  mq+mysql
+http://andyao.iteye.com/blog/234101 不错
+http://blog.csdn.net/scorpio3k/article/details/5860433 安全认证
+
+-Spring AOP+ehCache简单缓存系统解决方案
+http://tom-duan.iteye.com/blog/99721
 
