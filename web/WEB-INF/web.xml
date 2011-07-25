@@ -20,7 +20,7 @@
 
 <context-param> 
 <param-name>contextConfigLocation</param-name> 
-<param-value>classpath:applicationContext.xml</param-value> 
+<param-value>classpath:net/bull/javamelody/monitoring-spring.xml,classpath:applicationContext.xml</param-value> 
 </context-param> 
 
      
@@ -28,6 +28,9 @@
     <listener> 
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class> 
     </listener> 
+    <listener>
+<listener-class>net.bull.javamelody.SessionListener</listener-class>
+</listener>
     
       <!-- session超时定义,单位为分钟 -->
 
@@ -110,6 +113,15 @@
         <url-pattern>/*</url-pattern>    
     </filter-mapping>   
     --> 
+    
+    <filter>
+<filter-name>monitoring</filter-name>
+<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+</filter>
+<filter-mapping>
+<filter-name>monitoring</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
     
     <!-- 解决延迟加载的问题 -->
 <filter>

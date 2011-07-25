@@ -30,7 +30,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(schema="javaee",name="house_type")
 @SuppressWarnings("serial") 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)  //,region="ehcache.xml"
-@Proxy(lazy = false)
+@Proxy(lazy = true)
 public class HouseType implements  Serializable {
 	 private final static String table="户型";
 		@Id
@@ -50,7 +50,7 @@ public class HouseType implements  Serializable {
 		private int housetypeid   ;//number(10)                     户型id      
 		
 		@Column(nullable=false, length=100,unique=true)
-		@Basic(fetch = FetchType.EAGER)
+		//@Basic(fetch = FetchType.EAGER)
 		//@OneToOne(fetch = FetchType.LAZY)
 		@NotEmpty
 		//@Pattern(regexp="\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*",message="不是邮箱的格式")
