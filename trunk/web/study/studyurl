@@ -526,7 +526,17 @@ http://space.itpub.net/24778843/viewspace-693743
 http://tech.it168.com/a2009/0423/273/000000273787_9.shtml
 
 --BeanUtils.copyProperties与PropertyUtils.copyProperties用法及区别
+http://www.cnblogs.com/fayf/archive/2008/08/21/1272982.html
 
 --hibernate 综合
+http://www.blogjava.net/sealyu/archive/2009/08/19/291759.html
 http://elf8848.iteye.com/category/56526
-http://www.cnblogs.com/fayf/archive/2008/08/21/1272982.html
+http://wiki.redsaga.com/confluence/display/HART/Hibernate+Annotation+Extensions
+
+@CollectionOfElements
+@MapKey(columns =  @Column(name="ACC_TYPE"), 
+  targetElement = AccountType.class)
+@Column(name="ACCOUNT_NO")
+public Map<AccountType, String> getAccounts() {
+  return accountMap;
+}
