@@ -13,12 +13,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Proxy;
 
 @Entity  
 @Table(name="USERINFO") 
@@ -50,7 +50,8 @@ public class User implements Serializable{
   /*  @OneToOne(fetch=FetchType.LAZY, optional = false)  
     @PrimaryKeyJoinColumn  */
   //@OneToOne(mappedBy="userIdCard", fetch=FetchType.LAZY) 
-    @OneToOne(mappedBy="user",fetch=FetchType.LAZY,optional = false)   
+    @OneToOne(mappedBy="user",fetch=FetchType.LAZY,optional = false)
+    @Fetch(FetchMode.JOIN)
     private UserIdCard userIdCard = null;//One to one  
      
     /** 
