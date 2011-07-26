@@ -1,5 +1,6 @@
 package com.jrmapp.action;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -10,11 +11,12 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
@@ -43,6 +45,9 @@ import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 }) */
  @InterceptorRefs( {@InterceptorRef(value = "token" ,params = { "includeMethods" , "hello" } ),@InterceptorRef( "defaultStack" ) } )
 public class BbbAction extends BaseAction {
+	private Logger  logger=Logger.getLogger(BbbAction.class);  
+	  
+	//private static final Logger dbLog = Logger.getLogger("database");  
 	@Resource(name="houseTypeDao")
 	private IBaseDao<HouseType,Integer> houseTypeDao;
 	@Resource(name="sellSeriesDao")
@@ -170,6 +175,22 @@ public class BbbAction extends BaseAction {
 	}
 
 	public Page test() throws Exception{
+
+
+		  
+		// 使用 dbLog 输出的日志会记录至数据库, log 输出的会记录至控制台  
+		 SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+         Date now=new Date(System.currentTimeMillis());  
+         MDC.put("usr_id", "test");  
+         MDC.put("log_title", "网站访问记录");  
+         MDC.put("log_type", "记录");  
+         MDC.put("log_category", "网站访问记录");  
+         MDC.put("log_datetime", format.format(now));  
+         MDC.put("log_ip", "127.0.0.1");  
+         logger.info(MDC.getContext()); 
+		//MDC.put("id", "XXX");  
+		//dbLog.info(MDC.getContext());  
+		//MDC.remove("id");  
 		
 		User user1 = new User(); 
 	    //if (true)

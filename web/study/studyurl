@@ -280,7 +280,7 @@ http://jeromeyiapi.appspot.com/
 --Quartz
 http://www.javaeye.com/topic/441951
 http://www.javaeye.com/topic/486055
-http://sundoctor.iteye.com/blog/480405
+http://sundoctor.iteye.com/blog/480405  非常有用
 http://www.iteye.com/topic/399980
 http://teddywang.iteye.com/blog/751008
 http://www.iteye.com/problems/47143
@@ -540,3 +540,10 @@ http://wiki.redsaga.com/confluence/display/HART/Hibernate+Annotation+Extensions
 public Map<AccountType, String> getAccounts() {
   return accountMap;
 }
+
+--mybatis
+http://nirvana1988.iteye.com/blog/971246
+http://citygu.iteye.com/blog/1082485
+
+--log4j
+http://www.iteye.com/topic/378077
