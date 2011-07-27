@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Criteria;
+import org.hibernate.LockMode;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -24,10 +25,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
-
 import com.jrmapp.dao.support.BeanUtils;
 import com.jrmapp.dao.support.Page;
-import com.test.JavenTestCase;
 
 
 
@@ -66,8 +65,8 @@ public class HibernateEntityDao<T,PK extends Serializable> extends HibernateDaoS
      */ 
     @SuppressWarnings("unchecked") 
     public T get(PK id) throws Exception{ 
-         
-        return (T) getHibernateTemplate().load(getEntityClass(), id); 
+    	return (T) getHibernateTemplate().load(getEntityClass(), id); 
+        //return (T) getHibernateTemplate().load(getEntityClass(), id,LockMode.UPGRADE); 
     	 //return (T) getHibernateTemplate().get(getEntityClass(), id); 
     } 
      
