@@ -62,5 +62,9 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 		 System.out.println("runthis=="+user.getName());
 		 return user.getName();
 	 }
+	 
+	 public void updateUser(User user)throws Exception{
+		 userDao.update(user);
+	 }
 
 }

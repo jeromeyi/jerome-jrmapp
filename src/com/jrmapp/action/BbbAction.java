@@ -198,7 +198,13 @@ public class BbbAction extends BaseAction {
         user1.setName("test1"); 
 		//userService.save(user1);
 		user=userService.getUser(1);
+		User user2=userService.getUser(1);
+		System.out.println("go--------------------1");
     	System.out.println("userService===="+user.getName());
+    	user.setName("Xieyi");
+    	userService.updateUser(user);
+    	System.out.println("userService2===="+user2.getName());
+    	User user3=userService.getUser(1);
     	Set addSet=user.getAddresses();
     	Iterator iterator=addSet.iterator();
     	while(iterator.hasNext()){

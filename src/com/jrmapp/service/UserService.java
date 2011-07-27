@@ -11,4 +11,5 @@ public interface UserService{
 	public User getUser(long id) throws Exception;
 	public void saveUser(User user) throws Exception;
 	public String getUserName(long id)throws Exception;
+	public void updateUser(User user)throws Exception;
 }
