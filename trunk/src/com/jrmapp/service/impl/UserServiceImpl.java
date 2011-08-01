@@ -50,11 +50,11 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 	        //userDao.save(user1);  
 		 userDao.save(user);
 		 try{
-		 houseTypeService.nestedSave();
+		// houseTypeService.nestedSave();
 		 }catch (Exception e) {
 			// TODO: handle exception
 		}
-		// throw new Exception("抛出异常");
+		 //throw new Exception("抛出异常");
 	 }
 	 
 	 public String getUserName(long id)throws Exception{
@@ -65,6 +65,9 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 	 
 	 public void updateUser(User user)throws Exception{
 		 userDao.update(user);
+		 User user1 = new User();  
+	        user1.setName("test1");  
+	        this.saveUser(user1);  
 	 }
 
 }
