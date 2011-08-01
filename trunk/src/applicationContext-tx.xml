@@ -20,8 +20,14 @@
 	<!-- 通过aop定义事务增强切面 --> 
 	<aop:config>
 		<!-- 使用强大的切点表达式语言轻松定义目标方法 execution(* com.jrmapp.dao.base.IBaseDao.*(..)) execution(* com.jrmapp.service.*.*(..)) -->
+		 
 		<aop:pointcut id="serviceMethod"
 			expression="execution(* com.jrmapp.service.*.*(..))" />
+			 
+			 <!-- 
+			 <aop:pointcut id="serviceMethod"
+			expression="execution(* com.jrmapp.dao.base.IBaseDao.*(..))" />
+			 -->
 		<!-- 引用事务增强 -->
 		<aop:advisor pointcut-ref="serviceMethod" advice-ref="txAdvice" />
 	</aop:config>
