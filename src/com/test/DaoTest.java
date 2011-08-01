@@ -34,9 +34,9 @@ public class DaoTest  extends JavenTestCase{
 	
 	@Test
 	public void test() throws Exception{
-		Vector v=new Vector();
+/*		Vector v=new Vector();
 		Collections.synchronizedList(v);
-         
+         */
 			//HouseType ht1=houseTypeDao.get(2923);
 			//SellSeries ss=sellSeriesDao.get(3062);
 /*			HouseType ht=new HouseType();
@@ -67,7 +67,7 @@ public class DaoTest  extends JavenTestCase{
 		   // Assert.assertTrue(validMessages.length>0);
 		for(int i=1;i<1000000;i++){
 		HouseType ht=new HouseType();
-		ht.setHousetypename("测试异常"+i);
+		ht.setHousetypename("测试数据"+i);
 		ht.setHousecatid(1);
 		ht.setInitarea(40);
 		ht.setToparea(40);
