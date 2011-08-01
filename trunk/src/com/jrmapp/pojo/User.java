@@ -51,7 +51,7 @@ public class User implements Serializable{
     @PrimaryKeyJoinColumn  */
   //@OneToOne(mappedBy="userIdCard", fetch=FetchType.LAZY) 
     @OneToOne(mappedBy="user",fetch=FetchType.LAZY,optional = false)
-    @Fetch(FetchMode.JOIN)
+    //@Fetch(FetchMode.JOIN)
     private UserIdCard userIdCard = null;//One to one  
      
     /** 
