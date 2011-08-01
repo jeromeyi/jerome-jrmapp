@@ -33,7 +33,8 @@ public class TestUser extends JavenTestCase{
 	
 	 private long userID;  
 	    private long addressID;  
-	   
+	    
+	      
 	 public void testAdd() throws Exception {  
 	        //Save user  
 	        User user = new User();  
@@ -73,7 +74,7 @@ public class TestUser extends JavenTestCase{
 	    }  
 	      
 	    @SuppressWarnings("unchecked")  
-	    
+	    @Test
 	    public void testQuery() throws Exception {  
 //	        List<Object> ls = (List) session.createQuery("from User user inner join user.userIdCard where user.name=?").setParameter(0, "AdersonJ").list();  
 //	        Object[] ary = (Object[]) ls.get(0);  
@@ -87,22 +88,25 @@ public class TestUser extends JavenTestCase{
 //	          System.out.println(user.getName());  
 	          
 	        //Address address = (Address) session.createQuery("from Address as address where address.address=?").setParameter(0, "Beijing city").uniqueResult();  
-	        Address  address = addressDao.get(5l);  
-	        System.out.println(address.getAddress());  
+	       // Address  address = addressDao.get(5l);  
+	        //System.out.println(address.getAddress());  
 	    /*	List<Address> htList1=addressDao.find(" from Address");
 			for(Address obj:htList1){
 				System.out.println(obj.getAddress());
 				System.out.println(obj.getUser().getName());
 			}*/
-	    	User user=userService.getUser(6);
+	    	User user=userService.getUser(1);
 	    	System.out.println(user.getName());
 			
 	    }  
 	    @Test  
 	    public void testAdd1() throws Exception {
-	    	User user = new User();  
-	        user.setName("测试");  
-	        userService.saveUser(user);  
+	    	User userup=userService.getUser(1);
+	    	userup.setName("xy222");
+	    	userService.updateUser(userup);
+	    	/*User user = new User();  
+	        user.setName("test1");  
+	        userService.saveUser(user);  */
 	        
 		}
 	      
