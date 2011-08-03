@@ -15,7 +15,7 @@ public class TestMain {
 		//System.out.println(file.exists());
        new TestMain().removeFile(file);
 		ListableBeanFactory lsb = new ClassPathXmlApplicationContext("classpath:applicationContext-activemq.xml");
-		GenericBeanFactoryAccessor gba = new GenericBeanFactoryAccessor(lsb);
+		/*GenericBeanFactoryAccessor gba = new GenericBeanFactoryAccessor(lsb);
 		TopicMessageProducer topicProducer = gba.getBean("topicMessageProducer");
 		QueueMessageProducer queueProducer = gba.getBean("queueMessageProducer");
 		int count = 1;
@@ -23,12 +23,12 @@ public class TestMain {
 			FooMessage fm = new FooMessage();
 			fm.setId(count);
 			fm.setName("测试JMS==="+fm.getId()); 
-			/*topicProducer.send(fm);
+			topicProducer.send(fm);
 			System.out.println("订阅  send  count="+count);
 			queueProducer.send(fm);
-			System.out.println("队列 send  count="+count);*/
+			System.out.println("队列 send  count="+count);
 			count ++;
-		}
+		}*/
 	}
 	 public void removeFile(String path) {   
 	        this.removeFile(new File(path));   

@@ -6,8 +6,11 @@ package com.jrmapp.activemq;
  */
 public class QueueConsumer {
 
-    public void receive(FooMessage message) {
+    public void receive(FooMessage message) throws Exception{
 		System.out.println("*************************************** Queue : " + message.getId()+"  "+message.getName());
-	}
+		/*if(true){
+			throw new RuntimeException("接收Queue消息时出错");
+        }*/
+    }
     
 }
