@@ -20,16 +20,23 @@ public class WeatherRPCClient {
         QName opGetWeather = new QName("http://service.jrmapp.com", "getUserName");  
         Object[] opGetWeatherArgs = new Object[] { 1L};  
         Class[] returnTypes = new Class[] { String.class };  
-       // Class[] returnTypes = new Class[] { User.class };  
        Object[] response = serviceClient.invokeBlocking(opGetWeather,opGetWeatherArgs, returnTypes);  
   System.out.println(response[0]);
-  /*      User result = (User) response[0];  
-        if (result == null) {  
-            System.out.println("Weather didn't initialize!");  
-        }else{  
-            System.out.println();  
-            System.out.println("Id               : " + result.getId());  
-            System.out.println("Name                  : " + result.getName());  
-        }  */
+
+  
+
+  QName opGetUser = new QName("http://service.jrmapp.com", "getUser");  
+  Object[] opGetUserArgs = new Object[] { 1L};  
+  Class[] returnUserTypes = new Class[] { User.class };  
+ Object[] responseUser = serviceClient.invokeBlocking(opGetUser,opGetUserArgs, returnUserTypes);  
+      User result = (User) responseUser[0];  
+  if (result == null) {  
+      System.out.println("user didn't initialize!");  
+  }else{  
+      System.out.println();  
+      System.out.println("Id               : " + result.getId());  
+      System.out.println("Name                  : " + result.getName());  
+  }  
+  
     }  
 }
