@@ -33,7 +33,7 @@ xmlns:context="http://www.springframework.org/schema/context"
       <property name="poolPreparedStatements" value="true"/> 
     </bean> 
      -->
-	<!--    -->
+	<!--    
   <bean id="broker"
         class="org.apache.activemq.xbean.BrokerFactoryBean">
         <property name="config"
@@ -41,26 +41,29 @@ xmlns:context="http://www.springframework.org/schema/context"
         <property name="start"
             value="true" />
     </bean>
+    -->
 
 	  <!-- 连接外部的activeMQ
 	<amq:connectionFactory id="jmsConnectionFactory" brokerURL="tcp://localhost:61616?wireFormat.maxInactivityDuration=0" />
 	  ActiveMQ connectionFactory  -->
  <bean id="connectionFactory"  
         class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
-        <property name="brokerURL" value="tcp://localhost:61616"/>  
+        <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/>  
         <property name="useAsyncSend" value="true"/>  
     </bean>  
   
     <bean id="topicListenConnectionFactory"  
         class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
-        <property name="brokerURL" value="tcp://localhost:61617"/>  
+        <!-- <property name="brokerURL" value="tcp://localhost:61616"/>  -->
+        <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/>  
         <property name="clientID" value="com.jrmapp.clientA"/>  
          <property name="optimizeAcknowledge" value="true" /> <!-- 批量确认 -->
     </bean>  
     
      <bean id="topicListenConnectionFactoryB"  
         class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
-        <property name="brokerURL" value="tcp://localhost:61617"/>  
+        <!-- <property name="brokerURL" value="tcp://localhost:61617"/>   -->
+        <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/>  
         <property name="clientID" value="com.jrmapp.clientB"/>  
          <property name="optimizeAcknowledge" value="true" />
     </bean>  
