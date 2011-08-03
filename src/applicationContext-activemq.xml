@@ -46,6 +46,16 @@ xmlns:context="http://www.springframework.org/schema/context"
 	  <!-- 连接外部的activeMQ
 	<amq:connectionFactory id="jmsConnectionFactory" brokerURL="tcp://localhost:61616?wireFormat.maxInactivityDuration=0" />
 	  ActiveMQ connectionFactory  -->
+	  <!-- 
+   客户端使用普通传输方式：tcp://localhost:61616   
+    此处需加以注意的是Listener端的borkerURL使用了failover传输方式：   
+    failover:(tcp://localhost:61616)?initialReconnectDelay=100&amp;  
+maxReconnectAttempts=5   
+    failover transport是一种重新连接机制，用于建立可靠的传输。此处配置的是一旦ActiveMQ broker中断，Listener端将每隔100ms自动尝试连接，
+    直至成功连接或重试5次连接失败为止。  
+    failover还支持多个borker同时提供服务，实现负载均衡的同时可增加系统容错性，格式： failover:(uri1,...,uriN)?transportOptions  
+-->
+	  
  <bean id="connectionFactory"  
         class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
         <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/>  
@@ -76,6 +86,10 @@ xmlns:context="http://www.springframework.org/schema/context"
           <constructor-arg value="com.jrmapp.topic"/>  
     </bean>  
 
+<!-- Spring JMS Template  
+        JmsTemplate 类的实例 一经配置便是线程安全 的。 要清楚一点，JmsTemplate   
+        是有状态的，因为它维护了 ConnectionFactory 的引用，但这个状态时不是会话状态。  
+-->
 <bean id="jmsTemplate"
         class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory">
@@ -88,6 +102,15 @@ xmlns:context="http://www.springframework.org/schema/context"
         <property name="defaultDestination"
             ref="myQueue" />
              -->
+      <!--JMS API有两种发送方法，一种采用发送模式、  
+优先级和存活时间作为服务质量（QOS）参数，  
+            默认{deliveryMode:2(1),priority:4,timeToLive:0}  
+            另一种使用无需QOS参数的缺省值方法。  
+            <property name="explicitQosEnabled" value="true"/>  
+            <property name="deliveryMode" value="2"/>  
+            <property name="priority" value="4"/>  
+                        <property name="timeToLive" value="1000"/>  
+         -->           
         <property name="messageConverter"
             ref="defaultMessageConverter" />
     </bean>
@@ -172,6 +195,19 @@ xmlns:context="http://www.springframework.org/schema/context"
 		<property name="messageConverter" ref="defaultMessageConverter" />
 	</bean>
 
+<!-- 
+在connection的基础上创建一个session，同时设置是否支持事务ACKNOWLEDGE标识。 
+• AUTO_ACKNOWLEDGE：自动确认模式。一旦接收方应用程序的方法调用从处理消息处返回，会话对象就会确认消息的接收。  
+• CLIENT_ACKNOWLEDGE：客户端确认模式。会话对象依赖于应用程序对被接收的消息调用一个acknowledge()方法。一旦这个方法被调用，
+会话会确认最后一次确认之后所有接收到的消息。这种模式允许应用程序以一个调用来接收，处理并确认一批消息。
+注意：在管理控制台中，如果连接工厂的Acknowledge Policy（确认方针）属性被设置为"Previous"（提前），
+但是你希望为一个给定的会话确认所有接收到的消息，那么就用最后一条消息来调用acknowledge()方法。  
+• DUPS_OK_ACKNOWLEDGE：允许副本的确认模式。一旦接收方应用程序的方法调用从处理消息处返回，会话对象就会确认消息的接收；
+而且允许重复确认。在需要考虑资源使用时，这种模式非常有效。注意：如果你的应用程序无法处理重复的消息的话，你应该避免使用这种模式。
+如果发送消息的初始化尝试失败，那么重复的消息可以被重新发送。 
+•  SESSION_TRANSACTED  
+ -->
+ 
     <!--  listener container，MDP无需实现接口	subscriptionDurable属性：设置监听是否是持久--> 
 	<bean id="topicListenerContainerA" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="topicListenConnectionFactory" />
@@ -180,15 +216,18 @@ xmlns:context="http://www.springframework.org/schema/context"
         <property name="concurrentConsumers" value="1"/>  
         <property name="maxConcurrentConsumers" value="1"/>  
         <property name="receiveTimeout" value="10000"/>  
+         <property name="sessionAcknowledgeModeName" value="CLIENT_ACKNOWLEDGE"/>
 		<property name="destination" ref="myTopic" />
 		<property name="messageListener" ref="topicListenerA" />
 	     <property name="subscriptionDurable" value="true"/>  
+	     <!-- 持久化客户端ID -->  
         <property name="clientId" value="com.jrmapp.clientA"/>  
         <property name="durableSubscriptionName" value="com.jrmapp.clientA"/>  <!-- 持久订阅者名称  ACTIVEMQ_ACKS表的SUB_NAME字段 -->
          <property name="taskExecutor" ref="taskExecutor" />  
         <property name="cacheLevel" value="0"/>  
 	</bean>
 	
+	<!--   -->
 		<bean id="topicListenerContainerB" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="topicListenConnectionFactoryB" />
 		<property name="pubSubDomain" value="true"/>  
@@ -196,6 +235,7 @@ xmlns:context="http://www.springframework.org/schema/context"
         <property name="concurrentConsumers" value="1"/>  
         <property name="maxConcurrentConsumers" value="1"/>  
         <property name="receiveTimeout" value="10000"/>  
+         <property name="sessionAcknowledgeModeName" value="CLIENT_ACKNOWLEDGE"/>
 		<property name="destination" ref="myTopic" />
 		<property name="messageListener" ref="topicListenerB" />
 	     <property name="subscriptionDurable" value="true"/>  

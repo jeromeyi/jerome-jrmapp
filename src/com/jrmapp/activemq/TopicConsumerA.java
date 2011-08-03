@@ -14,11 +14,11 @@ public class TopicConsumerA {
 	SimpleMessageConverter simpleMessageConverter;
 
 	public void receive(final FooMessage message) {
-		System.out.println(Thread.currentThread().getName());
+		//System.out.println(Thread.currentThread().getName());
 		exec.submit((new Runnable() {
 			@Override
 			public void run() {
-				System.out.println(Thread.currentThread().getName());
+				//System.out.println(Thread.currentThread().getName());
 				System.out.println("************************************** Topic A : " + message.getId()+"  "+message.getName());
 			}
 		}));
