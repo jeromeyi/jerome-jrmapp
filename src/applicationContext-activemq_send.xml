@@ -48,24 +48,37 @@ xmlns:context="http://www.springframework.org/schema/context"
 	  ActiveMQ connectionFactory  -->
  <bean id="connectionFactory"  
         class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
-        <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/>  
+         <property name="brokerURL" value="failover:tcp://localhost:61616"/>
+         <!-- 
+        <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/> 
+         --> 
         <property name="useAsyncSend" value="true"/>  
+         <property name="userName" value="system"/>  
+         <property name="password" value="manager"/>  
     </bean>  
   
     <bean id="topicListenConnectionFactory"  
         class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
-        <!-- <property name="brokerURL" value="tcp://localhost:61616"/>  -->
+         <property name="brokerURL" value="failover:tcp://localhost:61616"/>
+        <!-- <property name="brokerURL" value="tcp://localhost:61616"/>  
         <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/>  
+        -->
         <property name="clientID" value="com.jrmapp.clientA"/>  
          <property name="optimizeAcknowledge" value="true" /> <!-- 批量确认 -->
+         <property name="userName" value="system"/>  
+         <property name="password" value="manager"/>  
     </bean>  
     
      <bean id="topicListenConnectionFactoryB"  
         class="org.apache.activemq.spring.ActiveMQConnectionFactory">  
-         <!-- <property name="brokerURL" value="tcp://localhost:61617"/>  -->
-        <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/>  
+         <property name="brokerURL" value="failover:tcp://localhost:61616"/>
+         <!-- <property name="brokerURL" value="tcp://localhost:61617"/>  
+        <property name="brokerURL" value="tcp://localhost:61616?wireFormat.maxInactivityDuration=0"/> 
+        --> 
         <property name="clientID" value="com.jrmapp.clientB"/>  
          <property name="optimizeAcknowledge" value="true" />
+         <property name="userName" value="system"/>  
+         <property name="password" value="manager"/>  
     </bean>  
  <!--定义消息队列-->  
     <bean id="myQueue" class="org.apache.activemq.command.ActiveMQQueue">  
