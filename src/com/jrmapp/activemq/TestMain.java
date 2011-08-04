@@ -13,7 +13,7 @@ public class TestMain {
 	public static void main(String[] args) throws JMSException {
 		java.io.File file=new File("activemq-data");
 		//System.out.println(file.exists());
-       new TestMain().removeFile(file);
+       //new TestMain().removeFile(file);
 		ListableBeanFactory lsb = new ClassPathXmlApplicationContext("classpath:applicationContext-activemq.xml");
 		/*GenericBeanFactoryAccessor gba = new GenericBeanFactoryAccessor(lsb);
 		TopicMessageProducer topicProducer = gba.getBean("topicMessageProducer");
