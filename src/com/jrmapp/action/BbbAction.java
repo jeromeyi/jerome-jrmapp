@@ -11,6 +11,9 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.apache.struts2.convention.annotation.Action;
@@ -297,6 +300,21 @@ public class BbbAction extends BaseAction {
     	 this.name="BBBACTION测试ajaxSubmit";
           
     	 return "bbbtest";  
+    }
+    
+    public String testAjaxQuery() throws Exception{
+		testPage=houseTypeDao.pagedQuery(pageNo, pageSize);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setExcludes(new String[] { "servletRequest", "servletResponse", "handler", "transactionTimeout" });
+		JSONArray jsonArray = JSONArray.fromObject(testPage, jsonConfig);
+		System.out.println(jsonArray.toString());
+		return ajaxJson(jsonArray.toString());
+		//return "testQuery";
+	}
+    @Action(value = "/testAjaxQuery",results={@Result(type="json",name="testAjaxQuery")})  
+    public String ajaxQuery() throws Exception{
+		testPage=houseTypeDao.pagedQuery(pageNo, pageSize);
+		return "testAjaxQuery";
     }
 	
 	public String getA() {
