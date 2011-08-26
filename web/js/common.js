@@ -1,8 +1,4 @@
 function parsePagin(page, jQuerypagin, queryform) {
-	/*alert(page.currentPageNo);
-	alert(jQuerypagin.html());
-	alert(queryform);
-	return;*/
 	if (page.totalCount > 0)
 		jQuerypagin.append('<div class="pagination" align="right">');
 	if (page.currentPageNo > 1)
@@ -18,8 +14,7 @@ function parsePagin(page, jQuerypagin, queryform) {
 	else
 		jQuerypagin.append('<a  class="noncepage"><</a> ');
 
-	/*alert(page.totalPageCount);
-	return;*/
+
 	var begin = 1;
 	if (page.currentPageNo > 5)
 		begin = (page.currentPageNo - 5);
@@ -50,18 +45,18 @@ function parsePagin(page, jQuerypagin, queryform) {
 		jQuerypagin.append('<a  class="noncepage">>></a> |每页显示');
 	}
 		
-		jQuerypagin
-				.append('<input name="pageSize" type="text" class="inputnumber"  value="'
-						+ page.pageSize
-						+ '" onkeypress="if(event.keyCode=="13"){ document.getElementById("go").focus(); }"/>');
+	jQuerypagin
+	.append('<input name="pageSize" type="text" class="inputnumber"  value="'
+			+ page.pageSize
+			+ '" onkeypress="if(event.keyCode==13){ document.getElementById(\'go\').focus(); }"/>');
 		jQuerypagin.append('条,共' + page.totalCount + '条记录|');
 		jQuerypagin
 				.append('第<input name="pageNo" type="text" value="'
 						+ page.currentPageNo
-						+ '" class="inputnumber" onkeypress="if(event.keyCode=="13"){ document.getElementById("go").focus(); }" /> 页,共'
+						+ '" class="inputnumber" onkeypress="if(event.keyCode==13){ document.getElementById(\'go\').focus(); }" /> 页,共'
 						+ page.totalPageCount + '页');
 		jQuerypagin
-				.append('<input name="go" id="go" type="button" value="GO" class="inputgo" style="cursor:hand;" onclick="ajaxTurnPage ("goto",\''
+				.append('<input name="go" id="go" type="button" value="GO" class="inputgo" style="cursor:hand;" onclick="ajaxTurnPage (\'go\',\''
 						+ queryform + '\')"/> ');
 		jQuerypagin.append('</div>  ');
 	
