@@ -87,9 +87,13 @@ jQuery("#pagindata").html("");
 	    	trclass="odd";
 	    else
 	    	trclass="even";
-		 jQuery("#tbodydata").append("<tr class='"+trclass+"'><td>"+i+1+"</td><td>"+ht.housetypename+"</td><td>"+ht.initarea+"</td>") ;
+		 jQuery("#tbodydata").append("<tr class='"+trclass+"'><td>"+(i+1)+"</td><td>"+ht.housetypename+"</td><td>"+ht.initarea+"</td>") ;
      	  }); 
+	 //jQuery("#pagindata").append("<div class=\"pagination\" align=\"right\">");
+	 //alert(jQuery("#pagindata").html());
 	parsePagin(json.testPage,jQuery("#pagindata"),"query");
+	//jQuery("#pagindata").append("</div>");
+	//alert(jQuery("#pagindata").html());
  jQuery("#query").unmasked();
 }
 function errorCallBack(data){
@@ -229,8 +233,9 @@ function errorCallBack(data){
                    </tbody>
              <thead>
             <tr>
-                <th colspan="6" id="pagindata"> 
-
+                <th colspan="6" > 
+<div class="pagination" align="right" id="pagindata">
+</div>
                 </th>
             </tr>
         </thead>
