@@ -1,14 +1,12 @@
 package com.jrmapp.action;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 import javax.persistence.Transient;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
-import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -18,7 +16,6 @@ import com.jrmapp.dao.support.Page;
 import com.jrmapp.pojo.HouseType;
 import com.jrmapp.pojo.test;
 import com.jrmapp.service.HouseTypeService;
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * @author 谢毅(Jerome) E-mail:xieyi@kebao.cn
@@ -27,11 +24,33 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @SuppressWarnings("serial")
 //@ParentPackage("json-default")  
-@Result(type="json",name="jsontest") 
+//@Result(type="json",name="jsontest") 
+@Results( 
+{@Result(type="json")}) 
 @Controller
 @Scope("prototype")
 
 public class JsonTestAction extends BaseAction {
+	@Resource(name="houseTypeDao")
+	private IBaseDao<HouseType,Integer> houseTypeDao;
+	 private int pageNo=1;
+	    public int getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+		private int pageSize=20;
 	//没有setter和getter方法的字段不会被序列化     
 	//'transient'不会被序列化    
 	@Transient
@@ -81,14 +100,14 @@ public class JsonTestAction extends BaseAction {
         this.name = name;  
     }  
       
-    @Action(value="test",results={@Result(type="json",name="test")},interceptorRefs = { @InterceptorRef("token") })  
+    //@Action(value="test",results={@Result(type="json",name="test")},interceptorRefs = { @InterceptorRef("token") })  
     public String test() throws Exception{  
         this.name += ": Test method!!";  
           
-        return "jsontest";  
+        return SUCCESS;  
     }  
     
-    @Action(value="testObj",results={@Result(type="json",name="test")})  
+    //@Action(value="/jsonTestObj",results={@Result(type="json",name="testObj")})  
     public String testObj() throws Exception{  
     	
     	if(null==test){
@@ -96,26 +115,27 @@ public class JsonTestAction extends BaseAction {
 		test.setTesta("testa");
 		test.setTestb("testb");
 		}
-		testPage=bbbAction.test();
+		//testPage=bbbAction.test();
+		testPage=houseTypeDao.pagedQuery(pageNo, pageSize);
           
-        return "jsontest";  
+        return SUCCESS;  
     }  
     
-    @Action(value="ajaxForm",results={@Result(type="json",name="test")})  
+    //@Action(value="ajaxForm",results={@Result(type="json",name="test")})  
     public String testAjaxForm() throws Exception{  
     	 this.name="测试ajaxSubmit";
           
-    	 return "jsontest";  
+    	 return SUCCESS;  
     }
     
 
     public String saveHouseType() throws Exception{  
     	houseTypeService.save(houseType);
     	 this.name="保存成功";    
-        return "jsontest";  
+        return SUCCESS;  
     }
       
-    @Action(results={@Result(type="json",name="success")})  
+    //@Action(results={@Result(type="json",name="success")})  
     public String execute() throws Exception{  
         this.name +=": This is the default method!";  
           
