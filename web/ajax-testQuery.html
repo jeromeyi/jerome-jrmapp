@@ -1,0 +1,252 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+ <head>
+  <title>jQuery First</title>
+<meta http-equiv=Content-Type content=text/html;charset=utf-8>
+<link href="css/table.css" rel="stylesheet" type="text/css">
+	<style> 
+html, body {
+	margin: 0;			/* Remove body margin/padding */
+	padding: 0;
+	/*overflow: hidden;	/* Remove scroll bars on browser window */	
+    font-size: 100%;
+}
+/*Splitter style */
+ 
+ 
+#LeftPane {
+	/* optional, initial splitbar position */
+	overflow: auto;
+}
+/*
+ * Right-side element of the splitter.
+*/
+ 
+#RightPane {
+	padding: 2px;
+	overflow: auto;
+}
+.ui-tabs-nav li {position: relative;}
+.ui-tabs-selected a span {padding-right: 10px;}
+.ui-tabs-close {display: none;position: absolute;top: 3px;right: 0px;z-index: 800;width: 16px;height: 14px;font-size: 10px; font-style: normal;cursor: pointer;}
+.ui-tabs-selected .ui-tabs-close {display: block;}
+.ui-layout-west .ui-jqgrid tr.jqgrow td { border-bottom: 0px none;}
+.ui-datepicker {z-index:1200;}
+.rotate
+    {
+        /* for Safari */
+        -webkit-transform: rotate(-90deg);
+ 
+        /* for Firefox */
+        -moz-transform: rotate(-90deg);
+ 
+        /* for Internet Explorer */
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    }
+ 
+</style> 
+ </head>
+
+<script>
+jQuery(document).ready(function(){  
+ajaxSub = function() {  
+    //jQuery('#login_tmp').remove();  
+    var options = {  
+        type : "post",  
+        dataType : "json",  
+        //url : "$base/testAjaxQuery.do",  
+        url : "$base/json-test!testObj.do",  
+        //data : {"userID" : 1111,"a":$("#a").val()},  
+        //cache : "false",  
+        beforeSubmit : beforeCallBack,  
+       success : successCallBack,  
+       error : errorCallBack  
+   };  
+   // 异步提交登陆请求  
+   jQuery("#query").ajaxSubmit(options);  
+};
+
+function beforeCallBack(){
+	  jQuery("#query").masked("正在处理，请稍后...");
+	  return true;
+//alert("beforeCallBack");
+}
+function successCallBack(json){
+	//var json=jQuery.parseJSON(data);
+	//alert(data.pageSize);
+/*	for(var s in data){
+		//alert(data[s]);
+		for(var i in data[s])
+			alert(data[s][i]);
+}*/
+//alert(data[0]);
+jQuery("#tbodydata").html("");
+jQuery("#pagindata").html("");
+	 jQuery.each(json.testPage.result,function(i,ht){ 
+	    var trclass="";
+	    if((i+1)%2==0)
+	    	trclass="odd";
+	    else
+	    	trclass="even";
+		 jQuery("#tbodydata").append("<tr class='"+trclass+"'><td>"+i+1+"</td><td>"+ht.housetypename+"</td><td>"+ht.initarea+"</td>") ;
+     	  }); 
+	parsePagin(json.testPage,jQuery("#pagindata"),"query");
+ jQuery("#query").unmasked();
+}
+function errorCallBack(data){
+	for(var s in data)	
+		jQuery("#errorDIV").append(data[s].toString());
+		 //alert(data[s]);
+ //alert("errorCallBack:"+data);
+	 jQuery("#query").unmasked();
+}
+    
+	//jQuery().ready(function(){
+	var validator =jQuery("#query").validate({ 
+		//debug:true,
+		//event:"keyup",
+		
+		  submitHandler:function(form){
+	            //alert("submitted");
+	            /**
+	            if(confirm('确认提交数据？')){
+	            	jQuery("#queryForm").masked("请等待...");
+	            	//document.getElementById("queryForm").submit(); 
+	            	form.submit();
+	            }
+	            **/
+	              ajaxSub();
+	            return false;
+	            //jQuery("#query").masked("请等待...");
+	            //form.submit();
+	        },
+	        
+/*	      
+	rules: { 
+	email: {
+	required: true,
+	email: true
+	},
+	password: {
+	required: true,
+	minlength: 5
+	},
+	confirm_password: {
+	required: true,
+	minlength: 5,
+	equalTo: "#password"
+	}
+	}, 
+*/
+	messages: {
+	email: {
+	required: "请输入Email地址",
+	email: "请输入正确的email地址"
+	},
+	password: {
+	required: "请输入密码",
+	minlength: jQuery.format("密码不能小于{0}个字符")
+	},
+	confirm_password: {
+	required: "请输入确认密码",
+	minlength: "确认密码不能小于5个字符",
+	equalTo: "两次输入密码不一致"
+	}
+	}
+	});
+	});
+</script>
+ <form name="query" id="query" action="testAjaxQuery.do" method="post">
+ <fieldset>
+    	<legend>输入验证</legend>
+    	#set($i=2)
+		
+    	 <dl>
+        	<dt><label for="hello">Hello:</label></dt>
+            <dd>hello $i !!!</dd>
+        </dl>
+         <dl>
+        	<dt><label for="href">Href:</label></dt>
+            <dd><a href="bbb.do?a=2">link2</a></dd>
+        </dl>
+        <dl>
+        	<dt><label for="tautocomplete">Autocomplete:</label></dt>
+            <dd><input type="text" name="tautocomplete" id="tautocomplete" size="32" maxlength="128" /></dd>
+        </dl>
+        <dl>
+        	<dt><label for="test.testa">Firstname:</label></dt>
+            <dd><input type="text" name="test.testa" id="test.testa" size="32" maxlength="32"/></dd>
+        </dl>
+        <dl>
+        	<dt><label for="email">Email:</label></dt>
+            <dd><input type="text" name="email" id="email" size="32" maxlength="32" /></dd>
+        </dl>
+        <dl>
+        	<dt><label for="password">Password:</label></dt>
+            <dd><input type="password" name="password" id="password" size="32" maxlength="32" /></dd>
+        </dl>
+        <dl>
+        	<dt><label for="confirm_password">确认密码:</label></dt>
+            <dd><input type="password" name="confirm_password" id="confirm_password" size="32" maxlength="32" /></dd>
+        </dl>
+
+         <dl>
+        	<dt><label for="submitbtn">提交</label></dt>
+           <dd> <input type="submit"  name="submitbtn" id="submitbtn" value="提交" size="32" maxlength="32" /> </dd> 
+        </dl>
+    </fieldset>
+ #fieldErrorShow()
+ <table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="17" valign="top" background="images/mail_leftbg.gif"><img src="images/left-top-right.gif" width="17" height="29" /></td>
+    <td valign="top" background="images/content-bg.gif"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
+      <tr>
+        <td height="31"><div class="titlebt">数据展示</div></td>
+      </tr>
+    </table></td>
+    <td width="16" valign="top" background="images/mail_rightbg.gif"><img src="images/nav-right-bg.gif" width="16" height="29" /></td>
+  </tr>
+  <tr>
+    <td valign="middle" background="images/mail_leftbg.gif">&nbsp;</td>
+    <td valign="top" bgcolor="#F7F8F9">
+    
+   <table class="stock" width="100%" cellspacing="0"  rules="cols">
+        <caption>户型名称一览（2010年10月22日）</caption>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>户型名称</th>
+                <th>初始面积</th>
+            </tr>
+        </thead>
+         <thead>
+            <tr>
+                <th colspan="6">综合展示</th>
+            </tr>
+        </thead>
+        <tbody id="tbodydata">
+    
+  
+                   </tbody>
+             <thead>
+            <tr>
+                <th colspan="6" id="pagindata"> 
+
+                </th>
+            </tr>
+        </thead>
+
+    </table>
+    </td>
+    <td background="images/mail_rightbg.gif">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="bottom" background="images/mail_leftbg.gif"><img src="images/buttom_left2.gif" width="17" height="17" /></td>
+    <td background="images/buttom_bgs.gif"><img src="images/buttom_bgs.gif" width="17" height="17"></td>
+    <td valign="bottom" background="images/mail_rightbg.gif"><img src="images/buttom_right2.gif" width="16" height="17" /></td>
+  </tr>
+</table>
+<div id="errorDIV">
+</div>
+   </form>
+
+
