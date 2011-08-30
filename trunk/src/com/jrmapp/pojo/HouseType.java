@@ -47,7 +47,7 @@ public class HouseType implements  Serializable {
 		         parameters = { @Parameter(name = "sequence", value = "seq_housetype") }) 
 
 	    @Column(nullable=false, updatable=false, length=10)
-		private int housetypeid   ;//number(10)                     户型id      
+		private long housetypeid   ;//number(10)                     户型id      
 		
 		@Column(nullable=false, length=100,unique=true)
 		//@Basic(fetch = FetchType.EAGER)
@@ -82,10 +82,10 @@ public class HouseType implements  Serializable {
 		public void setTest(String test) {
 			this.test = test;
 		}
-		public int getHousetypeid() {
+		public long getHousetypeid() {
 			return housetypeid;
 		}
-		public void setHousetypeid(int housetypeid) {
+		public void setHousetypeid(long housetypeid) {
 			this.housetypeid = housetypeid;
 		}
 		public String getHousetypename() {

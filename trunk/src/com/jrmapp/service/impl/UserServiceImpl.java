@@ -1,6 +1,7 @@
 package com.jrmapp.service.impl;
 
-import java.io.Serializable;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -69,5 +70,23 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 	        user1.setName("test1");  
 	        this.saveUser(user1);  */
 	 }
+	 public User getUserForJWS(long id) throws Exception{
+			 User user=getUser(id);
+			 User jwsUser=new User();
+			 Set<Address> addr=user.getAddresses();
+			 Iterator<Address> it=addr.iterator();
+			 while(it.hasNext()){
+				 System.out.println("addr---"+it.next().getAddress());
+			 }
+
+			 //jwsUser.setAddresses(addr);
+			 jwsUser.setId(user.getId());
+			 Set<Message> messages=user.getMessages();
+			 //jwsUser.setMessages(messages);
+			 jwsUser.setName(user.getName());
+			 UserIdCard uic=user.getUserIdCard();
+			 jwsUser.setUserIdCard(uic);
+			 return jwsUser;
+		 }
 
 }
