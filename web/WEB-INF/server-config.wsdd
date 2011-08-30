@@ -12,7 +12,11 @@ xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
     <!-- 权限 --> 
 <handler name="Authenticate"
    type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" />   
-    
+<handler name="SpecifyUserAuthenticate"
+   type="java:org.apache.axis.handlers.SimpleAuthorizationHandler" />   
+<handler name="JrmAppUserAuthenticate"
+   type="java:com.jrmapp.jws.handler.AuthenticationHandler" />      
+   
 <!-- service -->    
     <service name="HelloWorld" provider="java:RPC">
       <parameter name="className" 
@@ -27,10 +31,13 @@ xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
      <handler type="userServiceRpcHandler"/>
      </requestFlow>
      -->
+
     <requestFlow>
        <handler type="userServiceRpcHandler"/>
        <handler type="Authenticate" />
+        <handler type="SpecifyUserAuthenticate" />
     </requestFlow>
+
     <!-- 权限 --> 
      <parameter name="allowedRoles" value="user1"/>
      
@@ -38,12 +45,11 @@ xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
             value="com.jrmapp.jws.JaxRpcUserService"/>
      <parameter name="allowedMethods" value="*"/>
 
-     
-      <parameter name="scope" value="request"/>
- 
+
       <responseFlow>
        <handler type="userServiceRpcHandler"/>
       </responseFlow>
+       
     </service>
     
     <transport name="http">

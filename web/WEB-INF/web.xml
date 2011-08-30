@@ -172,7 +172,7 @@
 		<url-pattern>/dwr/*</url-pattern>
 	</servlet-mapping>
 
-  <!-- AXIS 1.4 Service  com.jrmapp.webservice.axis.SpringAxisServlet 
+  <!-- AXIS 1.4 Service  com.jrmapp.webservice.axis.SpringAxisServlet   -->
     <servlet>
     	<servlet-name>AxisServlet</servlet-name>
     	<servlet-class>
@@ -223,9 +223,9 @@
     	<servlet-name>AdminServlet</servlet-name>
     	<url-pattern>/servlet/AdminServlet</url-pattern>
     </servlet-mapping>
-    -->
+   
     
- <!-- axis2 1.5 -->
+ <!-- axis2 1.5 
   <servlet>  
     <servlet-name>AxisServlet</servlet-name>  
     <servlet-class>  
@@ -237,7 +237,7 @@
     <servlet-name>AxisServlet</servlet-name>  
     <url-pattern>/services/*</url-pattern>  
   </servlet-mapping>  
-
+-->
 
 
     
