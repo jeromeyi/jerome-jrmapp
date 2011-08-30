@@ -42,8 +42,8 @@ public class TestWebServiceClient {
          Service service1 = new Service();
          Call call1 = null;
          call1 = (Call) service1.createCall();
-         call1.getMessageContext().setUsername("user3");//axis中的用户名。
-         call1.getMessageContext().setPassword("pass3");//密码
+         call1.getMessageContext().setUsername("user1");//axis中的用户名。
+         call1.getMessageContext().setPassword("pass1");//密码
          call1.setTargetEndpointAddress(url1);       
          call1.setOperationName(new QName(url1, "getUserName"));
          String ret3 = (String) call1.invoke(new Object[] { 1L });
