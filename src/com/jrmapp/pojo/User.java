@@ -36,7 +36,7 @@ public class User implements Serializable{
     @Column(name="NAME")  
     private String name = null;  
       
-    @ManyToMany  
+    @ManyToMany(fetch=FetchType.LAZY)  
     @JoinTable(  
         name="USERMESSAGE",  
         joinColumns={@JoinColumn(name="USERID")},  
@@ -44,7 +44,7 @@ public class User implements Serializable{
     )  
     private Set<Message> messages = null;//Many to many  
       
-    @OneToMany(mappedBy="user")  
+    @OneToMany(mappedBy="user",fetch=FetchType.LAZY)  
     private Set<Address> addresses = null;//One to many  
       
   /*  @OneToOne(fetch=FetchType.LAZY, optional = false)  

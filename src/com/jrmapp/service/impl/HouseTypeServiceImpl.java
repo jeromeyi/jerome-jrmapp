@@ -45,4 +45,17 @@ public class HouseTypeServiceImpl extends BaseServiceImpl implements
 			houseTypeDao.save(ht1);  
 		 //throw new Exception("抛出异常");
 	 }
+	 public HouseType getHouseType(long housetypeid) throws Exception{
+		 return houseTypeDao.get(housetypeid);
+	 }
+	 public HouseType getHouseTypeForJWS(long housetypeid) throws Exception{
+		 HouseType houseType= getHouseType(housetypeid);
+		 HouseType jwsHouseType=new HouseType();
+		 jwsHouseType.setHousetypename(houseType.getHousetypename());
+		 jwsHouseType.setHousecatid(houseType.getHousecatid());
+		 jwsHouseType.setHousetypeid(houseType.getHousetypeid());
+		 jwsHouseType.setInitarea(houseType.getInitarea());
+		 jwsHouseType.setToparea(houseType.getToparea());
+		 return jwsHouseType;
+	 }
 }

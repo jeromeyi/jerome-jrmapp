@@ -12,4 +12,5 @@ public interface UserService{
 	public void saveUser(User user) throws Exception;
 	public String getUserName(long id)throws Exception;
 	public void updateUser(User user)throws Exception;
+	public User getUserForJWS(long id) throws Exception;
 }

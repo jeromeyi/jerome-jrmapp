@@ -1,5 +1,6 @@
 package com.jrmapp.pojo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity  
 @Table(name="MESSAGE")  
-public class Message {  
+public class Message implements Serializable{  
       
     @Id  
     @Column(name="ID")  

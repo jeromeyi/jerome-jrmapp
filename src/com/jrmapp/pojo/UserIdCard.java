@@ -1,5 +1,7 @@
 package com.jrmapp.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +17,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity  
 @Table(name="USERIDCARD")  
-public class UserIdCard {  
+public class UserIdCard implements Serializable{  
       
     @Id  
     @Column(name="USERIDCARDID")  
