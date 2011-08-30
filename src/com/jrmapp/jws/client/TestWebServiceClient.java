@@ -1,6 +1,10 @@
 package com.jrmapp.jws.client;
 
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+
 import javax.xml.namespace.QName;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
@@ -47,6 +51,34 @@ public class TestWebServiceClient {
        } catch (Exception e) {
          e.printStackTrace();
        }
+   }
+   
+   
+   public void test() throws ServiceException, MalformedURLException, RemoteException{
+	   String wsdlUrl = "http://127.0.0.1:8080/WS1.4/services/axisJWS?wsdl";   
+       String soapActionURI = "http://127.0.0.1:8080/WS1.4/services/axisJWS?wsdl";   
+       // 创建调用对象   
+       Service service = new Service();   
+       Call call = (Call) service.createCall();   
+       // 调用getUserInfo   
+       System.out.println(">>>调用开始: ");   
+       //xmlns   
+       call.setOperationName(new QName("http://127.0.0.1:8080/WS1.4/services/axisJWS?wsdl", "method"));   
+       call.setTargetEndpointAddress(new java.net.URL(wsdlUrl));   
+          
+       //parameter & return   
+       call.addParameter("userAuth", org.apache.axis.encoding.XMLType.XSD_STRING,   
+               javax.xml.rpc.ParameterMode.IN);   
+       call.addParameter("xml", org.apache.axis.encoding.XMLType.XSD_STRING,   
+               javax.xml.rpc.ParameterMode.IN);   
+       call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);   
+          
+       //set soap action   
+       call.setUseSOAPAction(true);   
+       call.setSOAPActionURI(soapActionURI);   
+       //call   
+       String ret = (String) call.invoke(new Object[] { "参数一" , "参数二" });   
+       System.out.println("返回值: " + ret);   
    }
 }
 
