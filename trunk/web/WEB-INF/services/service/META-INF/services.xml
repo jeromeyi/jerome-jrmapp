@@ -25,4 +25,24 @@
         <operation>saveUser</operation>  
     </excludeOperations>  
      </service>  
+     
+      <service name="jwsHouseTypeService" scope="application">  
+         <description>houseTypeService:Spring POJO Axis2 Service Sample</description>  
+         <parameter name="ServiceClass">com.jrmapp.service.HouseTypeService</parameter>  
+         <parameter name="ServiceObjectSupplier">  
+             org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier  
+         </parameter>  
+         <parameter name="SpringBeanName">houseTypeService</parameter>  
+       <!-- -->
+         <messageReceivers>  
+             <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"  
+                         class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>  
+             <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"  
+                 class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />  
+         </messageReceivers>  
+     <!-- 要排除的方法 -->  
+    <excludeOperations>  
+        <operation>nestedSave</operation>  
+    </excludeOperations>  
+     </service>
  </serviceGroup>  
