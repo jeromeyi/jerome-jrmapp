@@ -65,9 +65,9 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService{
 	 
 	 public void updateUser(User user)throws Exception{
 		 userDao.update(user);
-		 User user1 = new User();  
+		 /*User user1 = new User();  
 	        user1.setName("test1");  
-	        this.saveUser(user1);  
+	        this.saveUser(user1);  */
 	 }
 
 }
