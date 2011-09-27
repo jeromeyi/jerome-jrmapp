@@ -606,3 +606,12 @@ http://383984216-qq-com.iteye.com/blog/1152890
 http://shelltea.iteye.com/blog/471813
 http://apps.hi.baidu.com/share/detail/16467144
 
+--urlrewrite
+org.tuckey.web.filters.urlrewrite.UrlRewriteFilter
+
+--JasperReports+iReport 用户手册（可下载）
+http://www.iteye.com/topic/400290
+http://chenjinglys.blog.163.com/blog/static/166575716201011152252474/
+
+--进一步提升 Struts 2 对 Velocity 的支持力度
+http://www.ibm.com/developerworks/cn/java/j-lo-struts2-velocity/
