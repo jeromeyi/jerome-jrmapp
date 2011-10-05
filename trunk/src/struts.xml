@@ -112,6 +112,56 @@ interceptor保证actionMessage在redirect后不会丢失
         </action>  
     </package>  
 
-
+<package name="jasper"
+        extends="struts-default,jasperreports-default">
+        <action name="PDF" class="com.jrmapp.action.JasperAction">
+            <result name="success" type="jasper">
+                <param name="location">
+                    /jasper/compiled_jasper_template.jasper
+                </param>
+                <param name="dataSource">myList</param>
+                <param name="format">PDF</param>
+            </result>
+        </action>
+        <action name="HTML" class="com.jrmapp.action.JasperAction">
+            <result name="success" type="jasper">
+                <param name="location">
+                    /jasper/compiled_jasper_template.jasper
+                </param>
+                <param name="dataSource">myList</param>
+                <param name="format">HTML</param>
+                 <param name="imageServletUrl">  
+                    <![CDATA[/image?image=]]>  
+                </param> 
+            </result>
+        </action>
+        <action name="XML" class="com.jrmapp.action.JasperAction">
+            <result name="success" type="jasper">
+                <param name="location">
+                    /jasper/compiled_jasper_template.jasper
+                </param>
+                <param name="dataSource">myList</param>
+                <param name="format">XML</param>
+            </result>
+        </action>
+        <action name="CSV" class="com.jrmapp.action.JasperAction">
+            <result name="success" type="jasper">
+                <param name="location">
+                    /jasper/compiled_jasper_template.jasper
+                </param>
+                <param name="dataSource">myList</param>
+                <param name="format">CSV</param>
+            </result>
+        </action>
+        <action name="XLS" class="com.jrmapp.action.JasperAction">
+            <result name="success" type="jasper">
+                <param name="location">
+                    /jasper/compiled_jasper_template.jasper
+                </param>
+                <param name="dataSource">myList</param>
+                <param name="format">XLS</param>
+            </result>
+        </action>
+    </package>
 
 </struts>
