@@ -41,8 +41,8 @@ a img
 	}
 
 .divTop
-{
-	height:100px;
+{   
+	height:70px;
 	background:url(../images/logo.gif) no-repeat 20px center;
 	}
 .divTop span
@@ -80,3 +80,12 @@ a img
 	font-family:10px;
 	display:none;
 	}
+	#footer  
+{  
+   	height:20px;
+    clear:left;  
+    float:left;
+    background:#7d9edb url(../images/bg1.gif) center top repeat-x;
+    width:100%;  
+    text-align:right;
+}
