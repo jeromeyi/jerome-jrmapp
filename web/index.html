@@ -37,7 +37,7 @@
                 }, function() {
                     jQuery(this).css({ 'color': '#000', 'text-decoration': 'none' });
                 }).click(function() {
-                    $.fn.jerichoTab.addTab({
+                	jQuery.fn.jerichoTab.addTab({
                         tabFirer: jQuery(this),
                         title: jQuery(this).text(),
                         closeable: true,
@@ -50,7 +50,7 @@
                 });
             },
             buildTabpanel: function() {
-                $.fn.initJerichoTab({
+            	jQuery.fn.initJerichoTab({
                     renderTo: '.divRight',
                     uniqueId: 'myJerichoTab',
                     contentCss: { 'height': jQuery('.divRight').height() - 50 },
@@ -94,7 +94,7 @@
 </head>
 <body>
 <div class="divTop">
-    <span>JrmApp演示系统</span>
+<span>JrmApp演示系统</span>
 </div>
 <div class="divMain">
     <div class="divLeft">
@@ -107,7 +107,7 @@
 		     <li><span class="modules">演示</span>
 			    <ul>
 				    <li><span class="func" dataType='iframe' dataLink='bbb!testQuery.do'>数据演示</span></li>
-				    <li><span class="func" iconImg="images/yahoo.png" dataType="iframe" dataLink="ajax-testQuery.html">无刷新数据演示</span></li>
+				    <li><img src="images/yahoo.png" /><span class="func" iconImg="images/yahoo.png" dataType="iframe" dataLink="ajax-testQuery.html">无刷新数据演示</span></li>
 				    <li><span class="func" dataType='iframe' dataLink='aaa.html'>ajax+json演示</span></li>
 				    <li><span class="func" dataType='iframe' dataLink='housetypeedit.html'>户型演示</span></li>
 				    <li><span class="func" dataType='iframe' dataLink='chat.html?printable=true'>反调AJAX</span></li>
@@ -139,7 +139,7 @@
 				    </li>				
 			    </ul>
 		    </li>
-		    <!-- 
+		   
 		    <li><span class="modules">Corporations</span>
 			    <ul>
 				    <li><span class="func" dataType='iframe' dataLink='http://www.g.cn'>Google</span></li>
@@ -159,7 +159,6 @@
 				    <li><span class="func" iconImg="images/clock.png" dataType='ajax' dataLink='handler/dataexchange.ashx?action=getdatetime'>Get Ticks(AJAX)</span></li>
 			    </ul>
 		    </li>
-		     -->
 	    </ul>
     </div>
     <div class="divRight"></div>
