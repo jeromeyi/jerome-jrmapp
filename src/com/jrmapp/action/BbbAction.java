@@ -204,8 +204,8 @@ public class BbbAction extends BaseAction {
 		User user2=userService.getUser(1);
 		System.out.println("go--------------------1");
     	System.out.println("userService===="+user.getName());
-    	user.setName("Xieyi");
-    	userService.updateUser(user);
+    	//user.setName("Xieyi");
+    	//userService.updateUser(user);
     	System.out.println("userService2===="+user2.getName());
     	User user3=userService.getUser(1);
     	Set addSet=user.getAddresses();
@@ -221,7 +221,7 @@ public class BbbAction extends BaseAction {
 /*		 ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");  
 		 houseTypeDao= (IBaseDao)ctx.getBean("houseTypeDao");  
 		 sellSeriesDao= (IBaseDao)ctx.getBean("sellSeriesDao");  */
-		    System.out.println("ht----------------");
+		   /* System.out.println("ht----------------");
 			HouseType ht1=houseTypeDao.get(1);
 			System.out.println("ss----------------");
 			SellSeries ss=sellSeriesDao.get(1);
@@ -230,7 +230,7 @@ public class BbbAction extends BaseAction {
 			ht.setHousecatid(23668);
 			ht.setInitarea(100);
 			ht.setToparea(200);
-			ht.setStatus(2);
+			ht.setStatus(2);*/
 			
 
 		    

@@ -368,7 +368,18 @@
         <url-pattern>/pushlet.srv</url-pattern>
     </servlet-mapping> 
     -->
-    
+    <!-- JasperReport包中自带的Servlet，用来做为HTML形式显示报表的时候报表的图片，要在这里配置上，图片在jasperReport包中 -->  
+    <servlet>  
+        <servlet-name>JasperReportImageServlet</servlet-name>  
+        <servlet-class>  
+            net.sf.jasperreports.j2ee.servlets.ImageServlet  
+        </servlet-class>  
+    </servlet>  
+  
+    <servlet-mapping>  
+        <servlet-name>JasperReportImageServlet</servlet-name>  
+        <url-pattern>/image</url-pattern>  
+    </servlet-mapping> 
   
 	
 	<!-- 图片验证 -->

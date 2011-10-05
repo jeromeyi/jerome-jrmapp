@@ -34,7 +34,7 @@ public class TestUser extends JavenTestCase{
 	 private long userID;  
 	    private long addressID;  
 	    
-	      
+	 @Test  
 	 public void testAdd() throws Exception {  
 	        //Save user  
 	        User user = new User();  
