@@ -78,8 +78,11 @@
             jericho.showLoader();
             var w = jQuery(document).width();
             var h = jQuery(document).height();
-            jQuery('.divLeft').css({ width: 190, height: h - 120, 'display': 'block' });
-            jQuery('.divRight').css({ width: w - 260, height: h - 120, 'display': 'block', 'margin-left': 7 });
+            var divTopW=jQuery('.divTop').width();
+            var divTopH=jQuery('.divTop').height();
+            divTopH+=20+20;
+            jQuery('.divLeft').css({ width: 190, height: h - divTopH, 'display': 'block' });
+            jQuery('.divRight').css({ width: w - 260, height: h - divTopH, 'display': 'block', 'margin-left': 7 });
             jQuery('#firefoxuser').html(($.browser.mozilla ? 'yes, your browser is Firefox' : 'oh, you are not using Firefox?'));
             jQuery('#ieuser').html(($.browser.msie ? 'yes, your browser is Internet Explorer' : 'oh, you are not using Internet Explorer?'));
             jericho.buildTree();
@@ -163,6 +166,9 @@
     </div>
     <div class="divRight"></div>
 </div>
+ <div id="footer">  
+    谢毅：xieyilucky@gmail.com  &nbsp;&nbsp;&nbsp; 
+  </div>  
 <div id="divMainLoader">Loading...</div>
 <b id="firefoxuser" style="display:none"></b>
 <b id="ieuser" style="display:none"></b>
