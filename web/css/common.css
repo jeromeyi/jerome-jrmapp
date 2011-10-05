@@ -63,6 +63,7 @@ a img
 	background-color:White;
 	border:double 4px #eee;
 	padding:5px;
+	overflow:auto; 
 	}
 #divMainLoader
 {
