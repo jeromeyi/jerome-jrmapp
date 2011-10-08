@@ -58,7 +58,7 @@ function parsePagin(page, jQuerypagin, queryform) {
 						+ '" class="inputnumber" onkeypress="if(event.keyCode==13){ document.getElementById(\'go\').focus(); }" /> 页,共'
 						+ page.totalPageCount + '页');
 		jQuerypagin
-				.append('<input name="go" id="go" type="button" value="GO" class="inputgo" style="cursor:hand;" onclick="ajaxTurnPage (\'go\',\''
+				.append('<input name="go" id="go" type="button" value="GO" class="inputgo" style="cursor:hand;" onclick="ajaxTurnPage (\'goto\',\''
 						+ queryform + '\')"/> ');
 		//jQuerypagin.append('</div>  ');
 	}
