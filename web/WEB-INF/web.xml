@@ -271,12 +271,12 @@
 			</param-value>
 		</init-param>
 	</filter>
-	<!-- 
+	<!-- -->
 	<filter-mapping>
 		<filter-name>URLFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	 -->
+	 
 		<filter>
         <filter-name>Set Character Encoding</filter-name>
         <filter-class>com.jrmapp.common.filter.SetCharacterEncodingFilter</filter-class>

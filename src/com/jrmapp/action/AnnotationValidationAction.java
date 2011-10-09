@@ -29,7 +29,7 @@ public class AnnotationValidationAction extends BaseAction{
     private String homeUrl;
     private String question;
     private String answer;
-    
+    /**
     @Validations(
             stringLengthFields={@StringLengthFieldValidator(fieldName="password",minLength="8",maxLength="20",message="密码的长度必须大于8小于20个字符")},
             emails={@EmailValidator(fieldName="email",message="邮件字段的格式不对")},
@@ -43,10 +43,10 @@ public class AnnotationValidationAction extends BaseAction{
             regexFields={@RegexFieldValidator(expression="1*",fieldName="question",message="问题不是全部1")},
             conditionalVisitorFields={@ConditionalVisitorFieldValidator(expression="age>10",context="name",fieldName="name",appendPrefix=true,message="ConditionVistor:")}
             )
-   @Action( results = { @Result(name = "input", location = "/validation.html")})  
+            **/
+   @Action( results = { @Result(name = "input", location = "/validation.html"),@Result(name = "success", type="chain",location = "/bbb!testQuery")})  
     public String execute() throws Exception {
-        
-        return super.execute();
+        return super.SUCCESS;
     }
 
     public Name getName() {
