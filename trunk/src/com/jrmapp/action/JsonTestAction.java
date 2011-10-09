@@ -26,7 +26,12 @@ import com.jrmapp.service.HouseTypeService;
 //@ParentPackage("json-default")  
 //@Result(type="json",name="jsontest") 
 @Results( 
-{@Result(type="json")}) 
+{/*
+	@Result(type="json",params = { "contentType", "text/html", "enableGZIP",  
+        "true", "noCache", "true", "root", "name" })
+        */
+	@Result(type="json")
+        }) 
 @Controller
 @Scope("prototype")
 
@@ -107,7 +112,11 @@ public class JsonTestAction extends BaseAction {
         return SUCCESS;  
     }  
     
-    //@Action(value="/jsonTestObj",results={@Result(type="json",name="testObj")})  
+    //@Action(value="/jsonTestObj",results={@Result(type="json",name="testObj")}) 
+    /*
+    @Action(results={@Result(type="json",params = { "contentType", "text/html", "enableGZIP",  
+            "true", "noCache", "true", "root", "testPage" })})
+            */
     public String testObj() throws Exception{  
     	
     	if(null==test){
