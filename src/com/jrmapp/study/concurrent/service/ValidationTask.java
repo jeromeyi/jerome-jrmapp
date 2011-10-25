@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import com.jrmapp.study.concurrent.service.mock.MockNodeValidator;
 
 /**
- * Ö´ĞĞÑéÖ¤µÄÈÎÎñÀà
+ * æ‰§è¡ŒéªŒè¯çš„ä»»åŠ¡ç±»
  * 
  * @author DigitalSonic
  */
@@ -17,26 +17,26 @@ public class ValidationTask implements Callable<Node> {
     private String        wsdl;
 
     /**
-     * ¹¹Ôì·½·¨£¬´«Èë½ÚµãµÄWSDL
+     * æ„é€ æ–¹æ³•ï¼Œä¼ å…¥èŠ‚ç‚¹çš„WSDL
      */
     public ValidationTask(String wsdl) {
         this.wsdl = wsdl;
     }
 
     /**
-     * Ö´ĞĞÕë¶ÔÄ³¸ö½ÚµãµÄÑéÖ¤<br/>
-     * Èç¹ûÕıÓĞ±ğµÄÏß³ÌÔÚÖ´ĞĞÍ¬Ò»½ÚµãµÄÑéÖ¤ÔòµÈ´ıÆä½á¹û£¬²»ÖØ¸´Ö´ĞĞÑéÖ¤
+     * æ‰§è¡Œé’ˆå¯¹æŸä¸ªèŠ‚ç‚¹çš„éªŒè¯<br/>
+     * å¦‚æœæ­£æœ‰åˆ«çš„çº¿ç¨‹åœ¨æ‰§è¡ŒåŒä¸€èŠ‚ç‚¹çš„éªŒè¯åˆ™ç­‰å¾…å…¶ç»“æœï¼Œä¸é‡å¤æ‰§è¡ŒéªŒè¯
      */
     @Override
     public Node call() throws Exception {
         Node node = ValidationService.NODE_MAP.get(wsdl);
         Lock lock = null;
-        logger.info("¿ªÊ¼ÑéÖ¤½Úµã£º" + wsdl);
+        logger.info("å¼€å§‹éªŒè¯èŠ‚ç‚¹ï¼š" + wsdl);
         if (node != null) {
             lock = node.getLock();
             if (lock.tryLock()) {
-                // µ±Ç°Ã»ÓĞÆäËûÏß³ÌÑéÖ¤¸Ã½Úµã
-                logger.info("µ±Ç°Ã»ÓĞÆäËûÏß³ÌÑéÖ¤½Úµã" + node.getName() + "[" + wsdl + "]");
+                // å½“å‰æ²¡æœ‰å…¶ä»–çº¿ç¨‹éªŒè¯è¯¥èŠ‚ç‚¹
+                logger.info("å½“å‰æ²¡æœ‰å…¶ä»–çº¿ç¨‹éªŒè¯èŠ‚ç‚¹" + node.getName() + "[" + wsdl + "]");
                 try {
                     Node result = MockNodeValidator.validateNode(wsdl);
                     mergeNode(result, node);
@@ -44,24 +44,24 @@ public class ValidationTask implements Callable<Node> {
                     lock.unlock();
                 }
             } else {
-                // µ±Ç°ÓĞ±ğµÄÏß³ÌÕıÔÚÑéÖ¤¸Ã½Úµã£¬µÈ´ı½á¹û
-                logger.info("µ±Ç°ÓĞ±ğµÄÏß³ÌÕıÔÚÑéÖ¤½Úµã" + node.getName() + "[" + wsdl + "]£¬µÈ´ı½á¹û");
+                // å½“å‰æœ‰åˆ«çš„çº¿ç¨‹æ­£åœ¨éªŒè¯è¯¥èŠ‚ç‚¹ï¼Œç­‰å¾…ç»“æœ
+                logger.info("å½“å‰æœ‰åˆ«çš„çº¿ç¨‹æ­£åœ¨éªŒè¯èŠ‚ç‚¹" + node.getName() + "[" + wsdl + "]ï¼Œç­‰å¾…ç»“æœ");
                 lock.lock();
                 lock.unlock();
             }
         } else {
-            // ´ÓÎ´½øĞĞ¹ıÑéÖ¤£¬ÕâÖÖÇé¿öÓ¦¸ÃÖ»³öÏÖÔÚÏµÍ³Æô¶¯³õÆÚ
-            // ÕâÊ±ÊÇÔÚ×ö³õÊ¼»¯£¬²»Ó¦¸ÃÓĞ³åÍ»·¢Éú
-            logger.info("Ê×´ÎÑéÖ¤½Úµã£º" + wsdl);
+            // ä»æœªè¿›è¡Œè¿‡éªŒè¯ï¼Œè¿™ç§æƒ…å†µåº”è¯¥åªå‡ºç°åœ¨ç³»ç»Ÿå¯åŠ¨åˆæœŸ
+            // è¿™æ—¶æ˜¯åœ¨åšåˆå§‹åŒ–ï¼Œä¸åº”è¯¥æœ‰å†²çªå‘ç”Ÿ
+            logger.info("é¦–æ¬¡éªŒè¯èŠ‚ç‚¹ï¼š" + wsdl);
             node = MockNodeValidator.validateNode(wsdl);
             ValidationService.NODE_MAP.put(wsdl, node);
         }
-        logger.info("½Úµã" + node.getName() + "[" + wsdl + "]ÑéÖ¤½áÊø£¬ÑéÖ¤½á¹û£º" + node.getResult());
+        logger.info("èŠ‚ç‚¹" + node.getName() + "[" + wsdl + "]éªŒè¯ç»“æŸï¼ŒéªŒè¯ç»“æœï¼š" + node.getResult());
         return node;
     }
 
     /**
-     * ½«srcµÄÄÚÈİºÏ²¢½ødest½ÚµãÖĞ£¬²»½øĞĞÉî¶È¿½±´
+     * å°†srcçš„å†…å®¹åˆå¹¶è¿›destèŠ‚ç‚¹ä¸­ï¼Œä¸è¿›è¡Œæ·±åº¦æ‹·è´
      */
     private Node mergeNode(Node src, Node dest) {
         dest.setName(src.getName());

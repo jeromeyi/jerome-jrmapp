@@ -9,7 +9,7 @@ import com.jrmapp.study.concurrent.service.ThreadPoolService;
 import com.jrmapp.study.concurrent.service.ValidationService;
 
 /**
- * Ä£ÄâÖ´ĞĞÕâ¸ö»·¾³µÄÑéÖ¤
+ * æ¨¡æ‹Ÿæ‰§è¡Œè¿™ä¸ªç¯å¢ƒçš„éªŒè¯
  * 
  * @author DigitalSonic
  */
@@ -26,7 +26,7 @@ public class ValidationStarter implements Runnable {
     }
 
     /**
-     * Ïß³Ì³Ø´óĞ¡Îª10£¬³õÊ¼»¯Ö´ĞĞÒ»´Î£¬Ëæºó²¢·¢Èı¸öÑéÖ¤
+     * çº¿ç¨‹æ± å¤§å°ä¸º10ï¼Œåˆå§‹åŒ–æ‰§è¡Œä¸€æ¬¡ï¼Œéšåå¹¶å‘ä¸‰ä¸ªéªŒè¯
      */
     public static void main(String[] args) {
         ThreadPoolService threadPoolService = new ThreadPoolService(10);
@@ -55,8 +55,8 @@ public class ValidationStarter implements Runnable {
 
         stop = System.currentTimeMillis();
         threadPoolService.destoryExecutorService(1000);
-        System.out.println("Êµ¼ÊÖ´ĞĞÑéÖ¤´ÎÊı: " + MockNodeValidator.getCount());
-        System.out.println("Êµ¼ÊÖ´ĞĞÊ±¼ä: " + (stop - start) + "ms");
+        System.out.println("å®é™…æ‰§è¡ŒéªŒè¯æ¬¡æ•°: " + MockNodeValidator.getCount());
+        System.out.println("å®é™…æ‰§è¡Œæ—¶é—´: " + (stop - start) + "ms");
     }
 
     @Override
