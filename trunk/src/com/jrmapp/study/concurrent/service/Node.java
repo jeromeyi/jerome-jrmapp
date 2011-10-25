@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * ½ÚµãÀà
+ * èŠ‚ç‚¹ç±»
  * 
  * @author DigitalSonic
  */
@@ -15,13 +15,13 @@ public class Node {
 	private String[] dependencies = new String[] {};
 	private Lock lock = new ReentrantLock();
 	/**
-	 * Ä¬ÈÏ¹¹Ôì·½·¨
+	 * é»˜è®¤æ„é€ æ–¹æ³•
 	 */
 	public Node() {
 	}
 	
 	/**
-	 * ¹¹Ôì½Úµã¶ÔÏó£¬ÉèÖÃÃû³Æ¼°WSDL
+	 * æ„é€ èŠ‚ç‚¹å¯¹è±¡ï¼Œè®¾ç½®åç§°åŠWSDL
 	 */
 	public Node(String name, String wsdl) {
 		this.name = name;
@@ -29,7 +29,7 @@ public class Node {
 	}
 
 	/**
-	 * ·µ»Ø°üº¬½ÚµãÃû³Æ¡¢WSDLÒÔ¼°ÑéÖ¤½á¹ûµÄ×Ö·û´®
+	 * è¿”å›åŒ…å«èŠ‚ç‚¹åç§°ã€WSDLä»¥åŠéªŒè¯ç»“æœçš„å­—ç¬¦ä¸²
 	 */
 	@Override
 	public String toString() {

@@ -6,13 +6,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Ö´ĞĞÑéÖ¤µÄ·şÎñÀà
+ * æ‰§è¡ŒéªŒè¯çš„æœåŠ¡ç±»
  * 
  * @author DigitalSonic
  */
 public class ValidationService {
 	/**
-	 * È«¾Ö½Úµã±í
+	 * å…¨å±€èŠ‚ç‚¹è¡¨
 	 */
 	public static final Map<String, Node> NODE_MAP = new ConcurrentHashMap<String, Node>();
 
@@ -23,9 +23,9 @@ public class ValidationService {
 	}
 
 	/**
-	 * ¸ø³öÒ»¸öÈë¿Ú½ÚµãµÄWSDL£¬Í¨¹ı¹ã¶È±éÀúµÄ·½Ê½ÑéÖ¤ÓëÆäÏà¹ØµÄ¸÷¸ö½Úµã
+	 * ç»™å‡ºä¸€ä¸ªå…¥å£èŠ‚ç‚¹çš„WSDLï¼Œé€šè¿‡å¹¿åº¦éå†çš„æ–¹å¼éªŒè¯ä¸å…¶ç›¸å…³çš„å„ä¸ªèŠ‚ç‚¹
 	 * 
-	 * @param wsdl Èë¿Ú½ÚµãWSDL
+	 * @param wsdl å…¥å£èŠ‚ç‚¹WSDL
 	 */
 	public void validate(List<String> wsdl) {
 		List<String> visitedNodes = new ArrayList<String>();

@@ -9,18 +9,18 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Ïß³Ì³Ø·şÎñÀà
+ * çº¿ç¨‹æ± æœåŠ¡ç±»
  * 
  * @author DigitalSonic
  */
 public class ThreadPoolService {
     /**
-     * Ä¬ÈÏÏß³Ì³Ø´óĞ¡
+     * é»˜è®¤çº¿ç¨‹æ± å¤§å°
      */
     public static final int  DEFAULT_POOL_SIZE    = 5;
 
     /**
-     * Ä¬ÈÏÒ»¸öÈÎÎñµÄ³¬Ê±Ê±¼ä£¬µ¥Î»ÎªºÁÃë
+     * é»˜è®¤ä¸€ä¸ªä»»åŠ¡çš„è¶…æ—¶æ—¶é—´ï¼Œå•ä½ä¸ºæ¯«ç§’
      */
     public static final long DEFAULT_TASK_TIMEOUT = 1000;
 
@@ -28,21 +28,21 @@ public class ThreadPoolService {
     private ExecutorService  executorService;
 
     /**
-     * ¸ù¾İ¸ø¶¨´óĞ¡´´½¨Ïß³Ì³Ø
+     * æ ¹æ®ç»™å®šå¤§å°åˆ›å»ºçº¿ç¨‹æ± 
      */
     public ThreadPoolService(int poolSize) {
         setPoolSize(poolSize);
     }
 
     /**
-     * Ê¹ÓÃÏß³Ì³ØÖĞµÄÏß³ÌÀ´Ö´ĞĞÈÎÎñ
+     * ä½¿ç”¨çº¿ç¨‹æ± ä¸­çš„çº¿ç¨‹æ¥æ‰§è¡Œä»»åŠ¡
      */
     public void execute(Runnable task) {
         executorService.execute(task);
     }
 
     /**
-     * ÔÚÏß³Ì³ØÖĞÖ´ĞĞËùÓĞ¸ø¶¨µÄÈÎÎñ²¢È¡»ØÔËĞĞ½á¹û£¬Ê¹ÓÃÄ¬ÈÏ³¬Ê±Ê±¼ä
+     * åœ¨çº¿ç¨‹æ± ä¸­æ‰§è¡Œæ‰€æœ‰ç»™å®šçš„ä»»åŠ¡å¹¶å–å›è¿è¡Œç»“æœï¼Œä½¿ç”¨é»˜è®¤è¶…æ—¶æ—¶é—´
      * 
      * @see #invokeAll(List, long)
      */
@@ -51,9 +51,9 @@ public class ThreadPoolService {
     }
 
     /**
-     * ÔÚÏß³Ì³ØÖĞÖ´ĞĞËùÓĞ¸ø¶¨µÄÈÎÎñ²¢È¡»ØÔËĞĞ½á¹û
+     * åœ¨çº¿ç¨‹æ± ä¸­æ‰§è¡Œæ‰€æœ‰ç»™å®šçš„ä»»åŠ¡å¹¶å–å›è¿è¡Œç»“æœ
      * 
-     * @param timeout ÒÔºÁÃëÎªµ¥Î»µÄ³¬Ê±Ê±¼ä£¬Ğ¡ÓÚ0±íÊ¾²»Éè¶¨³¬Ê±
+     * @param timeout ä»¥æ¯«ç§’ä¸ºå•ä½çš„è¶…æ—¶æ—¶é—´ï¼Œå°äº0è¡¨ç¤ºä¸è®¾å®šè¶…æ—¶
      * @see java.util.concurrent.ExecutorService#invokeAll(java.util.Collection)
      */
     public List<Node> invokeAll(List<ValidationTask> tasks, long timeout) {
@@ -79,9 +79,9 @@ public class ThreadPoolService {
     }
 
     /**
-     * ¹Ø±Õµ±Ç°ExecutorService
+     * å…³é—­å½“å‰ExecutorService
      * 
-     * @param timeout ÒÔºÁÃëÎªµ¥Î»µÄ³¬Ê±Ê±¼ä
+     * @param timeout ä»¥æ¯«ç§’ä¸ºå•ä½çš„è¶…æ—¶æ—¶é—´
      */
     public void destoryExecutorService(long timeout) {
         if (executorService != null && !executorService.isShutdown()) {
@@ -95,7 +95,7 @@ public class ThreadPoolService {
     }
 
     /**
-     * ¹Ø±Õµ±Ç°ExecutorService£¬Ëæºó¸ù¾İpoolSize´´½¨ĞÂµÄExecutorService
+     * å…³é—­å½“å‰ExecutorServiceï¼Œéšåæ ¹æ®poolSizeåˆ›å»ºæ–°çš„ExecutorService
      */
     public void createExecutorService() {
         destoryExecutorService(1000);
@@ -103,7 +103,7 @@ public class ThreadPoolService {
     }
 
     /**
-     * µ÷ÕûÏß³Ì³Ø´óĞ¡
+     * è°ƒæ•´çº¿ç¨‹æ± å¤§å°
      * @see #createExecutorService()
      */
     public void setPoolSize(int poolSize) {

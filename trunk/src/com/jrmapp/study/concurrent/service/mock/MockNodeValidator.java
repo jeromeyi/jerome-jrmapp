@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import com.jrmapp.study.concurrent.service.Node;
 
 /**
- * Ä£ÄâÖ´ĞĞ½ÚµãÑéÖ¤µÄMockÀà
+ * æ¨¡æ‹Ÿæ‰§è¡ŒèŠ‚ç‚¹éªŒè¯çš„Mockç±»
  * 
  * @author DigitalSonic
  */
@@ -22,16 +22,16 @@ public class MockNodeValidator {
     private static Logger                  logger   = Logger.getLogger("MockNodeValidator");
 
     /*
-     * ¹¹ÔìÄ£ÄâÊı¾İ
+     * æ„é€ æ¨¡æ‹Ÿæ•°æ®
      */
     static {
-        Node node0 = new Node("NODE0", "http://node0/check?wsdl"); //Èë¿Ú0
+        Node node0 = new Node("NODE0", "http://node0/check?wsdl"); //å…¥å£0
         Node node1 = new Node("NODE1", "http://node1/check?wsdl");
         Node node2 = new Node("NODE2", "http://node2/check?wsdl");
         Node node3 = new Node("NODE3", "http://node3/check?wsdl");
         Node node4 = new Node("NODE4", "http://node4/check?wsdl");
         Node node5 = new Node("NODE5", "http://node5/check?wsdl");
-        Node node6 = new Node("NODE6", "http://node6/check?wsdl"); //Èë¿Ú1
+        Node node6 = new Node("NODE6", "http://node6/check?wsdl"); //å…¥å£1
         Node node7 = new Node("NODE7", "http://node7/check?wsdl");
         Node node8 = new Node("NODE8", "http://node8/check?wsdl");
         Node node9 = new Node("NODE9", "http://node9/check?wsdl");
@@ -61,11 +61,11 @@ public class MockNodeValidator {
     }
 
     /**
-     * Ä£ÄâÖ´ĞĞÔ¶³ÌÑéÖ¤·µ»Ø½Úµã£¬Ã¿´Îµ÷ÓÃµÈ´ı500ms
+     * æ¨¡æ‹Ÿæ‰§è¡Œè¿œç¨‹éªŒè¯è¿”å›èŠ‚ç‚¹ï¼Œæ¯æ¬¡è°ƒç”¨ç­‰å¾…500ms
      */
     public static Node validateNode(String wsdl) {
         Node node = cloneNode(NODE_MAP.get(wsdl));
-        logger.info("ÑéÖ¤½Úµã" + node.getName() + "[" + node.getWsdl() + "]");
+        logger.info("éªŒè¯èŠ‚ç‚¹" + node.getName() + "[" + node.getWsdl() + "]");
         count.getAndIncrement();
         try {
             Thread.sleep(500);
@@ -76,14 +76,14 @@ public class MockNodeValidator {
     }
 
     /**
-     * »ñµÃ¼ÆÊıÆ÷µÄÖµ
+     * è·å¾—è®¡æ•°å™¨çš„å€¼
      */
     public static int getCount() {
         return count.intValue();
     }
 
     /**
-     * ¿ËÂ¡Ò»¸öĞÂµÄNode¶ÔÏó£¨Î´Ö´ĞĞÉî¶È¿ËÂ¡£©
+     * å…‹éš†ä¸€ä¸ªæ–°çš„Nodeå¯¹è±¡ï¼ˆæœªæ‰§è¡Œæ·±åº¦å…‹éš†ï¼‰
      */
     public static Node cloneNode(Node originalNode) {
         Node newNode = new Node();
