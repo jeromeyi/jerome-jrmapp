@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Jerome</title>
+    <script type="text/javascript" src="$base/js/jquery-1.6.js"></script>
+    <script type="text/javascript" src="$base/js/jquery.jerichotab.js"></script>
+    <link rel="Stylesheet" href="$base/css/common.css" />
+    <link rel="Stylesheet" href="$base/css/jquery.jerichotab.css" />
+    <script type="text/javascript">
+        var jericho = {
+            showLoader: function() {
+                jQuery('#divMainLoader').css('display', 'block');
+            },
+            removeLoader: function() {
+                jQuery('#divMainLoader').css('display', 'none');
+            },
+            buildTree: function() {
+                jQuery('.functree li').each(function() {
+                    if (jQuery(this).is(':has(ul)'))
+                        jQuery(this).addClass('collapse');
+                    if (jQuery(this).next().is('li') || jQuery(this).next().is('ul'))
+                        jQuery(this).css({ borderLeft: 'dashed 1px #dedede' });
+                })
+                jQuery('li.collapse>span').click(function() {
+                    jQuery(this).next('ul').slideToggle('fast', function() {
+                        if (jQuery(this).parent().hasClass('collapse'))
+                            jQuery(this).parent().removeClass('collapse').addClass('expand');
+                        else
+                            jQuery(this).parent().removeClass('expand').addClass('collapse');
+                    })
+                })
+
+                jQuery('span.func').css({ 'cursor': 'pointer' }).hover(function() {
+                    jQuery(this).css({ 'color': '#3de', 'text-decoration': 'underline' });
+                }, function() {
+                    jQuery(this).css({ 'color': '#000', 'text-decoration': 'none' });
+                }).click(function() {
+                	jQuery.fn.jerichoTab.addTab({
+                        tabFirer: jQuery(this),
+                        title: jQuery(this).text(),
+                        closeable: true,
+                        iconImg: jQuery(this).attr('iconImg'),
+                        data: {
+                            dataType: jQuery(this).attr('dataType'),
+                            dataLink: jQuery(this).attr('dataLink')
+                        }
+                    }).showLoader().loadData();
+                });
+            },
+            buildTabpanel: function() {
+            	jQuery.fn.initJerichoTab({
+                    renderTo: '.divRight',
+                    uniqueId: 'myJerichoTab',
+                    contentCss: { 'height': jQuery('.divRight').height() - 50 },
+                    tabs: [{
+                            title: 'JeirchoTab',
+                            closeable: false,
+                            iconImg: 'images/jerichotab.png',
+                            data: { dataType: 'formtag', dataLink: '#tbNews' },
+                            onLoadCompleted: function(h) {
+                                jQuery('<b style="color:red" />').html('The JerichoTab processed in ' + (new Date().getTime() - d1) + ' milliseconds!').appendTo(h);
+                            }
+                        }, 
+                        {
+                            title: '数据演示',
+                            closeable: false,
+                            data: { dataType: 'iframe', dataLink: 'bbb!testQuery.do' }
+                        }],
+                        activeTabIndex: 1,
+                        loadOnce: true
+                    });
+                }
+            }
+        jQuery().ready(function() {
+            d1 = new Date().getTime();
+            jericho.showLoader();
+            var w = jQuery(document).width();
+            var h = jQuery(document).height();
+            var divTopW=jQuery('.divTop').width();
+            var divTopH=jQuery('.divTop').height();
+            divTopH+=20+20;
+            jQuery('.divLeft').css({ width: 190, height: h - divTopH, 'display': 'block' });
+            jQuery('.divRight').css({ width: w - 260, height: h - divTopH, 'display': 'block', 'margin-left': 7 });
+            jQuery('#firefoxuser').html(($.browser.mozilla ? 'yes, your browser is Firefox' : 'oh, you are not using Firefox?'));
+            jQuery('#ieuser').html(($.browser.msie ? 'yes, your browser is Internet Explorer' : 'oh, you are not using Internet Explorer?'));
+            jericho.buildTree();
+            jericho.buildTabpanel();
+            jericho.removeLoader();
+        })
+        jQuery(window).resize(function() {
+            var w = jQuery(document).width();
+            jQuery('.divRight').css({ width: w - 250 });
+        })
+    </script>
+</head>
+<body>
+<div class="divTop">
+<span>JrmApp演示系统</span>
+</div>
+<div class="divMain">
+    <div class="divLeft">
+        <ul class="functree">
+		    <li><span class="modules">About</span>
+			    <ul>
+				    <li><span class="func" jerichotabindex="0">JerichoTab</span></li>
+			    </ul>
+		    </li>
+		     <li><span class="modules">演示</span>
+			    <ul>
+				    <li><span class="func" dataType='iframe' dataLink='bbb!testQuery.do'>数据演示</span></li>
+				    <li><img src="images/yahoo.png" /><span class="func" iconImg="images/yahoo.png" dataType="iframe" dataLink="ajax-testQuery.html">无刷新数据演示</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='aaa.html'>ajax+json演示</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='housetypeedit.html'>户型演示</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='chat.html?printable=true'>反调AJAX</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='ckeditor.html'>CKEditor</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='fixtable.html'>固定表头</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='monitoring?printable=true'>系统监控</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='services/listServices'>axis2服务</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='servlet/AxisServlet'>axis1.4服务</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='jasper.html'>jasper报表</span></li>
+				    <li><span class="func" dataType="ajax" dataLink="json-test.do">json</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='bb.do'>无此页</span></li>
+				    <li><span class="func" dataType='iframe' dataLink='config-browser/actionNames.do'>Action配置信息</span></li>
+			    </ul>
+		    </li>
+		    <li><span class="modules">Products</span>
+			    <ul>
+				    <li><span class="modules">IM</span>
+					    <ul>
+					    	<li><span class="func" dataType='html' dataLink='ajax-testQuery.html' iconImg='images/msn.gif'>无刷新数据演示</span></li>
+						    <li><span class="func" dataType='html' dataLink='template/msn.htm' iconImg='images/msn.gif'>MSN</span></li>
+						    <li><span class="func" dataType='html' dataLink='template/skype.htm' iconImg='images/skype.png'>Skype</span></li>
+					    </ul>
+				    </li>
+				    <li><span class="modules" >Browsers</span>
+				        <ul>
+						    <li><span class="func" iconImg='images/firefox.png' dataType='formtag' dataLink='#firefoxuser'>Firefox</span></li>
+						    <li><span class="func" iconImg='images/ie.png' dataType='formtag' dataLink='#ieuser'>Internet Explorer</span></li>
+					    </ul>
+				    </li>				
+			    </ul>
+		    </li>
+		   
+		    <li><span class="modules">Corporations</span>
+			    <ul>
+				    <li><span class="func" dataType='iframe' dataLink='http://www.g.cn'>Google</span></li>
+				    <li><span class="func" iconImg="images/yahoo.png" dataType="iframe" dataLink="http://www.yahoo.com">Yahoo</span></li>
+				    <li><span class="func" dataType="ajax" dataLink="handler/dataexchange.ashx?action=microsoft">Microsoft</span></li>
+			    </ul>
+		    </li>
+		    <li><span class="modules">News</span>
+		        <ul>
+				    <li><span class="func" iconImg="images/chess.png" dataType="ajax" dataLink="handler/dataexchange.ashx?action=chess">I-go</span></li>
+				    <li><span class="func" iconImg="images/ent.png" dataType="ajax" dataLink="handler/dataexchange.ashx?action=ent">Entertainment</span></li>
+				    <li><span class="func" iconImg="images/whether.png" dataType="ajax" dataLink="handler/dataexchange.ashx?action=whether">Whether</span></li>
+			    </ul>
+		    </li>
+		    <li><span class="modules">Testing...</span>
+		        <ul>
+				    <li><span class="func" iconImg="images/clock.png" dataType='ajax' dataLink='handler/dataexchange.ashx?action=getdatetime'>Get Ticks(AJAX)</span></li>
+			    </ul>
+		    </li>
+	    </ul>
+    </div>
+    <div class="divRight"></div>
+</div>
+ <div id="footer">  
+    谢毅：xieyilucky@gmail.com  &nbsp;&nbsp;&nbsp; 
+  </div>  
+<div id="divMainLoader">Loading...</div>
+<b id="firefoxuser" style="display:none"></b>
+<b id="ieuser" style="display:none"></b>
+<div id="tbNews" style="display:none">
+    <h4>Wow...just wow!!!</h4>
+    <p>This plugin is really amazing!</p>
+    <p>it's light-weight but powerful and perfect</p>
+    <p>It's easy to use, all the API was opened, you can get them from the remarks that in the head of js file.</p>
+    <p>JeirchoTab has supported four types of data:</p>
+    <p>
+        <ol>
+            <li>formtag</li>
+            <li>html</li>
+            <li>iframe</li>
+            <li>ajax</li>
+        </ol>
+    </p>
+    <p>You wanna known '<b>How to use it</b>'?</p>
+    <p>See the demo by yourself!</p>
+    <p><strong style="color:#7623ee">--jericho</strong><img src="images/china.gif" alt="China" title="China" /></p>
+    <p><a href="http://www.ajaxplaza.net" target="_blank">http://www.ajaxplaza.net</a></p>
+</div>
+</body>
+</html>
