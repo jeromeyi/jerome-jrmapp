@@ -44,11 +44,11 @@ function parsePagin(page, jQuerypagin, queryform) {
 					+ page.totalPageCount + ',\'' + queryform
 					+ '\')" style="cursor:hand;" title="最末页"> >></a> ');
 		else {
-			jQuerypagin.append('<a  class="noncepage">>></a> |每页显示');
+			jQuerypagin.append('<a  class="noncepage">>></a>');
 		}
 
 		jQuerypagin
-				.append('<input name="pageSize" type="text" class="inputnumber"  value="'
+				.append('|每页显示<input name="pageSize" type="text" class="inputnumber"  value="'
 						+ page.pageSize
 						+ '" onkeypress="if(event.keyCode==13){ document.getElementById(\'go\').focus(); }"/>');
 		jQuerypagin.append('条,共' + page.totalCount + '条记录|');
