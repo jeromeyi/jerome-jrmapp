@@ -291,6 +291,7 @@ maxReconnectAttempts=5
         class="org.springframework.jms.core.JmsTemplate102">  
         <property name="connectionFactory" ref="connectionFactory"/>  
         <property name="messageConverter" ref="defaultMessageConverter"/>  
+        <!-- pubSubDomain属性为true来指定使用发布-订阅消息： -->
         <property name="pubSubDomain" value="true"/>  
         <property name="sessionTransacted" value="true"/>  
          <property name="explicitQosEnabled" value="true" />  
